@@ -1,9 +1,24 @@
 <template>
-  <div id="app-root">
-    Hello, World!
-    <router-view/>
+  <div class="flex flex-col min-h-screen" id="app-root">
+    <Header class="flex-grow-0"/>
+    <RouterView class="flex-grow"/>
+    <Footer class="flex-grow-0"/>
   </div>
 </template>
+
+<script>
+  import { defineComponent } from 'vue'
+
+  import Header from '@/components/Header.vue'
+  import Footer from '@/components/Footer.vue'
+
+  export default defineComponent({
+    components: {
+      Header,
+      Footer,
+    },
+  })
+</script>
 
 <style scoped lang="css">
   #app-root {
