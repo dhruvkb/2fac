@@ -6,6 +6,12 @@ import App from '@/App.vue'
 
 import '@/styles/index.css' // Tailwind
 
-createApp(App)
+const app = createApp(App)
+
+app.config.isCustomElement = (tag: string): boolean => [
+  'ion-icon',
+].includes(tag)
+
+app
   .use(router)
   .mount('div#app__slot')
