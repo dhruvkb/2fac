@@ -6,7 +6,6 @@ module.exports = {
   extends: [
     'plugin:vue/vue3-essential',
     '@vue/airbnb',
-    '@vue/typescript/recommended',
   ],
   parserOptions: {
     ecmaVersion: 2020,
@@ -17,6 +16,12 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
   },
   overrides: [
+    {
+      files: ['*.vue', '*.ts'],
+      extends: [
+        '@vue/typescript/recommended',
+      ],
+    },
     {
       files: ['*.vue'],
       rules: {
