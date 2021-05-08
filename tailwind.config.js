@@ -13,4 +13,10 @@ module.exports = {
       dw: '1800px',
     },
   },
+  variants: {
+    extend: {
+      opacity: ['disabled'],
+      cursor: ['disabled'],
+    },
+  },
 }
