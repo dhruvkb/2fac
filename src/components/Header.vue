@@ -32,8 +32,8 @@
       return {
         links: [
           {
-            text: 'Integration',
-            toName: 'integration',
+            text: 'Data',
+            toName: 'data',
           },
           {
             text: 'About',
