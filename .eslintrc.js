@@ -21,6 +21,9 @@ module.exports = {
       extends: [
         '@vue/typescript/recommended',
       ],
+      rules: {
+        'lines-between-class-members': ['warn', 'always', { exceptAfterSingleLine: true }],
+      },
     },
     {
       files: ['*.vue'],
@@ -33,6 +36,7 @@ module.exports = {
       files: ['*.vue', '*.js', '*.ts'],
       rules: {
         semi: ['warn', 'never'],
+        'import/prefer-default-export': 'off',
       },
     },
   ],
