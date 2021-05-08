@@ -97,13 +97,13 @@
         reader.onload = () => {
           let outcome: Outcome<AccountInterface[]>
           try {
-            const data = JSON.parse(reader.result as string)
+            const accPojos = JSON.parse(reader.result as string)
             this.clearAccounts()
-            this.loadAccounts({ data })
+            this.loadAccounts({ accPojos })
             outcome = {
               isSuccessful: true,
               message: 'Great success!',
-              data,
+              data: accPojos,
             }
           } catch (ex) {
             outcome = {
