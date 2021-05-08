@@ -1,6 +1,6 @@
 <template>
-  <header class="flex border-b border-gray-200">
-    <div class="site-title mr-auto p-2">
+  <header class="flex flex-col items-center tp:flex-row border-b border-gray-200">
+    <div class="site-title p-2 tp:mr-auto">
       <h1 class="flex items-center font-bold text-2xl">
         <ion-icon name="id-card-outline"/>
         <RouterLink
@@ -12,11 +12,11 @@
     </div>
     <nav class="grid grid-cols-2 self-stretch">
       <RouterLink
-        class="flex items-end justify-center text-gray-500 hover:text-black px-2 border-b-2 border-transparent"
+        class="flex items-end justify-center text-black px-2 border-b-2 border-transparent"
         v-for="(link, index) in links"
         :key="index"
         :to="{ name: link.toName }"
-        active-class="text-black border-black">
+        active-class="border-black">
         <div class="pb-2">{{ link.text }}</div>
       </RouterLink>
     </nav>
