@@ -1,0 +1,44 @@
+export interface AccountInterface {
+  secret: string
+
+  site?: string
+  username?: string
+  icon?: string
+}
+
+export class Account implements AccountInterface {
+  secret: string
+
+  site?: string
+  username?: string
+  icon?: string
+
+  constructor(secret: string) {
+    this.secret = secret
+  }
+
+  get slug(): string {
+    const fqn = `${this.site}-${this.username}`
+    return fqn
+      .toLocaleLowerCase()
+      .replace(' ', '-')
+      .replace(/[^\w-]+/g, '')
+  }
+
+  get pojo(): AccountInterface {
+    return {
+      site: this.site,
+      username: this.username,
+      icon: this.icon,
+      secret: this.secret,
+    }
+  }
+
+  static fromPojo(pojo: AccountInterface): Account {
+    const account = new Account(pojo.secret)
+    account.site = pojo.site
+    account.username = pojo.username
+    account.icon = pojo.icon
+    return account
+  }
+}
