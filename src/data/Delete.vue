@@ -7,17 +7,24 @@
       you can also do the same using this handy button.
     </p>
 
-    <div class="action mt-4">
+    <div class="action flex items-center mt-4">
       <button
-        class="button text-red-900 bg-red-100 hover:bg-red-200 focus:ring-red-500"
-        @click="clearData">
-        Clear
+        class="button"
+        :class="clearButtonClasses"
+        @click="toggleConfirmation">
+        {{ isConfirming ? 'Cancel' : 'Clear' }}
       </button>
       <span
         v-if="outcome"
         class="ml-2 text-red-600">
         {{ outcome.message }}
       </span>
+      <button
+        v-if="isConfirming"
+        class="button text-red-900 bg-red-100 hover:bg-red-200 focus:ring-red-500 ml-auto"
+        @click="clearData">
+        Delete
+      </button>
     </div>
   </div>
 </template>
@@ -33,11 +40,24 @@
     data() {
       return {
         outcome: null as Outcome<string> | null,
+        isConfirming: false,
       }
     },
+    computed: {
+      clearButtonClasses() {
+        if (this.isConfirming) {
+          return ['text-green-900', 'bg-green-100', 'hover:bg-green-200', 'focus:ring-green-500']
+        }
+        return ['text-red-900', 'bg-red-100', 'hover:bg-red-200', 'focus:ring-red-500']
+      },
+    },
     methods: {
+      toggleConfirmation() {
+        this.isConfirming = !this.isConfirming
+      },
       clearData() {
         this.clearAccounts()
+        this.toggleConfirmation()
         this.outcome = {
           isSuccessful: true,
           message: 'Gone!',
