@@ -13,6 +13,7 @@
     <nav class="grid grid-cols-2 self-stretch">
       <RouterLink
         class="flex items-end justify-center text-black px-2 border-b-2 border-transparent"
+        :style="{ transform: 'translateY(1px)' }"
         v-for="(link, index) in links"
         :key="index"
         :to="{ name: link.toName }"
