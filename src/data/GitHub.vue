@@ -1,20 +1,20 @@
 <template>
-  <div class="github my-4">
+  <div class="github">
     <h2 class="font-bold text-3xl">GitHub integration<sup>*</sup></h2>
-    <p class="my-2">
+    <p class="mt-4">
       <em>This feature is still in development.</em>
     </p>
-    <p class="my-2">
+    <p class="mt-4">
       For very obvious reasons, your 2FA data should be in a private repository.
       You will need to authenticate Multifac with a personal access token to
       grant it access to that repo.
     </p>
 
     <input
-      class="bg-transparent p-1 px-2 w-full border border-gray-200 rounded-md"
+      class="bg-transparent p-1 px-2 w-full border border-gray-200 rounded-md mt-4"
       v-model="accessToken"
       type="text">
-    <div class="output my-2">
+    <div class="output mt-2">
       <button
         class="button"
         :disabled="!accessToken"

@@ -1,18 +1,17 @@
 <template>
-  <div class="page p-2 my-4" id="data">
-    <div class="content max-w-screen-tl mx-auto">
-      <Disclaimer/>
+  <div class="page p-2 max-w-screen-tl mx-auto my-8" id="data">
+    <Disclaimer/>
 
-      <p class="my-4">
-        With that settled, there's two ways you can manage your data. You can
-        manage your 2FA secrets yourself or you can integrate Multifac with
-        GitHub. Both approaches ensure that you have complete ownership and
-        control over your data.
-      </p>
+    <p class="mt-4">
+      With that settled, there's two ways you can manage your data. You can
+      manage your 2FA secrets yourself or you can integrate Multifac with
+      GitHub. Both approaches ensure that you have complete ownership and
+      control over your data.
+    </p>
 
-      <File/>
-      <GitHub/>
-    </div>
+    <File class="mt-8"/>
+    <GitHub class="mt-8"/>
+    <Delete class="mt-8"/>
   </div>
 </template>
 
@@ -22,10 +21,12 @@
   import Disclaimer from '@/data/Disclaimer.vue'
   import GitHub from '@/data/GitHub.vue'
   import File from '@/data/File.vue'
+  import Delete from '@/data/Delete.vue'
 
   export default defineComponent({
     name: 'Data',
     components: {
+      Delete,
       Disclaimer,
       GitHub,
       File,
