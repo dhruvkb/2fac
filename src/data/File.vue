@@ -6,11 +6,11 @@
       set up on a new device. No information, other than this file, is needed.
     </p>
 
-    <div class="io grid tl:grid-cols-2 gap-2 mt-4">
-      <div class="import tl:pr-2">
+    <div class="grid tl:grid-cols-2 gap-2 mt-4">
+      <div class="tl:pr-2">
         <h3 class="font-bold text-2xl">Import</h3>
         <p class="mt-4">Please upload a valid JSON file.</p>
-        <div class="input flex items-center mt-4">
+        <div class="flex items-center mt-4">
           <input
             class="hidden"
             id="file"
@@ -29,7 +29,7 @@
             {{ file.name }}
           </span>
         </div>
-        <div class="action flex items-center mt-4">
+        <div class="flex items-center mt-4">
           <button
             class="button text-blue-900 bg-blue-100 hover:bg-blue-200 focus:ring-blue-500"
             :disabled="!file"
@@ -45,10 +45,10 @@
         </div>
       </div>
 
-      <div class="export tl:pl-2 tl:border-l border-gray-200">
+      <div class="tl:pl-2 tl:border-l border-gray-200">
         <h3 class="font-bold text-2xl">Export</h3>
         <p class="mt-4">This will export and download a JSON file.</p>
-        <div class="action mt-4">
+        <div class="mt-4">
           <button
             class="button text-blue-900 bg-blue-100 hover:bg-blue-200 focus:ring-blue-500"
             @click="writeToFile">
