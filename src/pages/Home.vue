@@ -2,7 +2,7 @@
   <div class="page" id="home">
     <template v-if="accounts.length">
       <Timeline/>
-      <div class="grid gap-1 tp:gap-4 grid-cols-2 tl:grid-cols-3 dr:grid-cols-4 p-2 my-8">
+      <div class="grid gap-2 tp:gap-4 grid-cols-2 tl:grid-cols-3 dr:grid-cols-4 py-2 tp:px-2 my-8">
         <Card
           v-for="(acc,index) in accounts"
           :key="index"
