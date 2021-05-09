@@ -1,22 +1,22 @@
 <template>
   <div
-    class="card flex flex-row p-2 border border-gray-200 hover:border-gray-600 rounded-md overflow-hidden transition-colors duration-200 cursor-pointer"
+    role="button"
+    tabindex="0"
+    class="card flex flex-row items-center p-2 border border-gray-200 hover:border-gray-600 rounded-md overflow-hidden transition-colors duration-200 cursor-pointer"
     @click="copyOtp">
-    <div class="flex items-center justify-center mr-2 tp:mr-4">
+    <div class="flex items-center justify-center pr-2 border-r border-gray-200">
       <svg
         v-if="path"
-        class="h-6 tp:h-8 w-6 tp:w-8"
+        class="h-6 tp:h-8 w-6 tp:w-8 text-gray-600"
         viewBox="0 0 24 24">
-        <path :d="path" :fill="color"/>
+        <path :d="path" fill="currentColor"/>
       </svg>
       <ion-icon
         v-else
-        class="h-6 tp:h-8 w-6 tp:w-8"
-        :style="{ color }"
+        class="h-6 tp:h-8 w-6 tp:w-8 text-gray-600"
         name="key"/>
     </div>
-    <div
-      class="flex-grow bg-white">
+    <div class="flex-grow pl-2">
       <div class="font-medium">{{ account.site }}</div>
       <div class="hidden tp:block text-sm text-gray-600 mb-2">{{ account.username }}</div>
       <div class="flex items-center">
