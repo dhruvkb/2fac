@@ -11,9 +11,13 @@
     </p>
 
     <input
-      class="bg-transparent p-1 px-2 w-full border border-gray-200 rounded-md mt-4"
+      class="appearance-none font-mono text-sm px-2 h-8 w-full border border-gray-200 rounded-md focus:outline-none focus-visible:ring-1 focus-visible:ring-offset-1 mt-4"
       v-model="accessToken"
-      type="text">
+      type="text"
+      autocapitalize="off"
+      autocomplete="off"
+      spellcheck="false"
+      placeholder="GitHub access token">
     <div class="output flex items-center mt-2">
       <button
         class="button text-blue-900 bg-blue-100 hover:bg-blue-200 focus:ring-blue-500"
