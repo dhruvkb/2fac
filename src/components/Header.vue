@@ -14,8 +14,7 @@
       <RouterLink
         v-for="(link, index) in links"
         :key="index"
-        class="flex items-end justify-center px-2 border-b-2 border-transparent"
-        :style="{ transform: 'translateY(1px)' }"
+        class="flex items-end justify-center px-2 border-b-3 border-transparent transform translate-y-2px"
         :to="{ name: link.toName }"
         active-class="border-black">
         <div class="pb-2">{{ link.text }}</div>

@@ -6,6 +6,14 @@ module.exports = {
     './src/**/*.{vue,js,ts,css}',
   ],
   theme: {
+    extend: {
+      spacing: {
+        '2px': '2px',
+      },
+      borderWidth: {
+        3: '3px',
+      },
+    },
     screens: {
       mp: '480px',
       tp: '600px',

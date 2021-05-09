@@ -3,9 +3,8 @@
     <div
       v-for="(themeDisplay, themeKey, index) in themes"
       :key="index"
-      class="flex items-start justify-center px-2 border-t-2 border-transparent"
+      class="flex items-start justify-center px-2 border-t-3 border-transparent transform -translate-y-2px"
       :class="{ 'border-black': themeKey === activeTheme }"
-      :style="{ transform: 'translateY(-1px)' }"
       @click="changeTheme(themeKey)">
       <div class="pt-2">{{ themeDisplay }}</div>
     </div>
