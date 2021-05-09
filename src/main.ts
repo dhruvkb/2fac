@@ -10,10 +10,6 @@ import '@/styles/index.css' // Tailwind
 
 const app = createApp(App)
 
-app.config.isCustomElement = (tag: string): boolean => [
-  'ion-icon',
-].includes(tag)
-
 app
   .use(router)
   .use(store)
