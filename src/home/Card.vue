@@ -1,5 +1,7 @@
 <template>
-  <div class="card flex flex-row p-2 border rounded-md tp:rounded-md overflow-hidden transition-colors duration-500">
+  <div
+    class="card flex flex-row p-2 border rounded-md tp:rounded-md overflow-hidden transition-colors duration-500"
+    @click="copyOtp">
     <div class="flex items-center justify-center mr-2 tp:mr-4">
       <svg
         v-if="path"
@@ -15,9 +17,15 @@
     </div>
     <div
       class="flex-grow bg-white">
-      <p class="font-semibold">{{ account.site }}</p>
-      <p class="hidden tp:block text-sm text-gray-600 mb-2">{{ account.username }}</p>
-      <p class="font-mono">{{ account.currentOtp }}</p>
+      <div class="font-medium">{{ account.site }}</div>
+      <div class="hidden tp:block text-sm text-gray-600 mb-2">{{ account.username }}</div>
+      <div class="flex items-center">
+        <span class="font-mono">{{ account.currentOtp }}</span>
+        <ion-icon
+          v-if="checkVisible"
+          class="text-green-600 ml-2"
+          name="checkmark"/>
+      </div>
     </div>
   </div>
 </template>
@@ -43,6 +51,8 @@
         apiRoot: 'https://multifac-server.vercel.app/api/icons/',
         color: '#000000',
         path: '' as (string | null),
+        checkVisible: false,
+        checkTimer: 0,
       }
     },
     methods: {
@@ -53,6 +63,16 @@
           this.color = data.color
           this.path = data.path
         }
+      },
+      copyOtp() {
+        navigator.clipboard.writeText(this.account.currentOtp)
+        if (this.checkTimer) {
+          clearTimeout(this.checkTimer)
+        }
+        this.checkVisible = true
+        this.checkTimer = setTimeout(() => {
+          this.checkVisible = false
+        }, 3000)
       },
     },
     async mounted() {
