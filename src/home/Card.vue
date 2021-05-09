@@ -48,7 +48,7 @@
     },
     data() {
       return {
-        apiRoot: 'https://multifac-server.vercel.app/api/icons/',
+        apiRoot: 'https://2fac-api.vercel.app/api/icons/',
         color: '#000000',
         path: '' as (string | null),
         checkVisible: false,
