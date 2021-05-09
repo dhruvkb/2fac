@@ -34,6 +34,10 @@ export class Account implements AccountInterface {
     }
   }
 
+  toJSON(): AccountInterface {
+    return this.pojo
+  }
+
   static fromPojo(pojo: AccountInterface): Account {
     const account = new Account(pojo.secret)
     account.site = pojo.site

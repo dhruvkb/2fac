@@ -10,7 +10,7 @@ export interface TwoFaGetterTree<S, RS> extends GetterTree<S, RS> {
 export const getters: TwoFaGetterTree<TwoFaState, RootState> = {
   accountsJson(state: TwoFaState): string {
     return JSON.stringify(
-      state.accounts.map((acc) => acc.pojo),
+      state.accounts,
       null,
       2, // spaces for indentation
     )
