@@ -10,7 +10,7 @@
       <div class="import tl:pr-2">
         <h3 class="font-bold text-2xl">Import</h3>
         <p class="mt-4">Please upload a valid JSON file.</p>
-        <div class="input mt-4">
+        <div class="input flex items-center mt-4">
           <input
             class="hidden"
             id="file"
@@ -29,7 +29,7 @@
             {{ file.name }}
           </span>
         </div>
-        <div class="action mt-2">
+        <div class="action flex items-center mt-4">
           <button
             class="button text-blue-900 bg-blue-100 hover:bg-blue-200 focus:ring-blue-500"
             :disabled="!file"
