@@ -1,9 +1,6 @@
 <template>
   <div class="github">
-    <h2 class="font-bold text-3xl">GitHub integration<sup>*</sup></h2>
-    <p class="mt-4">
-      <em>This feature is still in development.</em>
-    </p>
+    <h2 class="font-bold text-3xl">GitHub integration</h2>
     <p class="mt-4">
       For very obvious reasons, your 2FA data should be in a private repository.
       You will need to authenticate 2Fac with a personal access token to
