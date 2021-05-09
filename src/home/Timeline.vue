@@ -1,7 +1,8 @@
 <template>
   <div
-    class="timebar border-t-2 border-black"
-    :style="{ width: `${percentage}%`, transform: 'translateY(-1px)' }"/>
+    class="border-t-3 transition-colors transform -translate-y-2px"
+    :class="timelineClasses"
+    :style="timelineStyles"/>
 </template>
 
 <script>
@@ -15,6 +16,18 @@
         interval: 3e4,
         percentage: 100,
       }
+    },
+    computed: {
+      timelineClasses() {
+        return [
+          (this.percentage < 20) ? 'border-red-600' : 'border-black',
+        ]
+      },
+      timelineStyles() {
+        return {
+          width: `${this.percentage}%`,
+        }
+      },
     },
     methods: {
       updatePercentage() {
