@@ -8,6 +8,8 @@ export interface TwoFaMutationTree<S> extends MutationTree<S> {
 
   loadAccounts(state: S, payload: { accPojos: AccountInterface[] }): void
 
+  updateAccounts(state: S): void
+
   addAccount(state: S, payload: { account: Account }): void
 
   removeAccount(state: S, payload: { slug: string }): void
@@ -20,6 +22,11 @@ export const mutations: TwoFaMutationTree<TwoFaState> = {
   loadAccounts(state: TwoFaState, payload: { accPojos: AccountInterface[] }) {
     payload.accPojos.forEach((accPojo: AccountInterface) => {
       state.accounts.push(Account.fromPojo(accPojo))
+    })
+  },
+  updateAccounts(state: TwoFaState) {
+    state.accounts.forEach((acc) => {
+      acc.updateOtp()
     })
   },
   addAccount(state: TwoFaState, payload: { account: Account }) {

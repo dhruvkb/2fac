@@ -1,3 +1,5 @@
+import * as Otpauth from 'otpauth'
+
 export interface AccountInterface {
   secret: string
 
@@ -13,8 +15,15 @@ export class Account implements AccountInterface {
   username?: string
   icon?: string
 
+  totp: Otpauth.TOTP
+  currentOtp!: string
+
   constructor(secret: string) {
     this.secret = secret
+    this.totp = new Otpauth.TOTP({
+      secret,
+    })
+    this.updateOtp()
   }
 
   get slug(): string {
@@ -36,6 +45,10 @@ export class Account implements AccountInterface {
 
   toJSON(): AccountInterface {
     return this.pojo
+  }
+
+  updateOtp(): void {
+    this.currentOtp = this.totp.generate()
   }
 
   static fromPojo(pojo: AccountInterface): Account {
