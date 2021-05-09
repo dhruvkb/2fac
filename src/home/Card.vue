@@ -1,6 +1,6 @@
 <template>
   <div
-    class="card flex flex-row p-2 border rounded-md tp:rounded-md overflow-hidden transition-colors duration-500"
+    class="card flex flex-row p-2 border border-gray-200 hover:border-gray-600 rounded-md overflow-hidden transition-colors duration-200 cursor-pointer"
     @click="copyOtp">
     <div class="flex items-center justify-center mr-2 tp:mr-4">
       <svg
