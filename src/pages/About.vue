@@ -1,11 +1,15 @@
 <template>
   <div class="page p-2 max-w-screen-tl mx-auto my-8" id="about">
     <p>
-      2Fac is a TOTP generator. There are several multi-factor
-      authenticator applications out there. Why make another one?
+      2Fac is a TOTP generator.
+    </p>
+    <p class="mt-4">
+      There are several multi-factor authenticator applications out there.
+      Why make another one? Because they're terrible, and we can do better. I
+      can explain... let me explain...
     </p>
 
-    <h2 class="font-bold text-3xl mt-4 mt-8">Unparalleled beauty</h2>
+    <h2 class="font-bold text-3xl mt-8">Unparalleled beauty</h2>
     <p class="mt-4">
       Hardly any of the authenticator apps focus on aesthetics and user
       experience. 2Fac is different. It has been designed with utmost
