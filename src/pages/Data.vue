@@ -3,10 +3,10 @@
     <Disclaimer/>
 
     <p class="mt-4">
-      With that settled, there's two ways you can manage your data. You can
-      manage your 2FA secrets yourself or you can integrate Multifac with
-      GitHub. Both approaches ensure that you have complete ownership and
-      control over your data.
+      There's are two ways you can manage your data. You can manage your 2FA
+      secrets yourself or you can integrate Multifac with GitHub. Both
+      approaches ensure that you have complete ownership and control over your
+      sensitive data.
     </p>
 
     <File class="mt-8"/>

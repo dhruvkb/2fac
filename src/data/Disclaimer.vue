@@ -5,8 +5,13 @@
     </strong>
     <p class="mt-4">
       Confidential or not, we don't store any authentication data. We just
-      don't want it. Also, we don't have any backend servers or databases so we
-      couldn't store your data even if we wanted to, which we don't.
+      don't want it.
+    </p>
+    <p class="mt-4">
+      In more technical terms, Multifac is purely client-side JavaScript. It
+      runs entirely in your browser. We don't have any backend servers or
+      databases so we couldn't store your data even if we wanted to and we
+      really don't want to.
     </p>
   </div>
 </template>
