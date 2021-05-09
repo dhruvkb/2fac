@@ -1,10 +1,8 @@
 <template>
-  <div
-    role="button"
-    tabindex="0"
-    class="card flex flex-row items-center p-2 border border-gray-200 hover:border-gray-600 rounded-md overflow-hidden transition-colors duration-200 cursor-pointer"
+  <button
+    class="flex items-center text-left p-2 border border-gray-200 hover:border-gray-500 focus:border-gray-500 rounded-md focus:outline-none overflow-hidden cursor-pointer"
     @click="copyOtp">
-    <div class="flex items-center justify-center pr-2 border-r border-gray-200">
+    <span class="flex items-center justify-center pr-2 border-r border-gray-200">
       <svg
         v-if="path"
         class="h-6 tp:h-8 w-6 tp:w-8 text-gray-600"
@@ -15,19 +13,19 @@
         v-else
         class="h-6 tp:h-8 w-6 tp:w-8 text-gray-600"
         name="key"/>
-    </div>
-    <div class="flex-grow pl-2">
-      <div class="font-medium text-sm">{{ account.site }}</div>
-      <div class="hidden tp:block text-sm text-gray-600 mb-2">{{ account.username }}</div>
-      <div class="flex items-center">
+    </span>
+    <span class="flex flex-col flex-grow pl-2">
+      <span class="font-medium text-sm">{{ account.site }}</span>
+      <span class="hidden tp:block text-sm text-gray-600 mb-2">{{ account.username }}</span>
+      <span class="flex items-center">
         <span class="font-mono text-2xl">{{ account.currentOtp }}</span>
         <ion-icon
           v-if="checkVisible"
           class="text-green-600 text-lg ml-2"
           name="checkmark-circle"/>
-      </div>
-    </div>
-  </div>
+      </span>
+    </span>
+  </button>
 </template>
 
 <script lang="ts">
