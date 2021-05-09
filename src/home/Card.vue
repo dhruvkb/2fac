@@ -17,14 +17,14 @@
         name="key"/>
     </div>
     <div class="flex-grow pl-2">
-      <div class="font-medium">{{ account.site }}</div>
+      <div class="font-medium text-sm">{{ account.site }}</div>
       <div class="hidden tp:block text-sm text-gray-600 mb-2">{{ account.username }}</div>
       <div class="flex items-center">
-        <span class="font-mono">{{ account.currentOtp }}</span>
+        <span class="font-mono text-2xl">{{ account.currentOtp }}</span>
         <ion-icon
           v-if="checkVisible"
-          class="text-green-600 ml-2"
-          name="checkmark"/>
+          class="text-green-600 text-lg ml-2"
+          name="checkmark-circle"/>
       </div>
     </div>
   </div>
