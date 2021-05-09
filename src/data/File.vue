@@ -19,7 +19,8 @@
             @change="updateFile"
             ref="fileInput">
           <label
-            class="button cursor-pointer"
+            tabindex="0"
+            class="button text-blue-900 bg-blue-100 hover:bg-blue-200 focus:ring-blue-500 cursor-pointer"
             for="file">
             Choose</label>
           <span
@@ -30,7 +31,7 @@
         </div>
         <div class="action mt-2">
           <button
-            class="button"
+            class="button text-blue-900 bg-blue-100 hover:bg-blue-200 focus:ring-blue-500"
             :disabled="!file"
             @click="readFromFile">
             Import
@@ -49,7 +50,7 @@
         <p class="mt-4">This will export and download a JSON file.</p>
         <div class="action mt-4">
           <button
-            class="button"
+            class="button text-blue-900 bg-blue-100 hover:bg-blue-200 focus:ring-blue-500"
             @click="writeToFile">
             Export
           </button>

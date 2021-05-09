@@ -9,7 +9,7 @@
 
     <div class="action mt-4">
       <button
-        class="button text-red-900 bg-red-100 hover:bg-red-200"
+        class="button text-red-900 bg-red-100 hover:bg-red-200 focus:ring-red-500"
         @click="clearData">
         Clear
       </button>

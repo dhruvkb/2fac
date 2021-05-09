@@ -16,7 +16,7 @@
       type="text">
     <div class="output mt-2">
       <button
-        class="button"
+        class="button text-blue-900 bg-blue-100 hover:bg-blue-200 focus:ring-blue-500"
         :disabled="!accessToken"
         @click="validateToken">
         Validate

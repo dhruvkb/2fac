@@ -6,8 +6,10 @@
   .button {
     min-width: 7.5em;
     @apply inline-flex items-center justify-center;
-    @apply text-white font-medium bg-black hover:bg-gray-800;
-    @apply px-2 py-0 h-8 rounded-md;
+    @apply text-sm font-medium;
+    @apply px-2 py-0 h-8;
+    @apply border border-transparent rounded-md;
+    @apply focus:outline-none focus-visible:ring-1 focus-visible:ring-offset-1;
 
     @apply disabled:opacity-50 disabled:cursor-not-allowed;
   }
