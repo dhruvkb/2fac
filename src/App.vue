@@ -21,11 +21,17 @@
 </script>
 
 <style scoped lang="css">
+  @screen tp {
+    #app-root {
+      --min-padding: 1em;
+    }
+  }
+
   #app-root {
     padding:
-      max(env(safe-area-inset-top), 1em)
-      max(env(safe-area-inset-right), 1em)
-      max(env(safe-area-inset-bottom), 1em)
-      max(env(safe-area-inset-left), 1em);
+      max(env(safe-area-inset-top), var(--min-padding, 0.5em))
+      max(env(safe-area-inset-right), var(--min-padding, 0.5em))
+      max(env(safe-area-inset-bottom), var(--min-padding, 0.5em))
+      max(env(safe-area-inset-left), var(--min-padding, 0.5em));
   }
 </style>
