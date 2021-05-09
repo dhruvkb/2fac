@@ -21,7 +21,7 @@ export class Account implements AccountInterface {
   constructor(secret: string) {
     this.secret = secret
     this.totp = new Otpauth.TOTP({
-      secret,
+      secret: secret.replaceAll(' ', ''),
     })
     this.updateOtp()
   }
