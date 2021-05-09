@@ -8,7 +8,7 @@
       don't want it.
     </p>
     <p class="mt-4">
-      In more technical terms, Multifac is purely client-side JavaScript. It
+      In more technical terms, 2Fac is purely client-side JavaScript. It
       runs entirely in your browser. We don't have any backend servers or
       databases so we couldn't store your data even if we wanted to and we
       really don't want to.

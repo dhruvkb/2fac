@@ -6,7 +6,7 @@
         <RouterLink
           class="ml-1"
           :to="{ name: 'home'}">
-          Multifac
+          2Fac
         </RouterLink>
       </h1>
     </div>

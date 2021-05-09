@@ -129,7 +129,7 @@
 
         const anchor = document.createElement('a')
         anchor.href = blobUrl
-        anchor.download = 'multifac.json'
+        anchor.download = '2fac.json'
         document.body.appendChild(anchor)
         anchor.click()
         document.body.removeChild(anchor)

@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === 'production') {
   plugins.push(createLogger({}))
 }
 plugins.push(createPersistedState({
-  key: 'multifac',
+  key: '2fac',
   getState(key, storage) {
     const text = storage.getItem(key)
     if (!text) {

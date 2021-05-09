@@ -6,7 +6,7 @@
     </p>
     <p class="mt-4">
       For very obvious reasons, your 2FA data should be in a private repository.
-      You will need to authenticate Multifac with a personal access token to
+      You will need to authenticate 2Fac with a personal access token to
       grant it access to that repo.
     </p>
 

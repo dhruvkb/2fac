@@ -4,7 +4,7 @@
 
     <p class="mt-4">
       There's are two ways you can manage your data. You can manage your 2FA
-      secrets yourself or you can integrate Multifac with GitHub. Both
+      secrets yourself or you can integrate 2Fac with GitHub. Both
       approaches ensure that you have complete ownership and control over your
       sensitive data.
     </p>
