@@ -19,4 +19,12 @@
 
     @apply disabled:opacity-50 disabled:cursor-not-allowed;
   }
+
+  .input {
+    @apply appearance-none;
+    @apply text-sm;
+    @apply px-2 py-0 h-8;
+    @apply border border-gray-200 rounded-md;
+    @apply focus:outline-none focus-visible:ring-1 focus-visible:ring-offset-1;
+  }
 }
