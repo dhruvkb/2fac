@@ -2,7 +2,7 @@
   <header class="flex flex-col items-center tp:flex-row border-b border-gray-200">
     <div class="site-title p-2 tp:mr-auto">
       <h1 class="flex items-center font-bold text-2xl">
-        <ion-icon name="id-card-outline"/>
+        <ion-icon :src="logo"/>
         <RouterLink
           class="ml-1"
           :to="{ name: 'home'}">
@@ -26,10 +26,13 @@
 <script lang="ts">
   import { defineComponent } from 'vue'
 
+  import logo from '@/assets/logo.svg'
+
   export default defineComponent({
     name: 'Header',
     data() {
       return {
+        logo,
         links: [
           {
             text: 'Data',
