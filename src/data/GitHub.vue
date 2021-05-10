@@ -7,14 +7,18 @@
       grant it access to that repo.
     </p>
 
-    <input
-      class="appearance-none font-mono text-sm px-2 h-8 w-full border border-gray-200 rounded-md focus:outline-none focus-visible:ring-1 focus-visible:ring-offset-1 mt-4"
-      v-model="accessToken"
-      type="text"
-      autocapitalize="off"
-      autocomplete="off"
-      spellcheck="false"
-      placeholder="GitHub access token">
+    <label class="block font-medium text-sm mt-4">
+      GitHub access token:
+      <input
+        v-model="accessToken"
+        class="input font-mono w-full"
+        id="access-token"
+        type="text"
+        autocapitalize="off"
+        autocomplete="off"
+        spellcheck="false"
+        placeholder="GitHub access token">
+    </label>
     <div class="output flex items-center mt-2">
       <button
         class="button text-blue-900 bg-blue-100 hover:bg-blue-200 focus:ring-blue-500"
