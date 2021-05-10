@@ -1,5 +1,5 @@
 <template>
-  <div class="page p-2 max-w-screen-tl mx-auto my-8" id="about">
+  <div class="page max-w-screen-tl mx-auto my-8" id="about">
     <p>
       2Fac is a TOTP generator.
     </p>
