@@ -11,7 +11,7 @@
       </svg>
       <ion-icon
         v-else
-        class="h-6 tp:h-8 w-6 tp:w-8 text-gray-600"
+        class="h-6 tp:h-8 w-6 tp:w-8 text-gray-300"
         name="key"/>
     </span>
     <span class="flex flex-col flex-grow pl-2">
