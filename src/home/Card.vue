@@ -7,7 +7,7 @@
         v-if="path"
         class="h-8 w-8 text-gray-600"
         viewBox="0 0 24 24">
-        <path :d="path" fill="currentColor"/>
+        <path :d="path" :fill="color"/>
       </svg>
       <ion-icon
         v-else
