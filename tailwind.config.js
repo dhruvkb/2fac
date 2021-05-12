@@ -1,3 +1,5 @@
+const screenSizes = require('./src/constants/screen_sizes')
+
 module.exports = {
   mode: 'jit',
   darkMode: 'class',
@@ -14,13 +16,10 @@ module.exports = {
         3: '3px',
       },
     },
-    screens: {
-      mp: '480px',
-      tp: '600px',
-      tl: '900px',
-      dr: '1200px',
-      dw: '1800px',
-    },
+    screens: Object.fromEntries(
+      Object.entries(screenSizes.screenSizes)
+        .map(([k, v]) => [k, v === 0 ? `${v}` : `${v}px`]),
+    ),
   },
   variants: {
     extend: {
