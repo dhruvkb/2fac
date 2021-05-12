@@ -5,13 +5,13 @@
     <span class="flex items-center justify-center pr-2 border-r border-gray-200">
       <svg
         v-if="path"
-        class="h-6 tp:h-8 w-6 tp:w-8 text-gray-600"
+        class="h-8 w-8 text-gray-600"
         viewBox="0 0 24 24">
         <path :d="path" fill="currentColor"/>
       </svg>
       <ion-icon
         v-else
-        class="h-6 tp:h-8 w-6 tp:w-8 text-gray-300"
+        class="h-8 w-8 text-gray-300"
         name="key"/>
     </span>
     <span class="flex flex-col flex-grow pl-2">
