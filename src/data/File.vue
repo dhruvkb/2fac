@@ -1,6 +1,6 @@
 <template>
   <div class="file">
-    <h2 class="font-bold text-3xl">Self-managed</h2>
+    <h3 class="font-bold text-2xl">Self-managed</h3>
     <p class="mt-4">
       You can export your secrets as a file, and import it to get your accounts
       set up on a new device. No information, other than this file, is needed.
@@ -8,7 +8,7 @@
 
     <div class="grid tl:grid-cols-2 gap-2 mt-4">
       <div class="tl:pr-2">
-        <h3 class="font-bold text-2xl">Import</h3>
+        <h4 class="font-bold text-xl">Import</h4>
         <p class="mt-4">Please upload a valid JSON file.</p>
         <div class="flex items-center mt-4">
           <input
@@ -46,7 +46,7 @@
       </div>
 
       <div class="tl:pl-2 tl:border-l border-gray-200">
-        <h3 class="font-bold text-2xl">Export</h3>
+        <h4 class="font-bold text-xl">Export</h4>
         <p class="mt-4">This will export and download a JSON file.</p>
         <div class="mt-4">
           <button

@@ -1,6 +1,8 @@
 <template>
   <div class="page max-w-screen-tl mx-auto my-8" id="data">
-    <Disclaimer/>
+    <h2 class="font-bold text-3xl">Data</h2>
+
+    <Disclaimer class="mt-4"/>
 
     <p class="mt-4">
       There's are two ways you can manage your data. You can manage your 2FA

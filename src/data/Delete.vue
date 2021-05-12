@@ -1,6 +1,6 @@
 <template>
   <div class="delete">
-    <h2 class="font-bold text-red-600 text-3xl">Delete everything</h2>
+    <h3 class="font-bold text-red-600 text-2xl">Delete everything</h3>
     <p class="mt-4">
       All your data is stored locally within the browser, so cleaning your
       history and site data should remove your account information. However,

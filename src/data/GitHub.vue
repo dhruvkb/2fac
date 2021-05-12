@@ -1,6 +1,6 @@
 <template>
   <div class="github">
-    <h2 class="font-bold text-3xl">GitHub integration</h2>
+    <h3 class="font-bold text-2xl">GitHub integration</h3>
     <p class="mt-4">
       For very obvious reasons, your 2FA data should be in a private repository.
       You will need to authenticate 2Fac with a personal access token to
@@ -36,7 +36,7 @@
 
     <div class="grid tl:grid-cols-2 gap-2 mt-4">
       <div class="tl:pr-2">
-        <h3 class="font-bold text-2xl">Import</h3>
+        <h4 class="font-bold text-xl">Import</h4>
         <p class="mt-4" v-if="username">
           Will read
           <code class="text-sm bg-gray-100 p-1 rounded-md">{{ fileName }}</code>
@@ -60,7 +60,7 @@
       </div>
 
       <div class="tl:pl-2 tl:border-l border-gray-200">
-        <h3 class="font-bold text-2xl">Export</h3>
+        <h4 class="font-bold text-xl">Export</h4>
         <p class="mt-4" v-if="username">
           Will write
           <code class="text-sm bg-gray-100 p-1 rounded-md">{{ fileName }}</code>
