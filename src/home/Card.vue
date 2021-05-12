@@ -18,7 +18,9 @@
       <span class="font-medium text-sm">{{ account.site }}</span>
       <span class="hidden tp:block text-sm text-gray-600 mb-2">{{ account.username }}</span>
       <span class="flex items-center">
-        <span class="font-mono text-2xl">{{ account.currentOtp }}</span>
+        <span class="font-mono text-2xl">
+          {{ firstThree }}<span class="ml-2"/>{{ lastThree }}
+        </span>
         <ion-icon
           v-if="checkVisible"
           class="text-green-600 text-lg ml-2"
@@ -52,6 +54,14 @@
         checkVisible: false,
         checkTimer: 0,
       }
+    },
+    computed: {
+      firstThree(): string {
+        return this.account.currentOtp.slice(0, 3)
+      },
+      lastThree(): string {
+        return this.account.currentOtp.slice(3)
+      },
     },
     methods: {
       async fetchIcon() {
