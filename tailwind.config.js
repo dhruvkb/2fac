@@ -9,11 +9,8 @@ module.exports = {
   ],
   theme: {
     extend: {
-      spacing: {
-        '2px': '2px',
-      },
-      borderWidth: {
-        3: '3px',
+      zIndex: {
+        '-1': -1,
       },
     },
     screens: Object.fromEntries(
