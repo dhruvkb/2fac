@@ -1,6 +1,6 @@
 <template>
   <button
-    class="flex items-center text-left p-2 border border-gray-200 hover:border-gray-500 focus:border-gray-500 rounded-md focus:outline-none overflow-hidden cursor-pointer"
+    class="flex items-center text-left bg-white p-2 border border-gray-200 hover:border-gray-500 focus:border-gray-500 rounded-md shadow-sm focus:outline-none overflow-hidden cursor-pointer"
     @click="copyOtp">
     <span class="flex items-center justify-center pr-2 border-r border-gray-200">
       <svg
