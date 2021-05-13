@@ -1,16 +1,49 @@
 <template>
-  <div class="page" id="home">
-    <Timeline v-if="accounts.length"/>
-    <div v-else class="text-center p-2 mt-8">
-      It's a little lonely in here.
+  <Timeline class="sticky top-[53px]"/>
+
+  <div class="page my-8" id="home">
+    <div class="max-w-screen-tl mx-auto">
+      <h2 class="font-bold text-3xl">Tokens</h2>
+
+      <div class="flex items-center gap-16 mx-auto mt-4"> <!-- Action bar -->
+        <input
+          v-model="filterQuery"
+          class="input flex-grow"
+          type="text"
+          placeholder="Filter">
+        <teleport
+          to=".action-space"
+          :disabled="!isMobileOrSmaller">
+          <div class="flex items-center gap-2">
+            <button
+              class="button text-blue-900 bg-blue-100 hover:bg-blue-200 focus-visible:ring-blue-500">
+              Edit
+            </button>
+            <button
+              class="button text-green-900 bg-green-100 hover:bg-green-200 focus-visible:ring-green-500">
+              Add
+            </button>
+          </div>
+        </teleport>
+      </div>
     </div>
 
-    <div class="grid gap-2 tp:gap-4 grid-cols-2 tl:grid-cols-3 dr:grid-cols-4 py-2 mt-8">
+    <transition-group
+      v-if="filteredAccounts.length"
+      enter-from-class="opacity-0 transform translate-y-8"
+      leave-active-class="absolute -z-1"
+      name="list-complete"
+      tag="div"
+      class="grid gap-2 tp:gap-4 grid-cols-2 tl:grid-cols-3 dr:grid-cols-4 dw:grid-cols-6 py-2 mt-4">
       <Card
-        v-for="(acc,index) in accounts"
-        :key="index"
+        v-for="(acc, index) in filteredAccounts"
+        :key="acc.slug"
+        class="list-complete-item transition-all ease-in-out duration-300"
         :account="acc"
         :is-active="index === 5"/>
+    </transition-group>
+    <div v-else class="text-center p-2 mt-4">
+      It's a little lonely in here.
     </div>
   </div>
 </template>
@@ -22,13 +55,33 @@
   import Timeline from '@/home/Timeline.vue'
   import Card from '@/home/Card.vue'
 
+  import { Account } from '@/models/account'
+
+  import { breakpoint } from '@/plugins/responsive'
+
   export default defineComponent({
     name: 'Home',
     components: {
       Timeline,
       Card,
     },
+    data() {
+      return {
+        filterQuery: '',
+      }
+    },
     computed: {
+      isMobileOrSmaller(): boolean {
+        return ['z', 'mp'].includes(breakpoint.name)
+      },
+      filteredAccounts(): Account[] {
+        console.log(this.accounts.map((acc: Account) => [
+          acc.site,
+          acc.username,
+          acc.icon,
+        ]))
+        return this.accounts.filter((acc: Account) => [acc.site, acc.username, acc.icon].some((attribute) => attribute?.includes(this.filterQuery)))
+      },
       ...mapState('twoFa', [
         'accounts',
       ]),
