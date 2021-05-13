@@ -76,9 +76,9 @@
       const filterQuery = ref('')
       const filteredAccounts = computed(() => store.state.twoFa.accounts
         .filter((acc: Account) => [
-          acc.site,
-          acc.username,
-        ].some((attribute) => attribute?.includes(filterQuery.value))))
+          acc.site?.toLocaleLowerCase(),
+          acc.username?.toLocaleLowerCase(),
+        ].some((attribute) => attribute?.includes(filterQuery.value.toLocaleLowerCase()))))
       return {
         isMobile: computed(isMobile),
 
