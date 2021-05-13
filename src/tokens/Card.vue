@@ -19,7 +19,7 @@
       <div class="hidden tp:block text-sm text-gray-600 mb-2">{{ account.username }}</div>
       <div class="flex items-center">
         <button class="font-mono text-2xl hover:underline focus:outline-none focus-visible:underline">
-          {{ firstThree }}<span class="-mx-1">·</span>{{ lastThree }}
+          {{ firstThree }}<span class="text-gray-300 -mx-1 select-none">·</span>{{ lastThree }}
         </button>
         <ion-icon
           v-if="checkVisible"
