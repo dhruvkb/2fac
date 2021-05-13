@@ -13,7 +13,8 @@
         class="h-8 w-8 text-gray-300"
         name="key"/>
     </div>
-    <div class="flex flex-col flex-grow pl-2">
+
+    <div class="flex flex-col flex-grow pl-2"><!-- Account info -->
       <div class="font-medium text-sm">{{ account.site }}</div>
       <div class="hidden tp:block text-sm text-gray-600 mb-2">{{ account.username }}</div>
       <div class="flex items-center">
@@ -31,16 +32,68 @@
         </div>
       </div>
     </div>
+
+    <div class="absolute top-2 right-2"><!-- Ellipsis menu -->
+      <Menu as="div" class="relative text-left">
+        <MenuButton
+          class="p-1 border border-transparent hover:border-gray-200 rounded-md focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-500">
+          <ion-icon
+            class="block"
+            name="ellipsis-horizontal"/>
+        </MenuButton>
+        <transition
+          enter-active-class="transition duration-100 ease-out"
+          enter-from-class="transform scale-95 opacity-0"
+          enter-to-class="transform scale-100 opacity-100"
+          leave-active-class="transition duration-100 ease-in"
+          leave-from-class="transform scale-100 opacity-100"
+          leave-to-class="transform scale-95 opacity-0">
+          <MenuItems
+            class="absolute z-10 right-0 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div class="px-1 py-1">
+              <MenuItem v-slot="{ active }">
+                <button class="button justify-start" :class="[ ...active ? ['bg-blue-200', 'text-blue-900'] : [] ]">
+                  <ion-icon
+                    class="h-4 w-4 mr-2"
+                    name="information-circle-outline"/>
+                  Info
+                </button>
+              </MenuItem>
+              <MenuItem v-slot="{ active }">
+                <button class="button justify-start" :class="[ ...active ? ['bg-red-200', 'text-red-900'] : [] ]">
+                  <ion-icon
+                    class="h-4 w-4 mr-2"
+                    name="trash-outline"/>
+                  Delete
+                </button>
+              </MenuItem>
+            </div>
+          </MenuItems>
+        </transition>
+      </Menu>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue'
+  import {
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuItems,
+  } from '@headlessui/vue'
 
   import { Account } from '@/models/account'
 
   export default defineComponent({
     name: 'Card',
+    components: {
+      Menu,
+      MenuButton,
+      MenuItems,
+      MenuItem,
+    },
     props: {
       account: {
         type: Account,
