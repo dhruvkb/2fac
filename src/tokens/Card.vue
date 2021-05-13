@@ -99,9 +99,6 @@
         type: Account,
         required: true,
       },
-      isActive: {
-        type: Boolean,
-      },
     },
     data() {
       return {

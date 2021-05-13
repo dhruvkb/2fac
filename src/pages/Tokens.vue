@@ -41,11 +41,10 @@
       tag="div"
       class="grid gap-2 tp:gap-4 grid-cols-2 tl:grid-cols-3 dr:grid-cols-4 dw:grid-cols-6 py-2 mt-4">
       <Card
-        v-for="(acc, index) in filteredAccounts"
+        v-for="acc in filteredAccounts"
         :key="acc.slug"
         class="list-complete-item transition-all ease-in-out duration-300"
-        :account="acc"
-        :is-active="index === 5"/>
+        :account="acc"/>
     </transition-group>
     <div v-else class="text-center p-2 mt-4">
       It's a little lonely in here.
