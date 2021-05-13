@@ -12,10 +12,16 @@
   import Header from '@/components/Header.vue'
   import Footer from '@/components/Footer.vue'
 
+  import { addListener, setBreakpoint } from '@/plugins/responsive'
+
   export default defineComponent({
     components: {
       Header,
       Footer,
+    },
+    created() {
+      setBreakpoint()
+      addListener()
     },
   })
 </script>
