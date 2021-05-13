@@ -28,9 +28,8 @@
         links: [
           {
             text: 'Tokens',
-            iconName: 'id-card-outline',
             iconSrc: logo,
-            toName: 'home',
+            toName: 'tokens',
           },
           {
             text: 'Data',

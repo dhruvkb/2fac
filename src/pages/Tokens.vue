@@ -1,7 +1,7 @@
 <template>
   <Timeline class="sticky top-[53px]"/>
 
-  <div class="page my-8" id="home">
+  <div class="page my-8" id="tokens">
     <div class="max-w-screen-tl mx-auto">
       <h2 class="font-bold text-3xl">Tokens</h2>
 
@@ -52,15 +52,15 @@
   import { defineComponent } from 'vue'
   import { mapState } from 'vuex'
 
-  import Timeline from '@/home/Timeline.vue'
-  import Card from '@/home/Card.vue'
+  import Timeline from '@/tokens/Timeline.vue'
+  import Card from '@/tokens/Card.vue'
 
   import { Account } from '@/models/account'
 
   import { breakpoint } from '@/plugins/responsive'
 
   export default defineComponent({
-    name: 'Home',
+    name: 'Tokens',
     components: {
       Timeline,
       Card,

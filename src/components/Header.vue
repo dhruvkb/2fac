@@ -2,7 +2,7 @@
   <header class="flex justify-between">
     <div class="site-title">
       <h1 class="flex items-center font-bold text-lg py-1">
-        <RouterLink :to="{ name: 'home'}">2Fac</RouterLink>
+        <RouterLink :to="{ name: 'tokens'}">2Fac</RouterLink>
       </h1>
     </div>
 

@@ -1,8 +1,8 @@
 <template>
-  <button
-    class="flex items-center text-left bg-white p-2 border border-gray-200 hover:border-gray-500 focus:border-gray-500 rounded-md shadow-sm focus:outline-none overflow-hidden cursor-pointer"
+  <div
+    class="flex items-center text-left bg-white p-2 border border-gray-200 rounded-md shadow-sm"
     @click="copyOtp">
-    <span class="flex items-center justify-center pr-2 border-r border-gray-200">
+    <div class="flex items-center justify-center pr-2 border-r border-gray-200">
       <svg
         v-if="path"
         class="h-8 w-8 text-gray-600"
@@ -13,21 +13,21 @@
         v-else
         class="h-8 w-8 text-gray-300"
         name="key"/>
-    </span>
-    <span class="flex flex-col flex-grow pl-2">
-      <span class="font-medium text-sm">{{ account.site }}</span>
-      <span class="hidden tp:block text-sm text-gray-600 mb-2">{{ account.username }}</span>
-      <span class="flex items-center">
-        <span class="font-mono text-2xl">
-          {{ firstThree }}<span class="ml-2"/>{{ lastThree }}
-        </span>
+    </div>
+    <div class="flex flex-col flex-grow pl-2">
+      <div class="font-medium text-sm">{{ account.site }}</div>
+      <div class="hidden tp:block text-sm text-gray-600 mb-2">{{ account.username }}</div>
+      <div class="flex items-center">
+        <button class="font-mono text-2xl hover:underline focus:outline-none focus-visible:underline">
+          {{ firstThree }}<span class="-mx-1">·</span>{{ lastThree }}
+        </button>
         <ion-icon
           v-if="checkVisible"
           class="text-green-600 text-lg ml-2"
           name="checkmark-circle"/>
-      </span>
-    </span>
-  </button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
