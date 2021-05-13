@@ -5,8 +5,8 @@
     <div class="max-w-screen-tl mx-auto">
       <h2 class="font-bold text-3xl">Tokens</h2>
 
-      <div class="flex items-center gap-16 mx-auto mt-4"> <!-- Action bar -->
-        <div class="flex-grow relative flex items-center">
+      <div class="flex items-center justify-between gap-16 mx-auto mt-4"> <!-- Action bar -->
+        <div class="flex-grow relative flex items-center max-w-screen-mp">
           <ion-icon
             class="absolute left-2"
             name="filter-outline"/>
@@ -21,7 +21,7 @@
           :disabled="!isMobile">
           <div class="flex items-center gap-2">
             <button
-              class="button text-blue-900 bg-blue-100 hover:bg-blue-200 focus-visible:ring-blue-500">
+              class="button tp:hidden text-blue-900 bg-blue-100 hover:bg-blue-200 focus-visible:ring-blue-500">
               Edit
             </button>
             <button
