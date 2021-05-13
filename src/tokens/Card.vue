@@ -1,8 +1,7 @@
 <template>
   <div
-    class="flex items-center text-left bg-white p-2 border border-gray-200 rounded-md shadow-sm"
-    @click="copyOtp">
-    <div class="flex items-center justify-center pr-2 border-r border-gray-200">
+    class="relative flex items-center text-left bg-white p-2 border border-gray-200 rounded-md shadow-sm">
+    <div class="flex items-center justify-center pr-2 border-r border-gray-200"><!-- Site icon -->
       <svg
         v-if="path"
         class="h-8 w-8 text-gray-600"
@@ -18,7 +17,9 @@
       <div class="font-medium text-sm">{{ account.site }}</div>
       <div class="hidden tp:block text-sm text-gray-600 mb-2">{{ account.username }}</div>
       <div class="flex items-center">
-        <button class="font-mono text-2xl hover:underline focus:outline-none focus-visible:underline">
+        <button
+          class="font-mono text-2xl hover:underline focus:outline-none focus-visible:underline"
+          @click="copyOtp">
           {{ firstThree }}<span class="text-gray-300 -mx-1 select-none">·</span>{{ lastThree }}
         </button>
         <div
