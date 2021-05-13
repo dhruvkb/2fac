@@ -5,5 +5,5 @@ export interface TwoFaState {
 }
 
 export const state = (): TwoFaState => ({
-  accounts: [],
+  accounts: [] as Account[],
 })
