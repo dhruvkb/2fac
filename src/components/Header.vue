@@ -1,14 +1,13 @@
 <template>
-  <header class="flex">
-    <div class="site-title mr-auto">
+  <header class="flex justify-between">
+    <div class="site-title">
       <h1 class="flex items-center font-bold text-lg py-1">
-        <RouterLink
-          class="ml-1"
-          :to="{ name: 'home'}">
-          2Fac
-        </RouterLink>
+        <RouterLink :to="{ name: 'home'}">2Fac</RouterLink>
       </h1>
     </div>
+
+    <!-- Teleportation destination -->
+    <div class="action-space flex items-center justify-center"/>
 
     <Navigation class="hidden tp:grid"/>
   </header>
