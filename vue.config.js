@@ -15,7 +15,7 @@ module.exports = {
       })
   },
   pwa: {
-    name: '2Fac',
+    name: process.env.NODE_ENV === 'production' ? '2Fac' : '2Fac (dev)',
     appleMobileWebAppCapable: 'yes',
     themeColor: '#ffffff',
     msTileColor: '#ffffff',
