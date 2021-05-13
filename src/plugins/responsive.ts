@@ -25,6 +25,12 @@ const getBreakpoint = (w: number): string => {
   return 'z'
 }
 
+export const isMobile = (): boolean => ['z', 'mp'].includes(breakpoint.name)
+
+export const isTablet = (): boolean => breakpoint.name.startsWith('t')
+
+export const isDesktop = (): boolean => breakpoint.name.startsWith('d')
+
 export const setBreakpoint = (): void => {
   breakpoint.w = window.innerWidth
   breakpoint.h = window.innerHeight

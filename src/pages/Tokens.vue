@@ -13,7 +13,7 @@
           placeholder="Filter">
         <teleport
           to=".action-space"
-          :disabled="!isMobileOrSmaller">
+          :disabled="!isMobile">
           <div class="flex items-center gap-2">
             <button
               class="button text-blue-900 bg-blue-100 hover:bg-blue-200 focus-visible:ring-blue-500">
@@ -49,15 +49,15 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
-  import { mapState } from 'vuex'
+  import { computed, defineComponent, ref } from 'vue'
+  import { useStore } from 'vuex'
 
   import Timeline from '@/tokens/Timeline.vue'
   import Card from '@/tokens/Card.vue'
 
   import { Account } from '@/models/account'
 
-  import { breakpoint } from '@/plugins/responsive'
+  import { isMobile } from '@/plugins/responsive'
 
   export default defineComponent({
     name: 'Tokens',
@@ -65,26 +65,21 @@
       Timeline,
       Card,
     },
-    data() {
-      return {
-        filterQuery: '',
-      }
-    },
-    computed: {
-      isMobileOrSmaller(): boolean {
-        return ['z', 'mp'].includes(breakpoint.name)
-      },
-      filteredAccounts(): Account[] {
-        console.log(this.accounts.map((acc: Account) => [
+    setup() {
+      const store = useStore()
+
+      const filterQuery = ref('')
+      const filteredAccounts = computed(() => store.state.twoFa.accounts
+        .filter((acc: Account) => [
           acc.site,
           acc.username,
-          acc.icon,
-        ]))
-        return this.accounts.filter((acc: Account) => [acc.site, acc.username, acc.icon].some((attribute) => attribute?.includes(this.filterQuery)))
-      },
-      ...mapState('twoFa', [
-        'accounts',
-      ]),
+        ].some((attribute) => attribute?.includes(filterQuery.value))))
+      return {
+        isMobile: computed(isMobile),
+
+        filterQuery,
+        filteredAccounts,
+      }
     },
   })
 </script>
