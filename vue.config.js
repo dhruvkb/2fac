@@ -14,4 +14,10 @@ module.exports = {
         return options
       })
   },
+  pwa: {
+    name: '2Fac',
+    appleMobileWebAppCapable: 'yes',
+    themeColor: '#ffffff',
+    msTileColor: '#ffffff',
+  },
 }
