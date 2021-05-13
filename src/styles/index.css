@@ -29,4 +29,11 @@
 
     @apply focus:outline-none focus-visible:ring-1 focus-visible:ring-offset-1;
   }
+
+  .wrapper {
+    @apply sticky z-10;
+    @apply bg-white bg-opacity-75 backdrop-filter backdrop-blur-lg;
+    @apply w-full;
+    @apply border-gray-200;
+  }
 }
