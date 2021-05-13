@@ -1,6 +1,6 @@
 <template>
   <div
-    class="border-t-3 transition-colors transform -translate-y-2px"
+    class="border-t-2 transition-colors"
     :class="timelineClasses"
     :style="timelineStyles"/>
 </template>
