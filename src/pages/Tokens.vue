@@ -35,7 +35,7 @@
 
     <transition-group
       v-if="filteredAccounts.length"
-      enter-from-class="opacity-0 transform translate-y-8"
+      enter-from-class="opacity-0 transform translate-y-2"
       leave-active-class="absolute -z-1"
       name="list-complete"
       tag="div"
