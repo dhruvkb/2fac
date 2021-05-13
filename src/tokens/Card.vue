@@ -21,10 +21,13 @@
         <button class="font-mono text-2xl hover:underline focus:outline-none focus-visible:underline">
           {{ firstThree }}<span class="text-gray-300 -mx-1 select-none">·</span>{{ lastThree }}
         </button>
-        <ion-icon
-          v-if="checkVisible"
-          class="text-green-600 text-lg ml-2"
-          name="checkmark-circle"/>
+        <div
+          class="ml-2 transform transition duration-300"
+          :class="{ 'opacity-0': !checkVisible, '-translate-x-2': !checkVisible }">
+          <ion-icon
+            class="block text-green-600 text-lg"
+            name="copy-outline"/>
+        </div>
       </div>
     </div>
   </div>
