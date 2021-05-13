@@ -6,11 +6,16 @@
       <h2 class="font-bold text-3xl">Tokens</h2>
 
       <div class="flex items-center gap-16 mx-auto mt-4"> <!-- Action bar -->
-        <input
-          v-model="filterQuery"
-          class="input flex-grow"
-          type="text"
-          placeholder="Filter">
+        <div class="flex-grow relative flex items-center">
+          <ion-icon
+            class="absolute left-2"
+            name="filter-outline"/>
+          <input
+            v-model="filterQuery"
+            class="input w-full pl-8"
+            type="text"
+            placeholder="Filter"/>
+        </div>
         <teleport
           to=".action-space"
           :disabled="!isMobile">
