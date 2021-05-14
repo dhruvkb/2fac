@@ -11,7 +11,7 @@
       <span class="text-sm">GitHub access token:</span>
       <div class="relative flex items-center">
         <Icon
-          class="absolute left-2"
+          class="absolute left-2 h-4 w-4"
           name="key"/>
         <input
           v-model="accessToken"

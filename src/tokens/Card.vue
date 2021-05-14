@@ -37,7 +37,9 @@
       <Menu as="div" class="relative text-left">
         <MenuButton
           class="p-1 border border-transparent hover:border-gray-200 rounded-md focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-500">
-          <Icon name="three-dots"/>
+          <Icon
+            class="h-4 w-4"
+            name="three-dots"/>
         </MenuButton>
         <transition
           enter-active-class="transition duration-100 ease-out"
@@ -52,7 +54,7 @@
               <MenuItem v-slot="{ active }">
                 <button class="button justify-start" :class="[ ...active ? ['bg-blue-200', 'text-blue-900'] : [] ]">
                   <Icon
-                    class="mr-2"
+                    class="h-4 w-4 mr-2"
                     name="pen"/>
                   Edit
                 </button>
@@ -60,7 +62,7 @@
               <MenuItem v-slot="{ active }">
                 <button class="button justify-start" :class="[ ...active ? ['bg-red-200', 'text-red-900'] : [] ]">
                   <Icon
-                    class="mr-2"
+                    class="h-4 w-4 mr-2"
                     name="trash2"/>
                   Delete
                 </button>

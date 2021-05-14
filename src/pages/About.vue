@@ -21,7 +21,7 @@
       <div class="flex items-center gap-2">
         <div class="bg-gradient-to-br from-pink-400 to-purple-600 h-10 w-10 p-2 rounded-lg">
           <Icon
-            class="text-white"
+            class="text-white h-6 w-6"
             name="palette-fill"/>
         </div>
         <h3 class="font-bold text-purple-600 text-2xl">Unparalleled beauty</h3>
@@ -37,7 +37,7 @@
       <div class="flex items-center gap-2">
         <div class="bg-gradient-to-br from-red-400 to-yellow-600 h-10 w-10 p-2 rounded-lg">
           <Icon
-            class="text-white"
+            class="text-white h-6 w-6"
             name="shield-lock-fill"/>
         </div>
         <h3 class="font-bold text-yellow-600 text-2xl">Data ownership</h3>
@@ -53,7 +53,7 @@
       <div class="flex items-center gap-2">
         <div class="bg-gradient-to-br from-blue-400 to-indigo-600 h-10 w-10 p-2 rounded-lg">
           <Icon
-            class="text-white"
+            class="text-white h-6 w-6"
             name="door-open-fill"/>
         </div>
         <h3 class="font-bold text-indigo-600 text-2xl">Unrestricted access</h3>
@@ -69,7 +69,7 @@
       <div class="flex items-center gap-2">
         <div class="bg-gradient-to-br from-green-400 to-green-600 h-10 w-10 p-2 rounded-lg">
           <Icon
-            class="text-white"
+            class="text-white h-6 w-6"
             name="file-earmark-code-fill"/>
         </div>
         <h3 class="font-bold text-green-600 text-2xl">Free and open source</h3>

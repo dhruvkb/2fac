@@ -8,7 +8,7 @@
       <div class="flex items-center justify-between gap-16 mx-auto mt-4"> <!-- Action bar -->
         <div class="flex-grow relative flex items-center max-w-screen-mp">
           <Icon
-            class="absolute left-2"
+            class="absolute left-2 h-4 w-4"
             name="filter"/>
           <input
             v-model="filterQuery"
