@@ -1,6 +1,6 @@
 <template>
-  <footer class="flex items-center tp:flex-row text-sm">
-    <div class="hidden tp:block text-gray-600 p-2">
+  <footer class="flex items-center tp:flex-row pb-2-safe pt-2 px-4-safe">
+    <div class="hidden tp:block text-sm text-gray-600 p-2">
       An experiment by
       <a
         class="font-bold text-black hover:underline"

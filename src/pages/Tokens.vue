@@ -2,7 +2,7 @@
   <Timeline class="sticky top-[53px]"/>
 
   <div class="page my-8" id="tokens">
-    <div class="max-w-screen-tl mx-auto">
+    <div class="max-w-screen-tl mx-auto px-4-safe">
       <h2 class="font-bold text-3xl">Tokens</h2>
 
       <div class="flex items-center justify-between gap-16 mx-auto mt-4"> <!-- Action bar -->
@@ -39,7 +39,7 @@
       leave-active-class="absolute -z-1"
       name="list-complete"
       tag="div"
-      class="grid gap-2 tp:gap-4 grid-cols-2 tl:grid-cols-3 dr:grid-cols-4 dw:grid-cols-6 py-2 mt-4">
+      class="grid gap-2 tp:gap-4 grid-cols-2 tl:grid-cols-3 dr:grid-cols-4 dw:grid-cols-6 py-2 px-4-safe mt-4">
       <Card
         v-for="acc in filteredAccounts"
         :key="acc.slug"

@@ -1,12 +1,12 @@
 <template>
   <div id="app-root" class="flex flex-col min-h-screen bg-gray-50">
-    <div class="wrapper top-0 px-2-safe tp:px-4-safe pt-2-safe pb-2 border-b">
+    <div class="wrapper top-0 border-b">
       <Header class="w-full"/>
     </div>
-    <div class="content-root flex-grow px-2-safe tp:px-4-safe ">
+    <div class="content-root flex-grow">
       <RouterView/>
     </div>
-    <div class="wrapper tp:relative px-2-safe tp:px-4-safe pt-2 pb-2-safe bottom-0 border-t">
+    <div class="wrapper tp:relative bottom-0 border-t">
       <Footer class="w-full"/>
     </div>
   </div>

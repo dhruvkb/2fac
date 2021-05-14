@@ -1,5 +1,5 @@
 <template>
-  <div class="page max-w-prose mx-auto my-8" id="about">
+  <div class="page max-w-prose px-4-safe mx-auto my-8" id="about">
     <h2 class="font-bold text-3xl">About</h2>
 
     <p class="mt-4">

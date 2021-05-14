@@ -1,5 +1,5 @@
 <template>
-  <div class="page max-w-screen-tl mx-auto my-8" id="data">
+  <div class="page max-w-screen-tl px-4-safe mx-auto my-8" id="data">
     <h2 class="font-bold text-3xl">Data</h2>
 
     <Disclaimer class="mt-4"/>

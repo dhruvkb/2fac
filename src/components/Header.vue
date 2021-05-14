@@ -1,5 +1,5 @@
 <template>
-  <header class="flex justify-between">
+  <header class="flex justify-between pt-2-safe pb-2 px-4-safe">
     <div class="site-title">
       <h1 class="flex items-center font-bold text-lg py-1">
         <RouterLink :to="{ name: 'tokens'}">2Fac</RouterLink>
