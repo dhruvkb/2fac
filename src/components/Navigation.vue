@@ -7,7 +7,7 @@
       :class="{ 'border-l': index !== 0 }"
       :to="{ name: link.toName }"
       active-class="text-blue-600">
-      <ion-icon
+      <Icon
         class="h-5 w-5"
         :name="link.iconName"
         :src="link.iconSrc"/>
@@ -19,26 +19,29 @@
 <script>
   import { defineComponent } from 'vue'
 
-  import logo from '@/assets/logo.svg'
+  import Icon from '@/components/Icon.vue'
 
   export default defineComponent({
     name: 'Navigation',
+    components: {
+      Icon,
+    },
     data() {
       return {
         links: [
           {
             text: 'Tokens',
-            iconSrc: logo,
+            iconName: 'shield-check',
             toName: 'tokens',
           },
           {
             text: 'Data',
-            iconName: 'server-outline',
+            iconName: 'hdd-stack',
             toName: 'data',
           },
           {
             text: 'About',
-            iconName: 'information-circle-outline',
+            iconName: 'info-circle',
             toName: 'about',
           },
         ],

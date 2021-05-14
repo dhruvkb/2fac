@@ -7,9 +7,9 @@
 
       <div class="flex items-center justify-between gap-16 mx-auto mt-4"> <!-- Action bar -->
         <div class="flex-grow relative flex items-center max-w-screen-mp">
-          <ion-icon
+          <Icon
             class="absolute left-2"
-            name="filter-outline"/>
+            name="filter"/>
           <input
             v-model="filterQuery"
             class="input w-full pl-8"
@@ -56,6 +56,8 @@
   import { computed, defineComponent, ref } from 'vue'
   import { useStore } from 'vuex'
 
+  import Icon from '@/components/Icon.vue'
+
   import Timeline from '@/tokens/Timeline.vue'
   import Card from '@/tokens/Card.vue'
 
@@ -66,6 +68,7 @@
   export default defineComponent({
     name: 'Tokens',
     components: {
+      Icon,
       Timeline,
       Card,
     },

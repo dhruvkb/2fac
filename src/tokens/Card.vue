@@ -8,10 +8,10 @@
         viewBox="0 0 24 24">
         <path :d="path" :fill="color"/>
       </svg>
-      <ion-icon
+      <Icon
         v-else
         class="h-8 w-8 text-gray-300"
-        name="key"/>
+        name="person-badge"/>
     </div>
 
     <div class="flex flex-col flex-grow pl-2"><!-- Account info -->
@@ -26,9 +26,9 @@
         <div
           class="ml-2 transform transition duration-300"
           :class="{ 'opacity-0': !checkVisible, '-translate-x-2': !checkVisible }">
-          <ion-icon
-            class="block text-green-600 text-lg"
-            name="copy-outline"/>
+          <Icon
+            class="text-green-600 h-5 w-5"
+            name="clipboard-check"/>
         </div>
       </div>
     </div>
@@ -37,9 +37,7 @@
       <Menu as="div" class="relative text-left">
         <MenuButton
           class="p-1 border border-transparent hover:border-gray-200 rounded-md focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-500">
-          <ion-icon
-            class="block"
-            name="ellipsis-horizontal"/>
+          <Icon name="three-dots"/>
         </MenuButton>
         <transition
           enter-active-class="transition duration-100 ease-out"
@@ -53,17 +51,17 @@
             <div class="px-1 py-1">
               <MenuItem v-slot="{ active }">
                 <button class="button justify-start" :class="[ ...active ? ['bg-blue-200', 'text-blue-900'] : [] ]">
-                  <ion-icon
-                    class="h-4 w-4 mr-2"
-                    name="information-circle-outline"/>
-                  Info
+                  <Icon
+                    class="mr-2"
+                    name="pen"/>
+                  Edit
                 </button>
               </MenuItem>
               <MenuItem v-slot="{ active }">
                 <button class="button justify-start" :class="[ ...active ? ['bg-red-200', 'text-red-900'] : [] ]">
-                  <ion-icon
-                    class="h-4 w-4 mr-2"
-                    name="trash-outline"/>
+                  <Icon
+                    class="mr-2"
+                    name="trash2"/>
                   Delete
                 </button>
               </MenuItem>
@@ -84,11 +82,14 @@
     MenuItems,
   } from '@headlessui/vue'
 
+  import Icon from '@/components/Icon.vue'
+
   import { Account } from '@/models/account'
 
   export default defineComponent({
     name: 'Card',
     components: {
+      Icon,
       Menu,
       MenuButton,
       MenuItems,
