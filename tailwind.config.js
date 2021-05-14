@@ -1,4 +1,8 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+const plugin = require('tailwindcss/plugin')
+
 const screenSizes = require('./src/constants/screen_sizes')
+const paddingSafe = require('./src/tailwind/padding_safe')
 
 module.exports = {
   mode: 'jit',
@@ -24,4 +28,7 @@ module.exports = {
       cursor: ['disabled'],
     },
   },
+  plugins: [
+    plugin(paddingSafe),
+  ],
 }

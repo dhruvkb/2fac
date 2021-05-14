@@ -1,12 +1,12 @@
 <template>
   <div id="app-root" class="flex flex-col min-h-screen bg-gray-50">
-    <div class="wrapper top top-0 border-b">
+    <div class="wrapper top-0 px-2-safe tp:px-4-safe pt-2-safe pb-2 border-b">
       <Header class="w-full"/>
     </div>
-    <div class="content-root flex-grow">
+    <div class="content-root flex-grow px-2-safe tp:px-4-safe ">
       <RouterView/>
     </div>
-    <div class="wrapper tp:relative bottom bottom-0 border-t">
+    <div class="wrapper tp:relative px-2-safe tp:px-4-safe pt-2 pb-2-safe bottom-0 border-t">
       <Footer class="w-full"/>
     </div>
   </div>
@@ -31,30 +31,3 @@
     },
   })
 </script>
-
-<style scoped lang="css">
-  @screen tp {
-    .content-root,
-    .wrapper {
-      --min-x-padding: 1em;
-      --min-y-padding: 0.5em;
-    }
-  }
-
-  .wrapper.top,
-  .wrapper.bottom,
-  .content-root {
-    padding-right: max(env(safe-area-inset-right), var(--min-x-padding, 0.5em));
-    padding-left: max(env(safe-area-inset-left), var(--min-x-padding, 0.5em));
-  }
-
-  .wrapper.top {
-    padding-top: max(env(safe-area-inset-top), var(--min-y-padding, 0.5em));
-    padding-bottom: var(--min-y-padding, 0.5em);
-  }
-
-  .wrapper.bottom {
-    padding-top: var(--min-y-padding, 0.5em);
-    padding-bottom: max(env(safe-area-inset-bottom), var(--min-y-padding, 0.5em));
-  }
-</style>
