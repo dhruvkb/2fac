@@ -7,17 +7,22 @@
       grant it access to that repo.
     </p>
 
-    <label class="block font-medium text-sm mt-4">
-      GitHub access token:
-      <input
-        v-model="accessToken"
-        class="input font-mono w-full"
-        id="access-token"
-        type="text"
-        autocapitalize="off"
-        autocomplete="off"
-        spellcheck="false"
-        placeholder="GitHub access token">
+    <label class="block font-medium mt-4">
+      <span class="text-sm">GitHub access token:</span>
+      <div class="relative flex items-center">
+        <Icon
+          class="absolute left-2"
+          name="key"/>
+        <input
+          v-model="accessToken"
+          class="input font-mono w-full pl-8"
+          id="access-token"
+          type="text"
+          autocapitalize="off"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="GitHub access token">
+      </div>
     </label>
     <div class="output flex items-center mt-2">
       <button
@@ -91,6 +96,8 @@
   import { mapGetters, mapMutations } from 'vuex'
   import { Octokit } from '@octokit/rest'
 
+  import Icon from '@/components/Icon.vue'
+
   import { Outcome } from '@/models/outcome'
   import { AccountInterface } from '@/models/account'
 
@@ -104,6 +111,9 @@
 
   export default defineComponent({
     name: 'GitHub',
+    components: {
+      Icon,
+    },
     data() {
       return {
         repoName: '2fa-secrets',
