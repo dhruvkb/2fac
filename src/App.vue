@@ -25,7 +25,7 @@
       Header,
       Footer,
     },
-    created() {
+    setup() {
       setBreakpoint()
       addListener()
     },
