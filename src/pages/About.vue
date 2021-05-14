@@ -31,5 +31,12 @@
       cumbersome. 2Fac is built on web technologies and supports as many
       devices as you have. There's no device limit of any kind.
     </p>
+
+    <h3 class="font-bold text-2xl mt-8">Free and open source</h3>
+    <p class="mt-4">
+      Most authenticator apps are closed source. 2Fac isn't. Every bit of the
+      source code involved in the project is open-source. Found a bug? Patch it.
+      Need a feature? Add it.
+    </p>
   </div>
 </template>
