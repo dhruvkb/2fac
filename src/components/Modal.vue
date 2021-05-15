@@ -29,7 +29,7 @@
           leave-from="translate-y-0 tp:translate-y-0 tp:opacity-1 tp:scale-100"
           leave-to="translate-y-full tp:translate-y-0 tp:opacity-0 tp:scale-95">
           <div
-            class="absolute tp:static bottom-0 tp:bottom-1/2 bg-white px-4-safe pt-8 pb-8-safe tp:p-4 w-full max-w-screen-tp rounded-t-xl tp:rounded-b-xl overflow-hidden shadow-xl transform transition-all">
+            class="absolute tp:static bottom-0 tp:bottom-1/2 bg-white pt-4 pb-4-safe tp:pb-4 w-full max-w-screen-tp rounded-t-xl tp:rounded-b-xl overflow-hidden shadow-xl transform transition-all">
             <button
               tabindex="-1"
               class="absolute top-2 right-2 tp:hidden p-2 rounded-full mb-4 focus:outline-none"
