@@ -1,6 +1,6 @@
 <template>
   <div
-    class="border-t-2 transition-colors"
+    class="h-0.5 transition-colors"
     :class="timelineClasses"
     :style="timelineStyles"/>
 </template>
@@ -20,7 +20,7 @@
     computed: {
       timelineClasses() {
         return [
-          (this.percentage < 20) ? 'border-red-600' : 'border-black',
+          (this.percentage < 20) ? 'bg-red-600' : 'bg-black',
         ]
       },
       timelineStyles() {
