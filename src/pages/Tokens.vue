@@ -40,7 +40,7 @@
       name="list-complete"
       tag="div"
       class="grid tp:gap-4 grid-cols-1 tp:grid-cols-2 tl:grid-cols-3 dr:grid-cols-4 dw:grid-cols-6 tp:px-4-safe mt-4 -space-y-px">
-      <Card
+      <Account
         v-for="acc in filteredAccounts"
         :key="acc.slug"
         class="list-complete-item transition-all ease-in-out duration-300"
@@ -59,9 +59,9 @@
   import Icon from '@/components/Icon.vue'
 
   import Timeline from '@/tokens/Timeline.vue'
-  import Card from '@/tokens/Card.vue'
+  import Account from '@/tokens/Account.vue'
 
-  import { Account } from '@/models/account'
+  import { Account as Acc } from '@/models/account'
 
   import { isMobile } from '@/plugins/responsive'
 
@@ -70,14 +70,14 @@
     components: {
       Icon,
       Timeline,
-      Card,
+      Account,
     },
     setup() {
       const store = useStore()
 
       const filterQuery = ref('')
       const filteredAccounts = computed(() => store.state.twoFa.accounts
-        .filter((acc: Account) => [
+        .filter((acc: Acc) => [
           acc.site?.toLocaleLowerCase(),
           acc.username?.toLocaleLowerCase(),
         ].some((attribute) => attribute?.includes(filterQuery.value.toLocaleLowerCase()))))
