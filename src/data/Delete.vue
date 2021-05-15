@@ -21,29 +21,31 @@
     </div>
 
     <Modal v-model:isVisible="isConfirming">
-      <DialogTitle
-        as="h3"
-        class="font-bold text-2xl text-red-600">
-        Are you sure?
-      </DialogTitle>
-      <DialogDescription class="mt-4">
-        All data will be permanently deleted. To use 2Fac, you will need to
-        add accounts anew or import your data.
-      </DialogDescription>
-      <p class="mt-4">
-        Do you want to delete?
-      </p>
-      <div class="flex items-center justify-end gap-2 mt-4">
-        <button
-          class="button bg-green-100 hover:bg-green-200 text-green-900 focus-visible:ring-green-500"
-          @click="toggleConfirmation">
-          Keep
-        </button>
-        <button
-          class="button hover:bg-red-200 border-red-600 text-red-900 focus-visible:ring-red-500"
-          @click="clearData">
-          Delete
-        </button>
+      <div class="px-4">
+        <DialogTitle
+          as="h3"
+          class="font-bold text-2xl text-red-600">
+          Are you sure?
+        </DialogTitle>
+        <DialogDescription class="mt-4">
+          All data will be permanently deleted. To use 2Fac, you will need to
+          add accounts anew or import your data.
+        </DialogDescription>
+        <p class="mt-4">
+          Do you want to delete?
+        </p>
+        <div class="flex items-center justify-end gap-2 mt-4">
+          <button
+            class="button bg-green-100 hover:bg-green-200 text-green-900 focus-visible:ring-green-500"
+            @click="toggleConfirmation">
+            Keep
+          </button>
+          <button
+            class="button hover:bg-red-200 border-red-600 text-red-900 focus-visible:ring-red-500"
+            @click="clearData">
+            Delete
+          </button>
+        </div>
       </div>
     </Modal>
   </div>
@@ -52,7 +54,10 @@
 <script lang="ts">
   import { defineComponent } from 'vue'
   import { mapMutations } from 'vuex'
-  import { DialogTitle, DialogDescription } from '@headlessui/vue'
+  import {
+    DialogDescription,
+    DialogTitle,
+  } from '@headlessui/vue'
 
   import Modal from '@/components/Modal.vue'
 
