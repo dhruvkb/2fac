@@ -1,4 +1,4 @@
-import * as Otpauth from 'otpauth'
+import { TOTP } from 'otpauth'
 
 export interface AccountInterface {
   secret: string
@@ -15,12 +15,12 @@ export class Account implements AccountInterface {
   username?: string
   icon?: string
 
-  totp: Otpauth.TOTP
+  totp: TOTP
   currentOtp!: string
 
   constructor(secret: string) {
     this.secret = secret
-    this.totp = new Otpauth.TOTP({
+    this.totp = new TOTP({
       secret: secret.replaceAll(' ', ''),
     })
     this.updateOtp()
