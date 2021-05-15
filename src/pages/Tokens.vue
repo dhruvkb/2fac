@@ -39,7 +39,7 @@
       leave-active-class="absolute -z-1"
       name="list-complete"
       tag="div"
-      class="grid gap-2 tp:gap-4 grid-cols-2 tl:grid-cols-3 dr:grid-cols-4 dw:grid-cols-6 py-2 px-4-safe mt-4">
+      class="grid tp:gap-4 grid-cols-1 tp:grid-cols-2 tl:grid-cols-3 dr:grid-cols-4 dw:grid-cols-6 tp:px-4-safe mt-4 -space-y-px">
       <Card
         v-for="acc in filteredAccounts"
         :key="acc.slug"
