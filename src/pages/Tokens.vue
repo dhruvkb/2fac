@@ -1,5 +1,5 @@
 <template>
-  <Timeline class="sticky top-[53px]"/>
+  <Timeline class="sticky top-[53px] z-20"/>
 
   <div class="page my-8" id="tokens">
     <div class="max-w-screen-tl mx-auto px-4-safe">

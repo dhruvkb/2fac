@@ -5,7 +5,7 @@
     appear>
     <Dialog
       as="div"
-      class="fixed inset-0 z-10"
+      class="fixed inset-0 z-30"
       @close="handleExit"
       open>
       <div class="relative tp:flex tp:items-center tp:justify-center h-full">

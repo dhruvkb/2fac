@@ -6,7 +6,7 @@
       :icon-svg="iconSvg"
       :otp="account.currentOtp"/>
 
-    <div class="hidden tp:block absolute top-2 right-2"><!-- Ellipsis menu -->
+    <div class="hidden tp:block absolute top-2 right-2 z-10"><!-- Ellipsis menu -->
       <Menu as="div" class="relative text-left">
         <MenuButton
           class="p-1 border border-transparent hover:border-gray-200 rounded-md focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-500">

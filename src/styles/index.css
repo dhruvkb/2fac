@@ -51,8 +51,8 @@
   }
 
   .wrapper {
-    @apply sticky z-10;
-    @apply bg-white bg-opacity-75 backdrop-filter backdrop-blur-lg;
+    @apply sticky z-20;
+    @apply bg-white;
     @apply w-full;
     @apply border-gray-200;
   }
