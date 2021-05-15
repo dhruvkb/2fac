@@ -6,6 +6,26 @@
   * {
     -webkit-tap-highlight-color: transparent;
   }
+
+  @screen dr {
+    :root {
+      scrollbar-width: thin;
+      scrollbar-color: #4b5563 #d1d5db;
+      overflow-y: scroll;
+    }
+
+    :root ::-webkit-scrollbar {
+      @apply w-2 h-2;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      @apply bg-gray-600 rounded-full;
+    }
+
+    ::-webkit-scrollbar-track {
+      @apply bg-gray-300;
+    }
+  }
 }
 
 @layer components {
