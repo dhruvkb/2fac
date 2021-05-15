@@ -25,7 +25,8 @@
               Edit
             </button>
             <button
-              class="button text-green-900 bg-green-100 hover:bg-green-200 focus-visible:ring-green-500">
+              class="button text-green-900 bg-green-100 hover:bg-green-200 focus-visible:ring-green-500"
+              @click="toggleAdd">
               Add
             </button>
           </div>
@@ -49,17 +50,33 @@
     <div v-else class="text-center p-2 mt-4">
       It's a little lonely in here.
     </div>
+
+    <Modal v-model:isVisible="isAdding">
+      <div class="px-4-safe">
+        <DialogTitle
+          as="h3"
+          class="font-bold text-2xl text-green-600">
+          Add new account
+        </DialogTitle>
+      </div>
+      <Add
+        class="mt-4"
+        @add="toggleAdd"/>
+    </Modal>
   </div>
 </template>
 
 <script lang="ts">
   import { computed, defineComponent, ref } from 'vue'
   import { useStore } from 'vuex'
+  import { DialogTitle } from '@headlessui/vue'
 
   import Icon from '@/components/Icon.vue'
+  import Modal from '@/components/Modal.vue'
 
   import Timeline from '@/tokens/Timeline.vue'
   import Account from '@/tokens/Account.vue'
+  import Add from '@/tokens/Add.vue'
 
   import { Account as Acc } from '@/models/account'
 
@@ -68,9 +85,12 @@
   export default defineComponent({
     name: 'Tokens',
     components: {
+      DialogTitle,
       Icon,
+      Modal,
       Timeline,
       Account,
+      Add,
     },
     setup() {
       const store = useStore()
@@ -81,11 +101,20 @@
           acc.site?.toLocaleLowerCase(),
           acc.username?.toLocaleLowerCase(),
         ].some((attribute) => attribute?.includes(filterQuery.value.toLocaleLowerCase()))))
+
+      const isAdding = ref(false)
+      const toggleAdd = () => {
+        isAdding.value = !isAdding.value
+      }
+
       return {
         isMobile: computed(isMobile),
 
         filterQuery,
         filteredAccounts,
+
+        isAdding,
+        toggleAdd,
       }
     },
   })
