@@ -13,42 +13,33 @@ module.exports = ({
   config,
 }) => {
   const paddings = config('theme.paddingSafe.padding', config('theme.padding', {}))
-  const variants = config('variants.paddingSafe', config('variants.padding', {}))
-  const suffix = 'safe'
   const generators = [
-    (size, modifier) => ({
-      [`.${e(`p-${modifier}-${suffix}`)}`]: {
-        'padding-top': `max(${size}, ${safeTop})`,
-        'padding-bottom': `max(${size}, ${safeBottom})`,
-        'padding-left': `max(${size}, ${safeLeft})`,
-        'padding-right': `max(${size}, ${safeRight})`,
-      },
+    (size, modifier) => {
+      const top = { 'padding-top': `max(${size}, ${safeTop})` }
+      const right = { 'padding-right': `max(${size}, ${safeRight})` }
+      const bottom = { 'padding-bottom': `max(${size}, ${safeBottom})` }
+      const left = { 'padding-left': `max(${size}, ${safeLeft})` }
 
-      [`.${e(`py-${modifier}-${suffix}`)}`]: {
-        'padding-top': `max(${size}, ${safeTop})`,
-        'padding-bottom': `max(${size}, ${safeBottom})`,
-      },
-      [`.${e(`px-${modifier}-${suffix}`)}`]: {
-        'padding-left': `max(${size}, ${safeLeft})`,
-        'padding-right': `max(${size}, ${safeRight})`,
-      },
+      return {
+        [`.${e(`p-${modifier}-safe`)}`]: {
+          ...top, ...right, ...bottom, ...left,
+        },
 
-      [`.${e(`pt-${modifier}-${suffix}`)}`]: {
-        'padding-top': `max(${size}, ${safeTop})`,
-      },
-      [`.${e(`pr-${modifier}-${suffix}`)}`]: {
-        'padding-right': `max(${size}, ${safeRight})`,
-      },
-      [`.${e(`pb-${modifier}-${suffix}`)}`]: {
-        'padding-bottom': `max(${size}, ${safeBottom})`,
-      },
-      [`.${e(`pl-${modifier}-${suffix}`)}`]: {
-        'padding-left': `max(${size}, ${safeLeft})`,
-      },
-    }),
+        [`.${e(`py-${modifier}-safe`)}`]: {
+          ...top, ...bottom,
+        },
+        [`.${e(`px-${modifier}-safe`)}`]: {
+          ...left, ...right,
+        },
+
+        [`.${e(`pt-${modifier}-safe`)}`]: top,
+        [`.${e(`pr-${modifier}-safe`)}`]: right,
+        [`.${e(`pb-${modifier}-safe`)}`]: bottom,
+        [`.${e(`pl-${modifier}-safe`)}`]: left,
+      }
+    },
   ]
-
   const utilities = flatMap(generators, (generator) => flatMap(paddings, generator))
-
+  const variants = config('variants.paddingSafe', config('variants.padding', {}))
   addUtilities(utilities, variants)
 }
