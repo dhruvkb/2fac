@@ -6,7 +6,7 @@ const paddingSafe = require('./src/tailwind/padding_safe')
 
 module.exports = {
   mode: 'jit',
-  darkMode: 'class',
+  darkMode: 'media',
   purge: [
     './public/index.html',
     './src/**/*.{vue,js,ts,css}',
