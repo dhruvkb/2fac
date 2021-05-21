@@ -2,6 +2,7 @@ import { createLogger, createStore } from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 
 import { module as twoFa } from '@/store/modules/two_fa/index'
+import { module as ui } from '@/store/modules/ui/index'
 
 import { Account, AccountInterface } from '@/models/account'
 
@@ -35,6 +36,7 @@ const store = createStore({
   plugins,
   modules: {
     twoFa,
+    ui,
   },
 })
 
