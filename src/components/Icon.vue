@@ -1,5 +1,5 @@
 <template>
-  <div class="icon" v-html="svgContent"/>
+  <div class="icon block" v-html="svgContent"/>
 </template>
 
 <script lang="ts">
@@ -50,10 +50,6 @@
 </script>
 
 <style lang="css">
-  .icon {
-    @apply block;
-  }
-
   .icon svg {
     @apply h-full w-full;
   }
