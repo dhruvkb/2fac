@@ -9,7 +9,7 @@ export interface TwoFaGetterTree<S, RS> extends GetterTree<S, RS> {
 
 export const getters: TwoFaGetterTree<TwoFaState, RootState> = {
   accountsJson(state: TwoFaState): string {
-    return JSON.stringify(
+    const json = JSON.stringify(
       state.accounts.sort((a, b) => {
         let diff = 0
         if (a.site && b.site) {
@@ -23,5 +23,6 @@ export const getters: TwoFaGetterTree<TwoFaState, RootState> = {
       null,
       2, // spaces for indentation
     )
+    return `${json}\n`
   },
 }
