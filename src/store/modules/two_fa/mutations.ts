@@ -12,7 +12,9 @@ export interface TwoFaMutationTree<S> extends MutationTree<S> {
 
   addAccount(state: S, payload: { account: Account }): void
 
-  removeAccount(state: S, payload: { slug: string }): void
+  updateAccount(state: S, payload: { uuid: string, accPojo: AccountInterface }): void
+
+  removeAccount(state: S, payload: { uuid: string }): void
 }
 
 export const mutations: TwoFaMutationTree<TwoFaState> = {
@@ -32,7 +34,13 @@ export const mutations: TwoFaMutationTree<TwoFaState> = {
   addAccount(state: TwoFaState, payload: { account: Account }) {
     state.accounts.push(payload.account)
   },
-  removeAccount(state: TwoFaState, payload: { slug: string }) {
-    state.accounts = state.accounts.filter((acc) => acc.slug !== payload.slug)
+  updateAccount(state: TwoFaState, payload: { uuid: string; accPojo: AccountInterface }) {
+    const account = state.accounts.find((acc) => acc.uuid === payload.uuid)
+    if (account) {
+      account.updateFromPojo(payload.accPojo)
+    }
+  },
+  removeAccount(state: TwoFaState, payload: { uuid: string }) {
+    state.accounts = state.accounts.filter((acc) => acc.uuid !== payload.uuid)
   },
 }

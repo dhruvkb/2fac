@@ -1,5 +1,13 @@
 import { TOTP } from 'otpauth'
 
+function uuid() {
+  return ([1e7, 1e3, 4e3, 8e3, 1e11].join('-')).replace(/[018]/g, (match) => {
+    const num = parseInt(match, 10)
+    // eslint-disable-next-line no-bitwise
+    return (num ^ Math.random() * 16 >> num / 4).toString(16)
+  })
+}
+
 export interface AccountInterface {
   secret: string
 
@@ -9,6 +17,8 @@ export interface AccountInterface {
 }
 
 export class Account implements AccountInterface {
+  uuid: string
+
   secret: string
 
   site?: string
@@ -19,19 +29,12 @@ export class Account implements AccountInterface {
   currentOtp!: string
 
   constructor(secret: string) {
+    this.uuid = uuid()
     this.secret = secret
     this.totp = new TOTP({
       secret: secret.replaceAll(' ', ''),
     })
     this.updateOtp()
-  }
-
-  get slug(): string {
-    const fqn = `${this.site}-${this.username}`
-    return fqn
-      .toLocaleLowerCase()
-      .replace(' ', '-')
-      .replace(/[^\w-]+/g, '')
   }
 
   get pojo(): AccountInterface {
@@ -51,11 +54,15 @@ export class Account implements AccountInterface {
     this.currentOtp = this.totp.generate()
   }
 
+  updateFromPojo(pojo: AccountInterface): void {
+    this.site = pojo.site
+    this.username = pojo.username
+    this.icon = pojo.icon
+  }
+
   static fromPojo(pojo: AccountInterface): Account {
     const account = new Account(pojo.secret)
-    account.site = pojo.site
-    account.username = pojo.username
-    account.icon = pojo.icon
+    account.updateFromPojo(pojo)
     return account
   }
 }
