@@ -20,15 +20,21 @@ plugins.push(createPersistedState({
 
     try {
       const data = JSON.parse(text)
-      data.twoFa.accounts ??= []
-      data.twoFa.accounts = data.twoFa.accounts
+      data.accounts ??= []
+      data.accounts = data.accounts
         .map((account: AccountInterface) => Account.fromPojo(account))
-      return data
+      return {
+        twoFa: data,
+      }
     } catch (ex) {
       console.error(ex)
     }
 
     return undefined
+  },
+  setState(key, state, storage) {
+    const twoFaState = state.twoFa
+    storage.setItem(key, JSON.stringify(twoFaState))
   },
 }))
 
