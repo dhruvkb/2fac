@@ -9,21 +9,22 @@
 
   @screen dr {
     :root {
-      scrollbar-width: thin;
-      scrollbar-color: #4b5563 #d1d5db;
       overflow-y: scroll;
+
+      scrollbar-width: thin;
+      scrollbar-color: gray transparent;
     }
 
-    :root ::-webkit-scrollbar {
+    :root::-webkit-scrollbar {
       @apply w-2 h-2;
     }
 
-    ::-webkit-scrollbar-thumb {
-      @apply bg-gray-600 rounded-full;
+    :root::-webkit-scrollbar-thumb {
+      background-color: gray;
     }
 
-    ::-webkit-scrollbar-track {
-      @apply bg-gray-300;
+    :root::-webkit-scrollbar-track {
+      background-color: transparent;
     }
   }
 }
