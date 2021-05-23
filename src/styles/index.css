@@ -29,27 +29,6 @@
 }
 
 @layer components {
-  .button {
-    min-width: 7.5em;
-    @apply inline-flex items-center justify-center;
-    @apply text-sm font-medium;
-    @apply px-2 py-0 h-8;
-    @apply border border-transparent rounded-md;
-
-    @apply focus:outline-none focus-visible:ring-1 focus-visible:ring-offset-1;
-
-    @apply disabled:opacity-50 disabled:cursor-not-allowed;
-  }
-
-  .input {
-    @apply appearance-none;
-    @apply text-sm;
-    @apply px-2 py-0 h-8;
-    @apply border border-gray-200 rounded-md;
-
-    @apply focus:outline-none focus-visible:ring-1 focus-visible:ring-offset-1;
-  }
-
   .wrapper {
     @apply sticky z-20;
     @apply bg-white;
