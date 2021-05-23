@@ -5,6 +5,7 @@ export interface UiState {
     isCloseToEnd: boolean
     isEditing: boolean
   }
+  icons: Record<string, string>
 }
 
 export const state = (): UiState => ({
@@ -14,4 +15,5 @@ export const state = (): UiState => ({
     isCloseToEnd: false,
     isEditing: false,
   },
+  icons: {} as Record<string, string>,
 })

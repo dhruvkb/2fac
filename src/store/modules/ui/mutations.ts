@@ -11,6 +11,9 @@ export interface TwoFaMutationTree<S> extends MutationTree<S> {
   setIsCloseToEnd(state: S, payload: { isCloseToEnd: boolean }): void
 
   setIsEditing(state: S, payload: { isEditing: boolean }): void
+
+  // Icons
+  setIcon(state: S, payload: { svgContent: string }): void
 }
 
 export const mutations: TwoFaMutationTree<UiState> = {
@@ -27,5 +30,10 @@ export const mutations: TwoFaMutationTree<UiState> = {
   },
   setIsEditing(state: UiState, payload: { isEditing: boolean }) {
     state.tokens.isEditing = payload.isEditing
+  },
+
+  // Icons
+  setIcon(state: UiState, payload: { name: string, svgContent: string }) {
+    state.icons[payload.name] = payload.svgContent
   },
 }

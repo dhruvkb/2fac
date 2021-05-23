@@ -6,41 +6,25 @@
   import {
     computed,
     defineComponent,
-    onMounted,
-    ref,
   } from 'vue'
+  import { useStore } from 'vuex'
 
   export default defineComponent({
     name: 'Icon',
     props: {
-      version: {
-        type: String,
-        default: '1.5.0',
-      },
       name: {
         type: String,
-      },
-      src: {
-        type: String,
+        required: true,
       },
     },
     setup(props) {
-      const url = computed(() => {
-        if (props.name) {
-          return `https://unpkg.com/bootstrap-icons@${props.version}/icons/${props.name}.svg`
-        } if (props.src) {
-          return props.src
-        }
-        throw Error('Either name or src is required.')
-      })
+      const store = useStore()
 
-      const svgContent = ref('')
-      const getSvgContent = async () => {
-        const res = await fetch(url.value)
-        svgContent.value = await res.text()
+      const svgContent = computed(() => store.state.ui.icons[props.name])
+      if (!svgContent.value) {
+        store.commit('ui/setIcon', { name: props.name, svgContent: 'PENDING' })
+        store.dispatch('ui/fetchIcon', { name: props.name })
       }
-
-      onMounted(getSvgContent)
 
       return {
         svgContent,
