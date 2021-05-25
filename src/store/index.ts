@@ -7,9 +7,6 @@ import { module as ui } from '@/store/modules/ui/index'
 import { Account, AccountInterface } from '@/models/account'
 
 const plugins = []
-if (process.env.NODE_ENV !== 'production') {
-  plugins.push(createLogger({}))
-}
 plugins.push(createPersistedState({
   key: '2fac',
   getState(key, storage) {
