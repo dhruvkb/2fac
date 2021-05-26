@@ -17,7 +17,7 @@
           leave="duration-300 ease-in"
           leave-from="opacity-100"
           leave-to="opacity-0">
-          <DialogOverlay class="fixed inset-0 bg-black opacity-75"/>
+          <DialogOverlay class="absolute inset-0 bg-black opacity-50"/>
         </TransitionChild>
 
         <TransitionChild
@@ -28,17 +28,30 @@
           leave="duration-300 ease-in"
           leave-from="translate-y-0 tp:translate-y-0 tp:opacity-1 tp:scale-100"
           leave-to="translate-y-full tp:translate-y-0 tp:opacity-0 tp:scale-95">
-          <div
-            class="absolute tp:static bottom-0 tp:bottom-1/2 bg-white pt-4 pb-4-safe tp:pb-4 w-full max-w-screen-tp rounded-t-xl tp:rounded-b-xl overflow-hidden shadow-xl transform transition-all">
-            <button
-              tabindex="-1"
-              class="absolute top-2 right-2 tp:hidden p-2 rounded-full mb-4 focus:outline-none"
-              @click="handleExit">
-              <Icon
-                class="h-5 w-5 text-gray-300"
-                name="x-circle-fill"/>
-            </button>
-            <slot/>
+          <div class="
+            absolute tp:static
+            bottom-0 tp:bottom-1/2
+            w-full max-w-screen-tp
+            shadow-xl
+            overflow-hidden
+            transform
+            transition-all">
+            <div class="
+              material
+              flex items-center justify-center
+              px-4-safe tp:px-4
+              h-12 w-full
+              rounded-t-xl">
+              <DialogTitle
+                as="h6"
+                class="font-medium">
+                <slot name="modal-title">Title</slot>
+              </DialogTitle>
+            </div>
+
+            <div class="content bg-gl-6 dark:bg-gd-5 pt-4 pb-4-safe tp:pb-4 sw-full tp:rounded-b-xl">
+              <slot/>
+            </div>
           </div>
         </TransitionChild>
       </div>
@@ -50,21 +63,20 @@
   import { defineComponent } from 'vue'
   import {
     Dialog,
+    DialogTitle,
     DialogOverlay,
     TransitionChild,
     TransitionRoot,
   } from '@headlessui/vue'
 
-  import Icon from '@/components/Icon.vue'
-
   export default defineComponent({
     name: 'Modal',
     components: {
       Dialog,
+      DialogTitle,
       DialogOverlay,
       TransitionRoot,
       TransitionChild,
-      Icon,
     },
     props: {
       isVisible: {
