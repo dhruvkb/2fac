@@ -1,7 +1,14 @@
 <template>
-  <div class="page max-w-prose px-4-safe mx-auto my-8" id="about">
-    <h2 class="font-bold text-3xl">About</h2>
+  <div class="max-w-screen-tl mx-auto px-4-safe mt-4">
+    <h2
+      class="font-bold text-3xl"
+      :class="headerClasses"
+      ref="marker">
+      About
+    </h2>
+  </div>
 
+  <div class="page max-w-screen-tl px-4-safe mx-auto mt-4 mb-8" id="about">
     <p class="mt-4">
       2Fac is a time-based OTP generator that can be used for two-factor
       authentication. 2FA helps secure your account by making the login process
@@ -17,14 +24,12 @@
       I can explain... let me explain...
     </p>
 
-    <div class="bg-white shadow-sm p-4 border border-gray-200 rounded-md mt-8">
+    <div class="bg-gl-6 dark:bg-gd-5 p-4 border border-sep-l dark:border-sep-d rounded-md shadow-sm mt-8">
       <div class="flex items-center gap-2">
-        <div class="bg-gradient-to-br from-pink-400 to-purple-600 h-10 w-10 p-2 rounded-lg">
-          <Icon
-            class="text-white h-6 w-6"
-            name="palette-fill"/>
-        </div>
-        <h3 class="font-bold text-purple-600 text-2xl">Unparalleled beauty</h3>
+        <Icon
+          class="h-6 w-6"
+          name="palette-fill"/>
+        <h3 class="font-bold text-2xl">Unparalleled beauty</h3>
       </div>
       <p class="mt-4">
         Hardly any of the authenticator apps focus on aesthetics and user
@@ -33,14 +38,12 @@
       </p>
     </div>
 
-    <div class="bg-white p-4 border border-gray-200 rounded-md shadow-sm mt-8">
+    <div class="bg-gl-6 dark:bg-gd-5 p-4 border border-sep-l dark:border-sep-d rounded-md shadow-sm mt-8">
       <div class="flex items-center gap-2">
-        <div class="bg-gradient-to-br from-red-400 to-yellow-600 h-10 w-10 p-2 rounded-lg">
-          <Icon
-            class="text-white h-6 w-6"
-            name="shield-lock-fill"/>
-        </div>
-        <h3 class="font-bold text-yellow-600 text-2xl">Data ownership</h3>
+        <Icon
+          class="h-6 w-6"
+          name="shield-lock-fill"/>
+        <h3 class="font-bold text-2xl">Data ownership</h3>
       </div>
       <p class="mt-4">
         Authenticator apps tend to lock you in. 2Fac does not need you to sign
@@ -49,14 +52,12 @@
       </p>
     </div>
 
-    <div class="bg-white p-4 border border-gray-200 rounded-md shadow-sm mt-8">
+    <div class="bg-gl-6 dark:bg-gd-5 p-4 border border-sep-l dark:border-sep-d rounded-md shadow-sm mt-8">
       <div class="flex items-center gap-2">
-        <div class="bg-gradient-to-br from-blue-400 to-indigo-600 h-10 w-10 p-2 rounded-lg">
-          <Icon
-            class="text-white h-6 w-6"
-            name="door-open-fill"/>
-        </div>
-        <h3 class="font-bold text-indigo-600 text-2xl">Unrestricted access</h3>
+        <Icon
+          class="h-6 w-6"
+          name="door-open-fill"/>
+        <h3 class="font-bold text-2xl">Unrestricted access</h3>
       </div>
       <p class="mt-4">
         Few authenticator apps support multi-device, and those that do are
@@ -65,14 +66,12 @@
       </p>
     </div>
 
-    <div class="bg-white p-4 border border-gray-200 rounded-md shadow-sm mt-8">
+    <div class="bg-gl-6 dark:bg-gd-5 p-4 border border-sep-l dark:border-sep-d rounded-md shadow-sm mt-8">
       <div class="flex items-center gap-2">
-        <div class="bg-gradient-to-br from-green-400 to-green-600 h-10 w-10 p-2 rounded-lg">
-          <Icon
-            class="text-white h-6 w-6"
-            name="file-earmark-code-fill"/>
-        </div>
-        <h3 class="font-bold text-green-600 text-2xl">Free and open source</h3>
+        <Icon
+          class="h-6 w-6"
+          name="file-earmark-code-fill"/>
+        <h3 class="font-bold text-2xl">Free and open source</h3>
       </div>
       <p class="mt-4">
         Most authenticator apps are closed source. 2Fac isn't. Every bit of the
@@ -85,13 +84,27 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue'
+  import { useStore } from 'vuex'
 
   import Icon from '@/components/Icon.vue'
+
+  import { intersection } from '@/plugins/intersection'
 
   export default defineComponent({
     name: 'About',
     components: {
       Icon,
+    },
+    setup() {
+      const store = useStore()
+      store.commit('ui/setCurrentPage', { currentPage: 'About' })
+
+      const { marker, headerClasses } = intersection()
+
+      return {
+        marker,
+        headerClasses,
+      }
     },
   })
 </script>
