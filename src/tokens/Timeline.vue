@@ -1,54 +1,50 @@
 <template>
-  <div
-    class="h-0.5 transition-colors"
-    :class="timelineClasses"
-    :style="timelineStyles"/>
+  <span>{{ timeConsumed }} / {{ timeRemaining }}</span>
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
-  import { mapMutations } from 'vuex'
+  import {
+    computed,
+    defineComponent, onBeforeUnmount, onMounted,
+    ref,
+  } from 'vue'
+  import { useStore } from 'vuex'
 
   export default defineComponent({
     name: 'Timeline',
-    data() {
-      return {
-        interval: 3e4,
-        percentage: 100,
+    setup() {
+      const store = useStore()
+
+      const interval = 30 // seconds
+      const timeConsumed = ref(0)
+      const updateTime = () => {
+        const seconds = Math.floor(Date.now() / 1e3)
+        timeConsumed.value = seconds % interval
+
+        if (timeConsumed.value === 25) {
+          store.commit('ui/setIsCloseToEnd', { isCloseToEnd: true })
+        }
+        if (timeConsumed.value === 0) {
+          store.commit('twoFa/updateAccounts')
+          store.commit('ui/setIsCloseToEnd', { isCloseToEnd: false })
+        }
       }
-    },
-    computed: {
-      timelineClasses() {
-        return [
-          (this.percentage < 20) ? 'bg-red-600' : 'bg-black',
-        ]
-      },
-      timelineStyles() {
-        return {
-          width: `${this.percentage}%`,
+      const timeRemaining = computed(() => interval - timeConsumed.value)
+
+      const timeTimer = ref(0)
+      onMounted(() => {
+        timeTimer.value = setInterval(updateTime, 1000)
+      })
+      onBeforeUnmount(() => {
+        if (timeTimer.value) {
+          clearInterval(timeTimer.value)
         }
-      },
-    },
-    methods: {
-      updatePercentage() {
-        const msSinceEpoch = Date.now()
-        const timeRemaining = this.interval - (msSinceEpoch % this.interval)
-        return (timeRemaining / this.interval) * 100
-      },
-      animate() {
-        const newPercentage = this.updatePercentage()
-        if (newPercentage > this.percentage) {
-          this.updateAccounts()
-        }
-        this.percentage = newPercentage
-        requestAnimationFrame(() => this.animate())
-      },
-      ...mapMutations('twoFa', [
-        'updateAccounts',
-      ]),
-    },
-    mounted() {
-      this.animate()
+      })
+
+      return {
+        timeConsumed,
+        timeRemaining,
+      }
     },
   })
 </script>
