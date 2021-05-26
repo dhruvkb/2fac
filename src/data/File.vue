@@ -19,41 +19,44 @@
             @change="updateFile"
             ref="fileInput">
           <label
-            tabindex="0"
-            class="button text-blue-900 bg-blue-100 hover:bg-blue-200 focus:ring-blue-500 cursor-pointer"
+            class="cursor-pointer"
             for="file">
-            Choose</label>
+            <ButtonControl class="pointer-events-none">Choose</ButtonControl>
+          </label>
           <span
             v-if="file"
             class="ml-2">
             {{ file.name }}
           </span>
+          <button
+            v-if="file"
+            class="text-rl dark:text-rd rounded-full ml-2 focus:outline-none focus-visible:ring-1 focus-visible:ring-rl dark:focus-visible:ring-rd"
+            @click="clearFile">
+            <Icon name="x"/>
+          </button>
         </div>
         <div class="flex items-center mt-4">
-          <button
-            class="button text-blue-900 bg-blue-100 hover:bg-blue-200 focus:ring-blue-500"
+          <ButtonControl
             :disabled="!file"
             @click="readFromFile">
             Import
-          </button>
+          </ButtonControl>
           <span
             v-if="outcome"
             class="ml-2"
-            :class="outcome.isSuccessful ? 'text-green-600' : 'text-red-600'">
+            :class="[...outcome.isSuccessful ? ['text-green-600'] : ['text-red-600']]">
             {{ outcome.message }}
           </span>
         </div>
       </div>
 
-      <div class="tl:pl-2 tl:border-l border-gray-200">
+      <div class="tl:pl-2 tl:border-l border-sep-l dark:border-sep-d">
         <h4 class="font-bold text-xl">Export</h4>
         <p class="mt-4">This will export and download a JSON file.</p>
         <div class="mt-4">
-          <button
-            class="button text-blue-900 bg-blue-100 hover:bg-blue-200 focus:ring-blue-500"
-            @click="writeToFile">
+          <ButtonControl @click="writeToFile">
             Export
-          </button>
+          </ButtonControl>
         </div>
       </div>
     </div>
@@ -65,8 +68,11 @@
   import { defineComponent } from 'vue'
   import { mapGetters, mapMutations } from 'vuex'
 
+  import ButtonControl from '@/components/ButtonControl.vue'
+
   import { Outcome } from '@/models/outcome'
   import { AccountInterface } from '@/models/account'
+  import Icon from '@/components/Icon.vue'
 
   interface FileInputEvent extends Event {
     target: HTMLInputElement & EventTarget
@@ -74,6 +80,10 @@
 
   export default defineComponent({
     name: 'File',
+    components: {
+      Icon,
+      ButtonControl,
+    },
     data() {
       return {
         outcome: null as Outcome<AccountInterface[]> | null,
@@ -89,6 +99,10 @@
       updateFile(event: FileInputEvent) {
         const [file] = event.target.files ?? []
         this.file = file
+      },
+      clearFile() {
+        (this.$refs.fileInput as HTMLInputElement).value = ''
+        this.file = null
       },
       readFromFile() {
         if (this.file === null) {
@@ -117,10 +131,7 @@
         reader.onerror = () => {
           console.error(reader.error)
         }
-        reader.onloadend = () => {
-          (this.$refs.fileInput as HTMLInputElement).value = ''
-          this.file = null
-        }
+        reader.onloadend = this.clearFile
         reader.readAsText(this.file)
       },
       writeToFile() {
