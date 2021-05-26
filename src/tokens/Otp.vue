@@ -1,17 +1,21 @@
 <template>
   <div class="flex flex-row-reverse tp:flex-row items-center">
     <button
-      class="font-mono text-2xl hover:underline focus:outline-none focus-visible:underline"
+      class="font-mono text-2xl hover:underline h-full focus:outline-none focus-visible:underline"
       @click.stop="copyOtp">
-      {{ firstThree }}<span class="text-gray-300 -mx-1 select-none">·</span>{{ lastThree }}
+      <span>{{ firstThree }}</span>
+      <span
+        class="-mx-1 transition-colors duration-300"
+        :class="[...isCloseToEnd ? ['text-rl', 'dark:text-rd'] : ['text-ll-3', 'dark:text-ld-3']]">·</span>
+      <span>{{ lastThree }}</span>
+      <span
+        class="text-ll-3 dark:text-ld-3 -mx-1 transition-opacity duration-300"
+        :class="[...isCloseToEnd ? [] : ['opacity-0']]">!</span>
     </button>
-    <div
-      class="mr-2 ml-2 transform transition duration-300"
-      :class="[ ...isCheckVisible ? [] : ['opacity-0', 'translate-x-2 tp:-translate-x-2'] ]">
-      <Icon
-        class="text-green-600 h-5 w-5"
-        name="clipboard-check"/>
-    </div>
+    <Icon
+      class="mx-2 text-gl dark:text-gd h-5 w-5 transform transition duration-300"
+      :class="[...isCheckVisible ? [] : ['opacity-0', 'translate-x-2', 'tp:-translate-x-2']]"
+      name="clipboard-check"/>
   </div>
 </template>
 
@@ -21,6 +25,7 @@
     defineComponent,
     ref,
   } from 'vue'
+  import { useStore } from 'vuex'
 
   import Icon from '@/components/Icon.vue'
 
@@ -36,6 +41,8 @@
       },
     },
     setup(props) {
+      const store = useStore()
+
       const firstThree = computed(() => props.otp.slice(0, 3))
       const lastThree = computed(() => props.otp.slice(3))
 
@@ -52,10 +59,15 @@
         }, 3000)
       }
 
+      const isCloseToEnd = computed(() => store.state.ui.tokens.isCloseToEnd)
+
       return {
         firstThree,
         lastThree,
+
         isCheckVisible,
+        isCloseToEnd,
+
         copyOtp,
       }
     },
