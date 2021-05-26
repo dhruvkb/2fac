@@ -1,38 +1,38 @@
 <template>
-  <Timeline class="sticky top-[53px] z-20"/>
+  <div class="max-w-screen-tl mx-auto px-4-safe mt-4">
+    <h2
+      class="font-bold text-3xl"
+      :class="headerClasses"
+      ref="marker">
+      Tokens
+    </h2>
 
-  <div class="page my-8" id="tokens">
-    <div class="max-w-screen-tl mx-auto px-4-safe">
-      <h2 class="font-bold text-3xl">Tokens</h2>
-
-      <div class="flex items-center justify-between gap-16 mx-auto mt-4"> <!-- Action bar -->
-        <div class="flex-grow relative flex items-center max-w-screen-mp">
-          <Icon
-            class="absolute left-2 h-4 w-4"
-            name="filter"/>
-          <input
-            v-model="filterQuery"
-            class="input w-full pl-8"
-            type="text"
-            placeholder="Filter"/>
+    <div class="flex items-center justify-between gap-16 mx-auto mt-2"> <!-- Action bar -->
+      <InputField
+        v-model="filterQuery"
+        class="flex-grow"
+        icon-name="filter"
+        type="text"
+        placeholder="Filter by site or username"/>
+      <teleport
+        v-if="isMobile"
+        to=".action-space.left">
+        <div class="flex items-center">
+          <ButtonControl @click="toggleEditMode">{{ isEditMode ? 'Done' : 'Edit' }}</ButtonControl>
         </div>
-        <teleport
-          to=".action-space"
-          :disabled="!isMobile">
-          <div class="flex items-center gap-2">
-            <button
-              class="button tp:hidden text-blue-900 bg-blue-100 hover:bg-blue-200 focus-visible:ring-blue-500">
-              Edit
-            </button>
-            <button
-              class="button text-green-900 bg-green-100 hover:bg-green-200 focus-visible:ring-green-500"
-              @click="toggleAdd">
-              Add
-            </button>
-          </div>
-        </teleport>
-      </div>
+      </teleport>
+      <teleport
+        to=".action-space.right"
+        :disabled="!isMobile">
+        <div class="flex items-center">
+          <ButtonControl @click="toggleAdd">Add</ButtonControl>
+        </div>
+      </teleport>
     </div>
+  </div>
+
+  <div class="page mt-4 mb-8" id="tokens">
+    <Timeline v-show="false"/><!-- Tracks time and updates tokens -->
 
     <transition-group
       v-if="filteredAccounts.length"
@@ -40,10 +40,10 @@
       leave-active-class="absolute -z-1"
       name="list-complete"
       tag="div"
-      class="grid tp:gap-4 grid-cols-1 tp:grid-cols-2 tl:grid-cols-3 dr:grid-cols-4 dw:grid-cols-6 tp:px-4-safe mt-4 -space-y-px">
+      class="grid tp:gap-4 grid-cols-1 tp:grid-cols-2 tl:grid-cols-3 dr:grid-cols-4 dw:grid-cols-6 tp:px-4-safe border-t border-b tp:border-none border-sep-l dark:border-sep-d mt-4 -space-y-px">
       <Account
         v-for="acc in filteredAccounts"
-        :key="acc.slug"
+        :key="acc.uuid"
         class="list-complete-item transition-all ease-in-out duration-300"
         :account="acc"/>
     </transition-group>
@@ -52,48 +52,48 @@
     </div>
 
     <Modal v-model:isVisible="isAdding">
-      <div class="px-4-safe">
-        <DialogTitle
-          as="h3"
-          class="font-bold text-2xl text-green-600">
-          Add new account
-        </DialogTitle>
-      </div>
-      <Add
-        class="mt-4"
-        @add="toggleAdd"/>
+      <template #modal-title>
+        Add new account
+      </template>
+      <AddUpdate @add="toggleAdd"/>
     </Modal>
   </div>
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, ref } from 'vue'
+  import {
+    computed,
+    defineComponent,
+    ref,
+  } from 'vue'
   import { useStore } from 'vuex'
-  import { DialogTitle } from '@headlessui/vue'
 
-  import Icon from '@/components/Icon.vue'
   import Modal from '@/components/Modal.vue'
+  import InputField from '@/components/InputField.vue'
+  import ButtonControl from '@/components/ButtonControl.vue'
 
   import Timeline from '@/tokens/Timeline.vue'
   import Account from '@/tokens/Account.vue'
-  import Add from '@/tokens/Add.vue'
+  import AddUpdate from '@/tokens/AddUpdate.vue'
 
   import { Account as Acc } from '@/models/account'
 
   import { isMobile } from '@/plugins/responsive'
+  import { intersection } from '@/plugins/intersection'
 
   export default defineComponent({
     name: 'Tokens',
     components: {
-      DialogTitle,
-      Icon,
+      ButtonControl,
+      InputField,
       Modal,
       Timeline,
       Account,
-      Add,
+      AddUpdate,
     },
     setup() {
       const store = useStore()
+      store.commit('ui/setCurrentPage', { currentPage: 'Tokens' })
 
       const filterQuery = ref('')
       const filteredAccounts = computed(() => store.state.twoFa.accounts
@@ -107,6 +107,13 @@
         isAdding.value = !isAdding.value
       }
 
+      const isEditMode = computed(() => store.state.ui.tokens.isEditing)
+      const toggleEditMode = () => {
+        store.commit('ui/setIsEditing', { isEditing: !isEditMode.value })
+      }
+
+      const { marker, headerClasses } = intersection()
+
       return {
         isMobile: computed(isMobile),
 
@@ -115,6 +122,12 @@
 
         isAdding,
         toggleAdd,
+
+        isEditMode,
+        toggleEditMode,
+
+        marker,
+        headerClasses,
       }
     },
   })
