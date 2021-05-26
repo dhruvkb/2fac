@@ -1,4 +1,4 @@
-import { createLogger, createStore } from 'vuex'
+import { createStore } from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 
 import { module as twoFa } from '@/store/modules/two_fa/index'
