@@ -86,7 +86,7 @@
         <template #modal-title>
           Edit {{ account.site }}
         </template>
-        <Add
+        <AddUpdate
           :account="account"
           @edit="toggleEdit"/>
       </Modal>
@@ -139,7 +139,7 @@
   import ButtonControl from '@/components/ButtonControl.vue'
 
   import Card from '@/tokens/Card.vue'
-  import Add from '@/tokens/Add.vue'
+  import AddUpdate from '@/tokens/AddUpdate.vue'
 
   import { Account } from '@/models/account'
   import { IconSvg } from '@/models/icon_svg'
@@ -156,7 +156,7 @@
       Icon,
       ButtonControl,
       Card,
-      Add,
+      AddUpdate,
     },
     props: {
       account: {
