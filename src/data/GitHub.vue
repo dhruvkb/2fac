@@ -7,34 +7,27 @@
       grant it access to that repo.
     </p>
 
-    <label class="block font-medium mt-4">
-      <span class="text-sm">GitHub access token:</span>
-      <div class="relative flex items-center">
-        <Icon
-          class="absolute left-2 h-4 w-4"
-          name="key"/>
-        <input
-          v-model="accessToken"
-          class="input font-mono w-full pl-8"
-          id="access-token"
-          type="text"
-          autocapitalize="off"
-          autocomplete="off"
-          spellcheck="false"
-          placeholder="GitHub access token">
-      </div>
-    </label>
+    <InputField
+      v-model="accessToken"
+      class="mt-4"
+      :input-classes="['font-mono']"
+      icon-name="github"
+      label="GitHub access token:"
+      type="text"
+      autocapitalize="off"
+      autocomplete="off"
+      spellcheck="false"
+      placeholder="GitHub access token"/>
     <div class="output flex items-center mt-2">
-      <button
-        class="button text-blue-900 bg-blue-100 hover:bg-blue-200 focus:ring-blue-500"
+      <ButtonControl
         :disabled="!accessToken"
         @click="validateToken">
         Log in
-      </button>
+      </ButtonControl>
       <span
         v-if="loginOutcome"
         class="ml-2"
-        :class="loginOutcome.isSuccessful ? 'text-green-600' : 'text-red-600'">
+        :class="[...loginOutcome.isSuccessful ? ['text-gl', 'dark:text-gd'] : ['text-rl', 'dark:text-rd']]">
         {{ loginOutcome.message }}
       </span>
     </div>
@@ -49,22 +42,21 @@
           <code class="text-sm bg-gray-100 p-1 rounded-md">{{ username }}/{{ repoName }}</code>.
         </p>
         <div class="action mt-4">
-          <button
-            class="button text-blue-900 bg-blue-100 hover:bg-blue-200 focus:ring-blue-500"
+          <ButtonControl
             :disabled="!username"
             @click="readFromGitHub">
             Import
-          </button>
+          </ButtonControl>
           <span
             v-if="readOutcome"
             class="ml-2"
-            :class="readOutcome.isSuccessful ? 'text-green-600' : 'text-red-600'">
+            :class="[...readOutcome.isSuccessful ? ['text-gl', 'dark:text-gd'] : ['text-rl', 'dark:text-rd']]">
             {{ readOutcome.message }}
           </span>
         </div>
       </div>
 
-      <div class="tl:pl-2 tl:border-l border-gray-200">
+      <div class="tl:pl-2 tl:border-l border-sep-l dark:border-sep-d">
         <h4 class="font-bold text-xl">Export</h4>
         <p class="mt-4" v-if="username">
           Will write
@@ -73,16 +65,15 @@
           <code class="text-sm bg-gray-100 p-1 rounded-md">{{ username }}/{{ repoName }}</code>.
         </p>
         <div class="action mt-4">
-          <button
-            class="button text-blue-900 bg-blue-100 hover:bg-blue-200 focus:ring-blue-500"
+          <ButtonControl
             :disabled="!username"
             @click="writeToGitHub">
             Export
-          </button>
+          </ButtonControl>
           <span
             v-if="writeOutcome"
             class="ml-2"
-            :class="writeOutcome.isSuccessful ? 'text-green-600' : 'text-red-600'">
+            :class="[...writeOutcome.isSuccessful ? ['text-gl', 'dark:text-gd'] : ['text-rl', 'dark:text-rd']]">
             {{ writeOutcome.message }}
           </span>
         </div>
@@ -96,7 +87,8 @@
   import { mapGetters, mapMutations } from 'vuex'
   import { Octokit } from '@octokit/rest'
 
-  import Icon from '@/components/Icon.vue'
+  import InputField from '@/components/InputField.vue'
+  import ButtonControl from '@/components/ButtonControl.vue'
 
   import { Outcome } from '@/models/outcome'
   import { AccountInterface } from '@/models/account'
@@ -112,7 +104,8 @@
   export default defineComponent({
     name: 'GitHub',
     components: {
-      Icon,
+      InputField,
+      ButtonControl,
     },
     data() {
       return {
