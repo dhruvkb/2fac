@@ -1,9 +1,9 @@
 <template>
   <footer class="flex items-center tp:flex-row pb-2-safe pt-2 px-4-safe">
-    <div class="hidden tp:block text-sm text-gray-600 p-2">
+    <div class="hidden tp:block text-sm text-ll-2 dark:text-ld-2 p-2">
       An experiment by
       <a
-        class="font-bold text-black hover:underline"
+        class="font-bold text-ll-1 dark:text-ld-1 hover:underline"
         href="https://dhruvkb.github.io/">
         @dhruvkb</a>.
     </div>
