@@ -1,6 +1,6 @@
 <template>
-  <div class="disclaimer bg-yellow-50 p-2 border border-yellow-200 rounded-md">
-    <strong class="text-yellow-600">
+  <div class="disclaimer bg-yellow-200 bg-opacity-25 px-4-safe tp:px-2 py-2 border-t border-b tp:border border-sep-l dark:border-sep-d tp:rounded-md">
+    <strong class="text-yellow-500">
       🚨 All your base are belong to <em>you</em>.
     </strong>
     <p class="mt-4">
