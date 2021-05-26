@@ -1,30 +1,36 @@
 <template>
   <div
-    class="flex items-center bg-white px-4-safe tp:px-2 py-2 border-t border-b tp:border-l tp:border-r border-gray-200 tp:rounded-md tp:shadow-sm">
-    <div class="flex items-center justify-center pr-2 border-r border-gray-200"><!-- Site icon -->
-      <svg
-        v-if="iconSvg"
-        class="h-8 w-8 text-gray-600"
-        viewBox="0 0 24 24">
-        <path :d="iconSvg.path" :fill="iconSvg.color"/>
-      </svg>
-      <Icon
-        v-else
-        class="h-8 w-8 text-gray-300"
-        name="person-badge"/>
+    class="card flex tp:items-center bg-gl-6 dark:bg-gd-5 tp:p-2 tp:border border-sep-l dark:border-sep-d tp:rounded-md">
+    <div class="flex items-center justify-center py-2 tp:py-0 py-2 tp:py-0 pl-4-safe tp:pl-0 pr-4"><!-- Site logo -->
+      <div
+        class="h-9 w-9 flex items-center justify-center rounded-md"
+        :class="[...iconSvg ? [] : ['bg-gd-5', 'dark:bg-gl-6']]"
+        :style="{...iconSvg ? {backgroundColor: iconSvg.color} : {}}">
+        <svg
+          v-if="iconSvg"
+          class="h-6 w-6"
+          viewBox="0 0 24 24">
+          <path :d="iconSvg.path" :fill="tone"/>
+        </svg>
+        <Icon
+          v-else
+          class="h-6 w-6 text-ld-1 dark:text-ll-1"
+          name="person-badge"/>
+      </div>
     </div>
 
-    <div class="flex-grow flex flex-col pl-2 min-w-0"><!-- Account info -->
+    <div class="acc flex-grow flex flex-col justify-center py-2 tp:py-0 min-w-0 tp:border-none border-sep-l dark:border-sep-d"><!-- Account info -->
       <div class="font-medium text-sm whitespace-nowrap overflow-hidden overflow-ellipsis">{{ site }}</div>
-      <div class="text-sm text-gray-600 whitespace-nowrap overflow-hidden overflow-ellipsis">{{ username }}</div>
+      <div class="text-sm text-ll-2 dark:text-ld-2 whitespace-nowrap overflow-hidden overflow-ellipsis">{{ username }}</div>
       <Otp
         v-if="otp"
         class="hidden tp:flex mt-2"
         :otp="otp"/>
     </div>
 
-    <div class="flex items-center tp:hidden">
+    <div class="otp flex items-center tp:hidden pr-4-safe border-sep-l dark:border-sep-d"><!-- OTP -->
       <Otp
+        class="h-full"
         v-if="otp"
         :otp="otp"/>
     </div>
@@ -41,6 +47,8 @@
   import Otp from '@/tokens/Otp.vue'
 
   import { IconSvg } from '@/models/icon_svg'
+
+  import { rgbFromHex, perceivedLuminance } from '@/support/color'
 
   export default defineComponent({
     name: 'Card',
@@ -62,11 +70,24 @@
         type: String,
       },
     },
-    data() {
-      return {
-        checkVisible: false,
-        checkTimer: 0,
-      }
+    computed: {
+      tone(): string | null {
+        if (this.iconSvg) {
+          const luminance = perceivedLuminance(rgbFromHex(this.iconSvg.color))
+          if (luminance < 0.5) {
+            return 'white'
+          }
+          return 'black'
+        }
+        return null
+      },
     },
   })
 </script>
+
+<style scoped lang="css">
+  .card .acc,
+  .card .otp {
+    border-top-width: var(--mp-border-top);
+  }
+</style>
