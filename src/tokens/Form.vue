@@ -1,94 +1,98 @@
 <template>
   <div>
-    <form>
-      <label>
-        <span class="text-sm font-medium">Secret:</span>
-        <div class="relative flex items-center">
-          <Icon
-            class="absolute left-2 h-4 w-4"
-            name="key"/>
-          <input
-            class="input font-mono w-full pl-8"
-            type="text"
-            autocapitalize="off"
-            autocomplete="off"
-            spellcheck="false"
-            placeholder="Secret"
-            :value="secret"
-            :disabled="lockSecret"
-            :readonly="lockSecret"
-            @input="event => handleUpdate('secret', event)">
-        </div>
-      </label>
+    <form class="px-4">
+      <InputField
+        :input-classes="['font-mono']"
+        icon-name="key"
+        label="Secret:"
+        type="text"
+        autocapitalize="off"
+        autocomplete="off"
+        spellcheck="false"
+        placeholder="Secret"
+        :model-value="secret"
+        is-required
+        :disabled="lockSecret"
+        @update:model-value="value => handleUpdate('secret', value)"/>
       <div class="grid grid-cols-2 gap-2 mt-2">
-        <label>
-          <span class="text-sm font-medium">Site:</span>
-          <div class="relative flex items-center">
-            <Icon
-              class="absolute left-2 h-4 w-4"
-              name="globe"/>
-            <input
-              class="input w-full pl-8"
-              type="text"
-              placeholder="Site"
-              :value="site"
-              @input="event => handleUpdate('site', event)">
-          </div>
-        </label>
-        <label>
-          <span class="text-sm font-medium">Username:</span>
-          <div class="relative flex items-center">
-            <Icon
-              class="absolute left-2 h-4 w-4"
-              name="person"/>
-            <input
-              class="input w-full pl-8"
-              type="text"
-              placeholder="Username"
-              :value="username"
-              @input="event => handleUpdate('username', event)">
-          </div>
-        </label>
+        <InputField
+          icon-name="globe"
+          label="Site:"
+          type="text"
+          spellcheck="false"
+          placeholder="Site"
+          :model-value="site"
+          is-required
+          @update:model-value="value => handleUpdate('site', value)"/>
+        <InputField
+          icon-name="person"
+          label="Username:"
+          type="text"
+          autocapitalize="off"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="Username"
+          :model-value="username"
+          @update:model-value="value => handleUpdate('username', value)"/>
       </div>
-      <div class="flex items-end gap-2 mt-2">
-        <label class="flex-grow">
-          <span class="text-sm font-medium">Icon:</span>
-          <div class="relative flex items-center">
-            <Icon
-              class="absolute left-2 h-4 w-4"
-              name="app"/>
-            <input
-              class="input w-full pl-8"
-              type="text"
-              autocapitalize="off"
-              autocomplete="off"
-              spellcheck="false"
-              placeholder="Icon"
-              :value="icon"
-              ref="iconField"
-              @input="event => handleUpdate('icon', event)">
-          </div>
-        </label>
-        <button
-          class="button text-green-600 bg-green-100 hover:bg-green-200 focus-visible:ring-green-500"
-          type="button"
-          @click="handleGetIcon">
-          Get icon
-        </button>
+      <div class="flex items-end gap-4 mt-2">
+        <InputField
+          class="flex-grow"
+          icon-name="app"
+          label="Icon:"
+          type="text"
+          autocapitalize="off"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="Icon"
+          :model-value="icon"
+          @update:model-value="value => handleUpdate('icon', value)"/>
       </div>
+      <p class="mt-2 text-xs">
+        Please use SVG names from
+        <a
+          class="underline"
+          href="https://simpleicons.org"
+          target="_blank">Simple Icons</a>.
+      </p>
     </form>
+    <div class="border-t border-b tp:border-none border-sep-l dark:border-sep-d mt-4 tp:px-4">
+      <Card
+        class="card"
+        :site="site"
+        :username="username"
+        :icon-svg="iconSvg"
+        :otp="otp"/>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-  import { ref, defineComponent } from 'vue'
+  import {
+    computed,
+    defineComponent,
+    nextTick,
+    onBeforeUnmount,
+    onMounted,
+    ref,
+  } from 'vue'
+  import { useStore } from 'vuex'
+  import { TOTP } from 'otpauth'
+  import debounce from 'lodash/debounce'
 
-  import Icon from '@/components/Icon.vue'
+  import InputField from '@/components/InputField.vue'
+
+  import Card from '@/tokens/Card.vue'
+
+  import { IconSvg } from '@/models/icon_svg'
+
+  import { getIcon } from '@/support/simple_icons'
 
   export default defineComponent({
     name: 'Form',
     components: {
-      Icon,
+      Card,
+      InputField,
     },
     props: {
       secret: {
@@ -108,19 +112,71 @@
       },
     },
     setup(props, { emit }) {
-      const iconField = ref(null)
+      const store = useStore()
 
-      const handleUpdate = (field: string, event: InputEvent) => {
-        emit(`update:${field}`, (event.target as HTMLInputElement).value)
+      const totp = computed(() => {
+        if (props.secret) {
+          return new TOTP({ secret: props.secret.replaceAll(' ', '') })
+        }
+        return null
+      })
+
+      const iconSvg = ref(null as IconSvg | null)
+      const handleGetIcon = async () => {
+        if (props.icon) {
+          iconSvg.value = await getIcon(props.icon)
+        } else {
+          iconSvg.value = null
+        }
       }
-      const handleGetIcon = () => {
-        emit('getIcon', iconField.value)
+      const handleGetIconDebounced = debounce(() => {
+        nextTick(handleGetIcon)
+      }, 1000)
+
+      const otp = ref(null as string | null)
+      const handleRefreshOtp = () => {
+        otp.value = totp.value?.generate() ?? null
       }
+
+      const handleUpdate = (field: string, value: unknown) => {
+        console.log(field, value)
+        emit(`update:${field}`, value)
+        if (field === 'secret') {
+          nextTick(handleRefreshOtp)
+        }
+        if (field === 'icon') {
+          handleGetIconDebounced()
+        }
+      }
+
+      let unsubscribe: () => void
+      onMounted(() => {
+        unsubscribe = store.subscribe((mutation: { type: string }) => {
+          if (mutation.type === 'twoFa/updateAccounts') {
+            handleRefreshOtp()
+          }
+        })
+        nextTick(handleGetIcon)
+        nextTick(handleRefreshOtp)
+      })
+      onBeforeUnmount(() => {
+        if (unsubscribe) {
+          unsubscribe()
+        }
+      })
 
       return {
+        iconSvg,
+        otp,
+
         handleUpdate,
-        handleGetIcon,
       }
     },
   })
 </script>
+
+<style scoped lang="css">
+  .card {
+    --mp-border-top: 0px;
+  }
+</style>
