@@ -31,17 +31,18 @@
           <div class="
             absolute tp:static
             bottom-0 tp:bottom-1/2
+            bg-gl-6 dark:bg-gd-5
             w-full max-w-screen-tp
+            rounded-t-xl
             shadow-xl
             overflow-hidden
             transform
             transition-all">
             <div class="
-              material
               flex items-center justify-center
               px-4-safe tp:px-4
               h-12 w-full
-              rounded-t-xl">
+              border-b border-sep-l dark:border-sep-d">
               <DialogTitle
                 as="h6"
                 class="font-medium">
@@ -49,7 +50,7 @@
               </DialogTitle>
             </div>
 
-            <div class="content bg-gl-6 dark:bg-gd-5 pt-4 pb-4-safe tp:pb-4 sw-full tp:rounded-b-xl">
+            <div class="content pt-4 pb-4-safe tp:pb-4 sw-full tp:rounded-b-xl">
               <slot/>
             </div>
           </div>
