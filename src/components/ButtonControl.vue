@@ -28,13 +28,13 @@
       const buttonClasses = computed(() => {
         if (props.isDangerous) {
           return [
-            'text-rl', 'dark:text-rd', 'tp:text-white',
+            'text-rl', 'dark:text-rd', 'tp:text-white', 'dark:tp:text-white',
             'tp:bg-rl', 'dark:tp-bg-rd',
             'focus-visible:ring-rl', 'dark:focus-visible:ring-rd',
           ]
         }
         return [
-          'text-bl', 'dark:text-bd', 'tp:text-white',
+          'text-bl', 'dark:text-bd', 'tp:text-white', 'dark:tp:text-white',
           'tp:bg-bl', 'dark:tp-bg-bd',
           'focus-visible:ring-bl', 'dark:focus-visible:ring-bd',
         ]
