@@ -1,5 +1,8 @@
 <template>
-  <div class="icon block" v-html="svgContent"/>
+  <div
+    v-if="svgContent !== 'PENDING'"
+    v-html="svgContent"
+    class="icon block"/>
 </template>
 
 <script lang="ts">
