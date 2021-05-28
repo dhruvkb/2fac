@@ -22,10 +22,10 @@ const getBreakpoint = (w: number): string => {
       return breakpointName
     }
   }
-  return 'z'
+  return 'mp'
 }
 
-export const isMobile = (): boolean => ['z', 'mp'].includes(breakpoint.name)
+export const isMobile = (): boolean => breakpoint.name === 'mp'
 
 export const isTablet = (): boolean => breakpoint.name.startsWith('t')
 
