@@ -7,6 +7,14 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  :root {
+    @apply bg-gl-6;
+  }
+
+  :root.dark {
+    @apply bg-gd-6;
+  }
+
   @screen dr {
     :root {
       overflow-y: scroll;
