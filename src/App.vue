@@ -24,9 +24,13 @@
   import Footer from '@/components/Footer.vue'
 
   import {
-    addListener,
+    addListener as addResponsiveListener,
     setBreakpoint,
   } from '@/plugins/responsive'
+  import {
+    addListener as addThemingListener,
+    setTheme,
+  } from '@/plugins/theming'
   import { useStore } from 'vuex'
 
   export default defineComponent({
@@ -38,7 +42,10 @@
       const store = useStore()
 
       setBreakpoint()
-      addListener()
+      addResponsiveListener()
+
+      setTheme()
+      addThemingListener()
 
       const isHeadingIntersecting = computed(() => store.state.ui.isHeadingIntersecting)
       const headerClasses = computed(() => [
