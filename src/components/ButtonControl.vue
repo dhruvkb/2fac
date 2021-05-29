@@ -10,6 +10,7 @@
       focus-visible:ring-1
       focus-visible:ring-offset-1 focus-visible:ring-offset-white dark:focus-visible:ring-offset-black"
     :class="[...buttonClasses]">
+    <!-- @slot Content goes here -->
     <slot/>
   </button>
 </template>
@@ -20,6 +21,10 @@
   export default defineComponent({
     name: 'ButtonControl',
     props: {
+      /**
+       * _whether the button performs a dangerous operation_; This colors the
+       * button red as a visual indicator of danger.
+       */
       isDangerous: {
         type: Boolean,
       },
