@@ -15,7 +15,7 @@ module.exports = {
       }
     },
 
-    'storybook-addon-themes',
+    '@dhruvkb/storybook-addon-themes',
   ],
   core: {
     builder: 'webpack5',
