@@ -1,0 +1,5 @@
+body, /* Shown in 'Canvas' tab */
+.docs-story /* Shown in 'Docs' tab */ {
+  @apply bg-gl-5 dark:bg-gd-6;
+  @apply text-ll-1 dark:text-ld-1;
+}

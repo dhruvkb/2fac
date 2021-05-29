@@ -10,7 +10,7 @@ module.exports = {
   darkMode: 'class',
   purge: [
     './public/index.html',
-    './src/**/*.{vue,js,ts,css}',
+    './src/**/*.{vue,js,ts,css,mdx}',
   ],
   theme: {
     extend: {
