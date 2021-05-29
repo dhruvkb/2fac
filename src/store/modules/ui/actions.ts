@@ -14,10 +14,12 @@ export const actions: UiActionTree<UiState, RootState> = {
   async fetchIcon({ commit }, payload) {
     const url = `https://unpkg.com/bootstrap-icons@1.5.0/icons/${payload.name}.svg`
     const res = await fetch(url)
-    const svgContent = await res.text()
-    commit('setIcon', {
-      name: payload.name,
-      svgContent,
-    })
+    if (res.ok) {
+      const svgContent = await res.text()
+      commit('setIcon', {
+        name: payload.name,
+        svgContent,
+      })
+    }
   },
 }
