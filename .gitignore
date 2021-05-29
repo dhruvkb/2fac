@@ -26,3 +26,4 @@ yarn-error.log*
 # Output files
 /docs
 /dist
+/storybook-static
