@@ -2,10 +2,9 @@
   <div>
     <form class="px-4">
       <InputField
-        :input-classes="['font-mono']"
+        class="font-mono"
         icon-name="key"
         label="Secret:"
-        type="text"
         autocapitalize="off"
         autocomplete="off"
         spellcheck="false"
@@ -18,7 +17,6 @@
         <InputField
           icon-name="globe"
           label="Site:"
-          type="text"
           spellcheck="false"
           placeholder="Site"
           :model-value="site"
@@ -27,7 +25,6 @@
         <InputField
           icon-name="person"
           label="Username:"
-          type="text"
           autocapitalize="off"
           autocomplete="off"
           spellcheck="false"
@@ -37,10 +34,9 @@
       </div>
       <div class="flex items-end gap-4 mt-2">
         <InputField
-          class="flex-grow"
+          :wrapper-classes="['flex-grow']"
           icon-name="app"
           label="Icon:"
-          type="text"
           autocapitalize="off"
           autocomplete="off"
           spellcheck="false"

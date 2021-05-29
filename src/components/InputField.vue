@@ -1,7 +1,7 @@
 <template>
   <label
     class="block"
-    :class="$attrs.class">
+    :class="wrapperClasses">
     <span
       v-if="label"
       class="block text-sm font-medium">
@@ -25,11 +25,11 @@
           focus:outline-none
           focus-visible:ring-1 focus-visible:ring-bl dark:focus-visible:ring-bd
           focus-visible:ring-offset-1 focus-visible:ring-offset-white dark:focus-visible:ring-offset-black"
-        v-bind="attrs"
-        :class="[...inputClasses, ...iconName ? ['pl-9'] : []]"
-        :value="modelValue"
-        tabindex="0"
-        @input="handleInput"/>
+        v-bind="$attrs"
+        v-model="modelValue_"
+        :class="[...iconName ? ['pl-9'] : []]"
+        :required="isRequired"
+        tabindex="0"/>
     </div>
   </label>
 </template>
@@ -38,6 +38,10 @@
   import { defineComponent } from 'vue'
   import Icon from '@/components/Icon.vue'
 
+  /**
+   * An input field is used for textual input to the application. This component
+   * is a transparent wrapper over the HTML `input` element with type 'text'.
+   */
   export default defineComponent({
     inheritAttrs: false,
     name: 'InputField',
@@ -45,32 +49,62 @@
       Icon,
     },
     props: {
+      /**
+       * _the text label associated with the input field_; Set this wherever
+       * possible, for accessibility.
+       */
       label: {
         type: String,
       },
+      /**
+       * _the name of the icon to show inside the input field_; Use a name from
+       * the [Bootstrap icons set](https://icons.getbootstrap.com).
+       */
       iconName: {
         type: String,
       },
-      inputClasses: {
+      /**
+       * _an array of classes for the wrapper `label` element_; All classes set
+       * directly on the component are passed down to the enclosed `input`
+       * element.
+       */
+      wrapperClasses: {
         type: Array,
         default: () => [],
       },
+      /**
+       * _whether an input is required in the field_; Setting this places a red
+       * asterisk on the label as an indicator.
+       */
       isRequired: {
         type: Boolean,
       },
-      modelValue: {},
-    },
-    computed: {
-      attrs(): Record<string, unknown> {
-        const attrs = { ...this.$attrs }
-        delete attrs.class
-        delete attrs.style
-        return attrs
+      /**
+       * _the value to set on the input field_; This is used by `v-model`.
+       */
+      modelValue: {
+        type: String,
+        default: '',
       },
     },
-    methods: {
-      handleInput(event: InputEvent) {
-        this.$emit('update:modelValue', (event.target as HTMLInputElement).value)
+    emits: {
+      'update:modelValue': (val: unknown) => typeof val === 'string',
+    },
+    computed: {
+      modelValue_: {
+        get(): string {
+          return this.modelValue
+        },
+        set(val: string): void {
+          /**
+           * _update event for the `modelValue` prop_; This is best used with
+           * the `v-model` functionality.
+           *
+           * @event update:modelValue
+           * @property {string} the updated value of the `v-model`-ed string
+           */
+          this.$emit('update:modelValue', val)
+        },
       },
     },
   })

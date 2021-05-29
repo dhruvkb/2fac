@@ -9,11 +9,10 @@
 
     <InputField
       v-model="accessToken"
-      class="mt-4"
-      :input-classes="['font-mono']"
+      class="font-mono"
+      :wrapper-classes="['mt-4']"
       icon-name="github"
       label="GitHub access token:"
-      type="text"
       autocapitalize="off"
       autocomplete="off"
       spellcheck="false"

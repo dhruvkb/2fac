@@ -10,9 +10,8 @@
     <div class="flex items-center justify-between gap-16 mx-auto mt-2"> <!-- Action bar -->
       <InputField
         v-model="filterQuery"
-        class="flex-grow"
+        :wrapper-classes="['flex-grow']"
         icon-name="filter"
-        type="text"
         placeholder="Filter by site or username"/>
       <teleport
         v-if="isMobile"
