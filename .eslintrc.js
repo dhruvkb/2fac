@@ -23,6 +23,7 @@ module.exports = {
       ],
       rules: {
         'lines-between-class-members': ['warn', 'always', { exceptAfterSingleLine: true }],
+        'no-underscore-dangle': 'off',
       },
     },
     {
