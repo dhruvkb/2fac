@@ -1,25 +1,33 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory } from '@ionic/vue-router'
+
+import Tabs from '@/views/Tabs.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'tokens',
-    component: () => import(/* webpackChunkName: "tokens" */ '@/pages/Tokens.vue'),
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component: () => import(/* webpackChunkName: "about" */ '@/pages/About.vue'),
-  },
-  {
-    path: '/data',
-    name: 'data',
-    component: () => import(/* webpackChunkName: "data" */ '@/pages/Data.vue'),
+    component: Tabs,
+    children: [
+      {
+        path: '',
+        redirect: { name: 'tokens' },
+      },
+      {
+        path: 'tokens',
+        name: 'tokens',
+        component: () => import(/* webpackChunkName: "tokens" */ '@/pages/Tokens.vue'),
+      },
+      {
+        path: 'settings',
+        name: 'settings',
+        component: () => import(/* webpackChunkName: "settings" */ '@/pages/Settings.vue'),
+      },
+    ],
   },
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(process.env.BASE_URL),
   routes,
 })
 
