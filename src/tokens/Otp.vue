@@ -1,43 +1,41 @@
 <template>
-  <div class="flex flex-row-reverse tp:flex-row items-center">
-    <button
-      class="font-mono text-2xl hover:underline h-full focus:outline-none focus-visible:underline"
-      @click.stop="copyOtp">
-      <span>{{ firstThree }}</span>
-      <span
-        class="-mx-1 transition-colors duration-300"
-        :class="[...isCloseToEnd ? ['text-rl', 'dark:text-rd'] : ['text-ll-3', 'dark:text-ld-3']]">·</span>
-      <span>{{ lastThree }}</span>
-      <span
-        class="text-ll-3 dark:text-ld-3 -mx-1 transition-opacity duration-300"
-        :class="[...isCloseToEnd ? [] : ['opacity-0']]">!</span>
-    </button>
-    <Icon
-      class="mx-2 text-gl dark:text-gd h-5 w-5 transform transition duration-300"
-      :class="[...isCheckVisible ? [] : ['opacity-0', 'translate-x-2', 'tp:-translate-x-2']]"
-      name="clipboard-check"/>
-  </div>
+  <button
+    class="otp font-mono text-xl leading-none p-0"
+    :class="[{ 'is-close-to-end': isCloseToEnd }]"
+    @click="copyOtp">
+    <span class="part">{{ firstThree }}</span>
+    <span>{{ lastThree }}</span>
+  </button>
 </template>
 
 <script lang="ts">
   import {
     computed,
     defineComponent,
-    ref,
   } from 'vue'
   import { useStore } from 'vuex'
 
-  import Icon from '@/components/Icon.vue'
+  import { toastController } from '@ionic/vue'
+  import { clipboardOutline } from 'ionicons/icons'
 
   export default defineComponent({
     name: 'Otp',
-    components: {
-      Icon,
-    },
     props: {
+      /**
+       * _the name of the site associated with the OTP_; This name appears
+       * in the toast notification.
+       */
+      site: {
+        type: String,
+        required: true,
+      },
+      /**
+       * _the OTP string to display_; It should be six-characters long.
+       */
       otp: {
         type: String,
         required: true,
+        validator: (val: string): boolean => val.length === 6,
       },
     },
     setup(props) {
@@ -46,26 +44,34 @@
       const firstThree = computed(() => props.otp.slice(0, 3))
       const lastThree = computed(() => props.otp.slice(3))
 
-      const isCheckVisible = ref(false)
-      const checkTimer = ref(0)
+      const openToast = async (isSuccessful = false) => {
+        const toast = await toastController
+          .create({
+            message: isSuccessful
+              ? `🎉 Copied OTP for <strong>${props.site}</strong> to clipboard!`
+              : '😭 Could not copy OTP.',
+            duration: 3e3,
+            color: 'dark',
+          })
+        return toast.present()
+      }
       const copyOtp = () => {
-        navigator.clipboard.writeText(props.otp)
-        if (checkTimer.value) {
-          clearTimeout(checkTimer.value)
+        if (isSecureContext) {
+          navigator.clipboard.writeText(props.otp)
+          openToast(true)
+        } else {
+          openToast()
         }
-        isCheckVisible.value = true
-        checkTimer.value = setTimeout(() => {
-          isCheckVisible.value = false
-        }, 3000)
       }
 
       const isCloseToEnd = computed(() => store.state.ui.tokens.isCloseToEnd)
 
       return {
+        clipboardOutline,
+
         firstThree,
         lastThree,
 
-        isCheckVisible,
         isCloseToEnd,
 
         copyOtp,
@@ -73,3 +79,18 @@
     },
   })
 </script>
+
+<style scoped lang="css">
+  .otp {
+    color: var(--l-1);
+
+    .part::after {
+      content: "‐";
+      color: var(--l-3);
+    }
+
+    &.is-close-to-end .part::after {
+      color: var(--ion-color-danger);
+    }
+  }
+</style>
