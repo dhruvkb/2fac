@@ -1,11 +1,13 @@
 <template>
-  <span>{{ timeConsumed }} / {{ timeRemaining }}</span>
+  <span v-show="false">&nbsp;</span>
 </template>
 
-<script>
+<script lang="ts">
   import {
     computed,
-    defineComponent, onBeforeUnmount, onMounted,
+    defineComponent,
+    onBeforeUnmount,
+    onMounted,
     ref,
   } from 'vue'
   import { useStore } from 'vuex'
