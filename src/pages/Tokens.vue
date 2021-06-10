@@ -1,133 +1,202 @@
 <template>
-  <div class="max-w-screen-tl mx-auto px-4-safe mt-4">
-    <h2
-      class="font-bold text-3xl"
-      :class="headerClasses"
-      ref="marker">
-      Tokens
-    </h2>
+  <IonPage>
+    <IonHeader
+      v-if="isPlatform('ios')"
+      translucent>
+      <IonToolbar>
+        <IonButtons slot="primary">
+          <IonButton
+            color="brand"
+            @click="setModalVisible(true)">
+            <IonIcon
+              slot="icon-only"
+              :icon="addOutline"/>
+          </IonButton>
+        </IonButtons>
+        <IonTitle>Tokens</IonTitle>
+      </IonToolbar>
+    </IonHeader>
 
-    <div class="flex items-center justify-between gap-16 mx-auto mt-2"> <!-- Action bar -->
-      <InputField
-        v-model="filterQuery"
-        :wrapper-classes="['flex-grow']"
-        icon-name="filter"
-        placeholder="Filter by site or username"/>
-      <teleport
-        v-if="isMobile"
-        to=".action-space.left">
-        <div class="flex items-center">
-          <ButtonControl @click="toggleEditMode">{{ isEditMode ? 'Done' : 'Edit' }}</ButtonControl>
-        </div>
-      </teleport>
-      <teleport
-        to=".action-space.right"
-        :disabled="!isMobile">
-        <div class="flex items-center">
-          <ButtonControl @click="toggleAdd">Add</ButtonControl>
-        </div>
-      </teleport>
-    </div>
-  </div>
+    <IonContent fullscreen>
+      <IonHeader
+        v-if="isPlatform('ios')"
+        collapse="condense">
+        <IonToolbar>
+          <IonTitle size="large">Tokens</IonTitle>
+        </IonToolbar>
 
-  <div class="page mt-4 mb-8" id="tokens">
-    <Timeline v-show="false"/><!-- Tracks time and updates tokens -->
+        <IonToolbar>
+          <IonSearchbar
+            v-model="filterQuery"
+            inputmode="search"
+            :searchIcon="filterOutline"
+            placeholder="Filter accounts"/>
+        </IonToolbar>
+      </IonHeader>
 
-    <transition-group
-      v-if="filteredAccounts.length"
-      enter-from-class="opacity-0 transform translate-y-2"
-      leave-active-class="absolute -z-1"
-      name="list-complete"
-      tag="div"
-      class="grid tp:gap-4 grid-cols-1 tp:grid-cols-2 tl:grid-cols-3 dr:grid-cols-4 dw:grid-cols-6 tp:px-4-safe border-t border-b tp:border-none border-sep-l dark:border-sep-d mt-4 -space-y-px">
-      <Account
-        v-for="acc in filteredAccounts"
-        :key="acc.uuid"
-        class="list-complete-item transition-all ease-in-out duration-300"
-        :account="acc"/>
-    </transition-group>
-    <div v-else class="text-center p-2 mt-4">
-      It's a little lonely in here.
-    </div>
+      <div
+        v-else
+        class="search-container px-2"><!-- px-2 to align with the list below -->
+        <IonSearchbar
+          v-model="filterQuery"
+          inputmode="search"
+          :searchIcon="filterOutline"
+          placeholder="Filter accounts"/>
+      </div>
 
-    <Modal v-model:isVisible="isAdding">
-      <template #modal-title>
-        Add new account
-      </template>
-      <AddUpdate @add="toggleAdd"/>
-    </Modal>
-  </div>
+      <div ref="marker"/>
+      <Timeline/>
+
+      <IonList :lines="isPlatform('ios') ? 'inset' : 'none'">
+        <Account
+          v-for="acc in accounts"
+          :key="acc.uuid"
+          :account="acc"/>
+      </IonList>
+    </IonContent>
+
+    <IonFab
+      v-if="!isPlatform('ios')"
+      vertical="bottom"
+      horizontal="end"
+      slot="fixed">
+      <IonButton
+        class="fab normal-case h-14 min-w-14"
+        :class="[...isIntersecting ? [] : ['collapsed']]"
+        @click="setModalVisible(true)">
+        <IonIcon class="icon" :icon="addOutline"/>
+        <span class="label max-w-24 overflow-hidden transition-max-w duration-300">Add account</span>
+      </IonButton>
+    </IonFab>
+
+    <IonModal
+      :is-open="isModalOpen"
+      swipe-to-close
+      @didDismiss="setModalVisible(false)">
+      <CreateUpdate @closeModal="setModalVisible(false)"/>
+    </IonModal>
+  </IonPage>
 </template>
 
 <script lang="ts">
   import {
     computed,
     defineComponent,
+    onMounted,
     ref,
   } from 'vue'
   import { useStore } from 'vuex'
 
-  import Modal from '@/components/Modal.vue'
-  import InputField from '@/components/InputField.vue'
-  import ButtonControl from '@/components/ButtonControl.vue'
+  import {
+    IonButton,
+    IonButtons,
+    IonContent,
+    IonFab,
+    IonHeader,
+    IonIcon,
+    IonList,
+    IonModal,
+    IonPage,
+    IonSearchbar,
+    IonTitle,
+    IonToolbar,
+    isPlatform,
+  } from '@ionic/vue'
+  import {
+    addOutline,
+    filterOutline,
+  } from 'ionicons/icons'
 
   import Timeline from '@/tokens/Timeline.vue'
   import Account from '@/tokens/Account.vue'
-  import AddUpdate from '@/tokens/AddUpdate.vue'
+  import CreateUpdate from '@/tokens/CreateUpdate.vue'
+
+  import { modal } from '@/compositions/modal'
+  import { intersection } from '@/compositions/intersection'
 
   import { Account as Acc } from '@/models/account'
 
-  import { isMobile } from '@/plugins/responsive'
-  import { intersection } from '@/plugins/intersection'
-
+  const ionicComponents = {
+    IonPage,
+    IonHeader,
+    IonToolbar,
+    IonButtons,
+    IonButton,
+    IonIcon,
+    IonTitle,
+    IonContent,
+    IonSearchbar,
+    IonList,
+    IonFab,
+    IonModal,
+  }
   export default defineComponent({
     name: 'Tokens',
     components: {
-      ButtonControl,
-      InputField,
-      Modal,
-      Timeline,
+      ...ionicComponents,
+      CreateUpdate,
       Account,
-      AddUpdate,
+      Timeline,
     },
     setup() {
       const store = useStore()
-      store.commit('ui/setCurrentPage', { currentPage: 'Tokens' })
 
       const filterQuery = ref('')
-      const filteredAccounts = computed(() => store.state.twoFa.accounts
-        .filter((acc: Acc) => [
-          acc.site?.toLocaleLowerCase(),
-          acc.username?.toLocaleLowerCase(),
-        ].some((attribute) => attribute?.includes(filterQuery.value.toLocaleLowerCase()))))
+      const accounts = computed(() => store.state.twoFa.accounts
+        .filter((acc: Acc) => [acc.site, acc.username]
+          .map((attr) => attr?.toLocaleLowerCase())
+          .some((attr) => attr?.includes(filterQuery.value.toLocaleLowerCase()))))
 
-      const isAdding = ref(false)
-      const toggleAdd = () => {
-        isAdding.value = !isAdding.value
-      }
+      // Intersection composition
+      const marker = ref(null)
+      const { isIntersecting, observer } = intersection({ threshold: 1 })
+      onMounted(() => {
+        observer.observe(marker.value as unknown as HTMLElement)
+      })
 
-      const isEditMode = computed(() => store.state.ui.tokens.isEditing)
-      const toggleEditMode = () => {
-        store.commit('ui/setIsEditing', { isEditing: !isEditMode.value })
-      }
-
-      const { marker, headerClasses } = intersection()
+      // Modal composition
+      const { isModalOpen, setModalVisible } = modal()
 
       return {
-        isMobile: computed(isMobile),
+        isPlatform,
+        addOutline,
+        filterOutline,
 
         filterQuery,
-        filteredAccounts,
-
-        isAdding,
-        toggleAdd,
-
-        isEditMode,
-        toggleEditMode,
+        accounts,
 
         marker,
-        headerClasses,
+        isIntersecting,
+
+        isModalOpen,
+        setModalVisible,
       }
     },
   })
 </script>
+
+<style scoped lang="css">
+  .md ion-list {
+    @apply mb-20; /* to accommodate the FAB */
+  }
+
+  .fab {
+    --color: var(--ion-color-brand);
+    --background: var(--e);
+    --border-radius: 2em;
+
+    .icon {
+      --ionicon-stroke-width: 40px;
+    }
+
+    &.collapsed .label {
+      @apply max-w-0;
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .fab {
+      --background: var(--e-6);
+    }
+  }
+</style>
