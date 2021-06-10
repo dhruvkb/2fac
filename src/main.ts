@@ -27,8 +27,8 @@ import '@ionic/vue/css/display.css'
 /* Theme variables */
 import '@/style/variables.css'
 import '@/style/variables_dark.css'
-import '@/style/theming_ios.css'
-import '@/style/theming_md.css'
+import '@/style/components_ios.css'
+import '@/style/components_md.css'
 
 /* Tailwind */
 import '@/style/tailwind.css'

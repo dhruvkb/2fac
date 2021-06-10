@@ -1,0 +1,58 @@
+.ios {
+  body {
+    --ion-background-color: var(--g-6);
+    --ion-background-color-rgb: 255, 255, 255;
+
+    --ion-text-color: var(--l-1);
+    --ion-text-color-rgb: 0, 0, 0;
+
+    --ion-border-color: var(--sep);
+
+    --ion-toolbar-background: var(--g-5);
+  }
+
+  ion-modal {
+    ion-toolbar {
+      @apply px-1; /* to align the toolbar buttons with the contents */
+    }
+  }
+
+  ion-tab-button {
+    --color-selected: var(--ion-color-brand);
+  }
+
+  ion-searchbar {
+    --color: var(--l-1);
+    --placeholder-color: var(--l-2);
+    --placeholder-opacity: 1;
+    --icon-color: var(--l-2);
+    --background: var(--fill);
+  }
+
+  ion-alert {
+    --background: var(--g-5);
+  }
+
+  ion-item {
+    --padding-start: 1em;
+    @apply text-base; /* Replaces the weird default of 17px */
+  }
+
+  ion-item-sliding:last-of-type ion-item {
+    --inner-border-width: 0;
+  }
+}
+
+@media (prefers-color-scheme: dark) { /* Overrides rules from the base theme */
+  .ios {
+    body {
+      --ion-background-color-rgb: 0, 0, 0;
+
+      --ion-text-color-rgb: 255, 255, 255;
+    }
+
+    ion-modal {
+      --ion-toolbar-background: var(--g-5);
+    }
+  }
+}
