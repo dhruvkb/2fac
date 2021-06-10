@@ -30,6 +30,7 @@ module.exports = {
       rules: {
         'max-len': 'off',
         indent: 'off', // Replaced by vue/script-indent
+        'vue/no-deprecated-slot-attribute': 'off', // Ionic uses Web Component slots
       },
     },
     {
