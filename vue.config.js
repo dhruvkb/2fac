@@ -7,9 +7,6 @@ module.exports = {
         // eslint-disable-next-line no-param-reassign
         options.compilerOptions = {
           ...options.compilerOptions,
-          isCustomElement: (tag) => [
-            'ion-icon',
-          ].includes(tag),
         }
         return options
       })
