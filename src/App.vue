@@ -1,62 +1,23 @@
 <template>
-  <div id="app-root" class="flex flex-col bg-gl-5 dark:bg-gd-6 min-h-screen">
-    <div
-      class="bar top-0 border-b transition-all duration-300"
-      :class="headerClasses">
-      <Header class="w-full"/>
-    </div>
-    <div class="content-root flex-grow">
-      <RouterView/>
-    </div>
-    <div class="bar tp:relative bottom-0 border-t">
-      <Footer class="w-full"/>
-    </div>
-  </div>
+  <IonApp>
+    <IonRouterOutlet/>
+  </IonApp>
 </template>
 
 <script lang="ts">
-  import {
-    computed,
-    defineComponent,
-  } from 'vue'
-
-  import Header from '@/components/Header.vue'
-  import Footer from '@/components/Footer.vue'
+  import { defineComponent } from 'vue'
 
   import {
-    addListener as addResponsiveListener,
-    setBreakpoint,
-  } from '@/plugins/responsive'
-  import {
-    addListener as addThemingListener,
-    setTheme,
-  } from '@/plugins/theming'
-  import { useStore } from 'vuex'
+    IonApp,
+    IonRouterOutlet,
+  } from '@ionic/vue'
 
+  const ionicComponents = {
+    IonApp,
+    IonRouterOutlet,
+  }
   export default defineComponent({
-    components: {
-      Header,
-      Footer,
-    },
-    setup() {
-      const store = useStore()
-
-      setBreakpoint()
-      addResponsiveListener()
-
-      setTheme()
-      addThemingListener()
-
-      const isHeadingIntersecting = computed(() => store.state.ui.isHeadingIntersecting)
-      const headerClasses = computed(() => [
-        ...isHeadingIntersecting.value
-          ? ['dark:border-tx']
-          : ['border-sep-l', 'dark:border-sep-d'],
-      ])
-
-      return {
-        headerClasses,
-      }
-    },
+    name: 'App',
+    components: ionicComponents,
   })
 </script>
