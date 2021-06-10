@@ -1,0 +1,277 @@
+<template>
+  <IonPage>
+    <IonHeader class="rounded-t-lg">
+      <IonToolbar>
+        <IonTitle v-show="false">{{ title }}</IonTitle>
+        <IonButtons slot="start">
+          <IonButton
+            color="danger"
+            @click="closeModal">
+            Cancel
+          </IonButton>
+        </IonButtons>
+        <IonButtons slot="primary">
+          <IonButton
+            color="primary"
+            :disabled="!attributes.secret"
+            @click="saveAccount">
+            Save
+          </IonButton>
+        </IonButtons>
+      </IonToolbar>
+    </IonHeader>
+
+    <IonContent fullscreen>
+      <div class="opacity-60 text-sm pt-8 pb-2 ion-padding-horizontal">
+        <div class="uppercase">Secret
+          <IonText color="danger">*</IonText>
+        </div>
+        <p>A long string of letters and numbers, usually 16 or 32 characters.</p>
+      </div>
+      <IonList lines="none">
+        <IonItem>
+          <IonTextarea
+            v-model="attributes.secret"
+            class="font-mono"
+            placeholder="Required"
+            :disabled="Boolean(account)"
+            required/>
+        </IonItem>
+      </IonList>
+
+      <div class="opacity-60 text-sm pt-8 pb-2 ion-padding-horizontal">
+        <div class="uppercase">Account Info</div>
+      </div>
+      <IonList lines="none">
+        <IonItem lines="full">
+          <IonLabel :position="isPlatform('ios') ? 'fixed' : 'floating'">Site</IonLabel>
+          <IonInput
+            v-model="attributes.site"
+            placeholder="Optional"/>
+        </IonItem>
+        <IonItem>
+          <IonLabel :position="isPlatform('ios') ? 'fixed' : 'floating'">Username</IonLabel>
+          <IonInput
+            v-model="attributes.username"
+            placeholder="Optional"/>
+        </IonItem>
+      </IonList>
+
+      <div class="opacity-60 text-sm pt-8 pb-2 ion-padding-horizontal">
+        <div class="uppercase">Icon</div>
+        <p>Use SVG names from
+          <a
+            class="underline"
+            href="https://simpleicons.org/">
+            Simple Icons</a>.
+        </p>
+      </div>
+      <IonList lines="none">
+        <IonItem>
+          <IonLabel :position="isPlatform('ios') ? 'fixed' : 'floating'">Icon</IonLabel>
+          <IonInput
+            v-model="attributes.icon"
+            placeholder="Optional"/>
+        </IonItem>
+      </IonList>
+
+      <div class="opacity-60 text-sm pt-8 pb-2 ion-padding-horizontal">
+        <div class="uppercase">Preview</div>
+      </div>
+      <IonList lines="none">
+        <Card
+          :site="attributes.site"
+          :username="attributes.username"
+          :icon-svg="iconSvg"
+          :otp="otp"/>
+      </IonList>
+    </IonContent>
+  </IonPage>
+</template>
+
+<script lang="ts">
+  import {
+    computed,
+    defineComponent,
+    onBeforeUnmount,
+    onMounted,
+    reactive,
+    ref,
+    watch,
+  } from 'vue'
+  import { useStore } from 'vuex'
+
+  import {
+    IonButton,
+    IonButtons,
+    IonContent,
+    IonHeader,
+    IonInput,
+    IonItem,
+    IonLabel,
+    IonList,
+    IonPage,
+    IonText,
+    IonTextarea,
+    IonTitle,
+    IonToolbar,
+    isPlatform,
+  } from '@ionic/vue'
+
+  import debounce from 'lodash/debounce'
+  import { TOTP } from 'otpauth'
+
+  import Card from '@/tokens/Row.vue'
+
+  import { Account } from '@/models/account'
+  import { IconSvg } from '@/models/icon_svg'
+
+  import { getIcon } from '@/support/simple_icons'
+
+  export default defineComponent({
+    name: 'CreateUpdate',
+    components: {
+      Card,
+      IonPage,
+      IonHeader,
+      IonToolbar,
+      IonTitle,
+      IonContent,
+      IonButtons,
+      IonButton,
+      IonList,
+      IonItem,
+      IonTextarea,
+      IonLabel,
+      IonInput,
+      IonText,
+    },
+    props: {
+      account: {
+        type: Account,
+      },
+    },
+    setup(props, { emit }) {
+      const store = useStore()
+
+      const title = computed(() => (props.account ? `Edit ${props.account.site}` : 'Add new account'))
+
+      const attributes = reactive({
+        secret: '',
+        site: '' as string | undefined,
+        username: '' as string | undefined,
+        icon: '' as string | undefined,
+      })
+
+      const iconSvg = ref<IconSvg | null>(null)
+      const updateIcon = async () => {
+        const { icon } = attributes
+        if (icon) {
+          iconSvg.value = await getIcon(icon)
+        } else {
+          iconSvg.value = null
+        }
+      }
+      const updateIconDebounced = debounce(() => {
+        updateIcon()
+      }, 1000)
+      watch(() => attributes.icon, updateIconDebounced)
+
+      const otp = ref('')
+      const totp = computed(() => {
+        const { secret } = attributes
+        if (secret) {
+          return new TOTP({ secret: secret.replaceAll(/\s+/g, '') })
+        }
+        return null
+      })
+      const refreshOtp = () => {
+        if (totp.value) {
+          otp.value = totp.value.generate()
+        } else {
+          otp.value = ''
+        }
+      }
+      watch(() => attributes.secret, refreshOtp)
+      let unsubscribe: () => void
+      onMounted(() => {
+        unsubscribe = store.subscribe((mutation: { type: string }) => {
+          if (mutation.type === 'twoFa/updateAccounts') {
+            refreshOtp()
+          }
+        })
+      })
+      onBeforeUnmount(() => {
+        if (unsubscribe) {
+          unsubscribe()
+        }
+      })
+
+      onMounted(() => {
+        if (props.account) {
+          const { pojo } = props.account
+          attributes.secret = pojo.secret
+          attributes.site = pojo.site
+          attributes.username = pojo.username
+          attributes.icon = pojo.icon
+        }
+      })
+      const closeModal = () => {
+        emit('closeModal')
+      }
+      const saveAccount = () => {
+        if (props.account) {
+          store.commit('twoFa/updateAccount', {
+            uuid: props.account.uuid,
+            accPojo: attributes,
+          })
+        } else {
+          store.commit('twoFa/addAccount', {
+            account: Account.fromPojo(attributes),
+          })
+        }
+        closeModal()
+      }
+
+      return {
+        isPlatform,
+
+        title,
+
+        attributes,
+        iconSvg,
+        otp,
+
+        closeModal,
+        saveAccount,
+      }
+    },
+  })
+</script>
+
+<style scoped lang="css">
+  .ios ion-content {
+    --background: var(--g-5);
+  }
+
+  .md ion-content {
+    --background: var(--e--1);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .ios ion-content {
+      --background: var(--g-6);
+      --ion-item-background: var(--g-5);
+    }
+
+    .md ion-content {
+      --background: var(--e-1);
+      --ion-item-background: var(--e-2);
+    }
+  }
+
+  ion-list {
+    @apply border-t border-b;
+    border-color: var(--sep);
+  }
+</style>
