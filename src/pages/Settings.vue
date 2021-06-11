@@ -19,7 +19,9 @@
         <div class="uppercase">Sync</div>
       </div>
       <IonList class="border-b border-t">
-        <IonItem>
+        <IonItem
+          :router-link="gitHubLink"
+          detail>
           <IonThumbnail
             class="bg-black"
             slot="start">
@@ -27,7 +29,9 @@
           </IonThumbnail>
           <IonLabel>GitHub sync</IonLabel>
         </IonItem>
-        <IonItem>
+        <IonItem
+          :router-link="localLink"
+          detail>
           <IonThumbnail
             class="bg-blue-500"
             slot="start">
@@ -51,7 +55,9 @@
         <div class="uppercase">About</div>
       </div>
       <IonList class="border-t border-b">
-        <IonItem :router-link="aboutLink" detail>
+        <IonItem
+          :router-link="aboutLink"
+          detail>
           <IonThumbnail
             class="about"
             slot="start">
@@ -119,6 +125,8 @@
 
       const { showToast } = toast()
 
+      const gitHubLink = router.resolve({ name: 'gitHub' }).href
+      const localLink = router.resolve({ name: 'local' }).href
       const aboutLink = router.resolve({ name: 'about' }).href
 
       const deleteData = () => {
@@ -153,6 +161,8 @@
         swapVerticalOutline,
         informationCircleOutline,
 
+        gitHubLink,
+        localLink,
         aboutLink,
 
         openAlert,

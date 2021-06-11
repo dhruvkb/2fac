@@ -27,6 +27,16 @@ const routes: Array<RouteRecordRaw> = [
         name: 'about',
         component: () => import(/* webpackChunkName: "about" */ '@/pages/About.vue'),
       },
+      {
+        path: 'settings/github',
+        name: 'gitHub',
+        component: () => import(/* webpackChunkName: "github" */ '@/pages/GitHub.vue'),
+      },
+      {
+        path: 'settings/local',
+        name: 'local',
+        component: () => import(/* webpackChunkName: "local" */ '@/pages/Local.vue'),
+      },
     ],
   },
 ]
