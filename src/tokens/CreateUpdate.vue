@@ -2,7 +2,6 @@
   <IonPage>
     <IonHeader class="rounded-t-lg">
       <IonToolbar>
-        <IonTitle v-show="false">{{ title }}</IonTitle>
         <IonButtons slot="start">
           <IonButton
             color="danger"
@@ -113,7 +112,6 @@
     IonPage,
     IonText,
     IonTextarea,
-    IonTitle,
     IonToolbar,
     isPlatform,
   } from '@ionic/vue'
@@ -134,10 +132,10 @@
       IonPage,
       IonHeader,
       IonToolbar,
-      IonTitle,
-      IonContent,
       IonButtons,
       IonButton,
+      IonContent,
+      IonText,
       IonList,
       IonItem,
       IonTextarea,
