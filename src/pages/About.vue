@@ -56,11 +56,6 @@
     IonToolbar,
     isPlatform,
   } from '@ionic/vue'
-  import {
-    informationCircleOutline,
-    logoGithub,
-    swapVerticalOutline,
-  } from 'ionicons/icons'
 
   import uiux from '@/assets/illustrations/uiux.png'
   import local from '@/assets/illustrations/local.png'
@@ -139,10 +134,6 @@
 
       return {
         isPlatform,
-
-        logoGithub,
-        swapVerticalOutline,
-        informationCircleOutline,
 
         settingsLink,
         features,
