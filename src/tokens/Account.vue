@@ -4,7 +4,8 @@
       <IonItemOption @click="setModalVisible(true)">
         <IonIcon
           slot="icon-only"
-          :icon="createOutline"/>
+          :ios="create"
+          :md="createOutline"/>
       </IonItemOption>
     </IonItemOptions>
     <IonItemOptions side="end">
@@ -13,7 +14,8 @@
         @click="openAlert">
         <IonIcon
           slot="icon-only"
-          :icon="trashOutline"/>
+          :ios="trash"
+          :md="trashOutline"/>
       </IonItemOption>
     </IonItemOptions>
 
@@ -52,7 +54,9 @@
     IonModal,
   } from '@ionic/vue'
   import {
+    create,
     createOutline,
+    trash,
     trashOutline,
   } from 'ionicons/icons'
 
@@ -131,8 +135,10 @@
       })
 
       return {
-        trashOutline,
+        create,
         createOutline,
+        trash,
+        trashOutline,
 
         iconSvg,
 
