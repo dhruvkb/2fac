@@ -67,6 +67,7 @@
   import ownership from '@/assets/illustrations/ownership.png'
   import free from '@/assets/illustrations/free.png'
   import access from '@/assets/illustrations/access.png'
+  import developer from '@/assets/illustrations/developer.png'
 
   export default defineComponent({
     name: 'Settings',
@@ -125,6 +126,14 @@
           },
           description: '2Fac is built on web technologies and runs on any '
             + 'device that has a web browser.',
+        },
+        {
+          image: {
+            path: developer,
+            alt: 'Person writing code hunched over a computer',
+          },
+          description: 'Hope you enjoy using 2Fac just as much I enjoyed '
+            + 'building it!',
         },
       ]
 
