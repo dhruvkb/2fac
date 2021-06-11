@@ -29,6 +29,10 @@
     --background: var(--fill);
   }
 
+  ion-list {
+    border-color: var(--sep);
+  }
+
   ion-alert {
     --background: var(--g-5);
   }

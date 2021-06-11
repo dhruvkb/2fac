@@ -28,6 +28,7 @@
 
   ion-list {
     @apply py-0;
+    border-color: var(--sep);
   }
 
   ion-item-sliding:last-of-type ion-item,

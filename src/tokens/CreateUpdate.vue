@@ -27,7 +27,9 @@
         </div>
         <p>A long string of letters and numbers, usually 16 or 32 characters.</p>
       </div>
-      <IonList lines="none">
+      <IonList
+        class="border-t"
+        lines="full">
         <IonItem>
           <IonTextarea
             v-model="attributes.secret"
@@ -41,8 +43,10 @@
       <div class="opacity-60 text-sm pt-8 pb-2 ion-padding-horizontal">
         <div class="uppercase">Account Info</div>
       </div>
-      <IonList lines="none">
-        <IonItem lines="full">
+      <IonList
+        class="border-t"
+        lines="full">
+        <IonItem>
           <IonLabel :position="isPlatform('ios') ? 'fixed' : 'floating'">Site</IonLabel>
           <IonInput
             v-model="attributes.site"
@@ -65,7 +69,9 @@
             Simple Icons</a>.
         </p>
       </div>
-      <IonList lines="none">
+      <IonList
+        class="border-t"
+        lines="full">
         <IonItem>
           <IonLabel :position="isPlatform('ios') ? 'fixed' : 'floating'">Icon</IonLabel>
           <IonInput
@@ -77,7 +83,9 @@
       <div class="opacity-60 text-sm pt-8 pb-2 ion-padding-horizontal">
         <div class="uppercase">Preview</div>
       </div>
-      <IonList lines="none">
+      <IonList
+        class="border-t"
+        lines="full">
         <Row
           :site="attributes.site"
           :username="attributes.username"
@@ -265,10 +273,5 @@
       --background: var(--e-1);
       --ion-item-background: var(--e-2);
     }
-  }
-
-  ion-list {
-    @apply border-t border-b;
-    border-color: var(--sep);
   }
 </style>
