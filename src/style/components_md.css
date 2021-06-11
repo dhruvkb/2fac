@@ -30,7 +30,8 @@
     @apply py-0;
   }
 
-  ion-item-sliding:last-of-type ion-item {
+  ion-item-sliding:last-of-type ion-item,
+  ion-item:last-of-type {
     --inner-border-width: 0;
   }
 }

@@ -38,7 +38,8 @@
     @apply text-base; /* Replaces the weird default of 17px */
   }
 
-  ion-item-sliding:last-of-type ion-item {
+  ion-item-sliding:last-of-type ion-item,
+  ion-item:last-of-type {
     --inner-border-width: 0;
   }
 }
