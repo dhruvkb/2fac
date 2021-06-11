@@ -1,26 +1,23 @@
 # 2Fac
 
-2Fac is a TOTP generator.
+2Fac is a better time-based OTP generator.
 
-## Why one more?
+<img height="256px" src="src/assets/illustrations/uiux.png">
 
-There are several multi-factor authenticator applications out there. Why
-make another one?
+2Fac is designed with utmost attention to detail for a user experience that sparks joy.
 
-### Unparalleled beauty
+<img height="256px" src="src/assets/illustrations/local.png">
 
-Hardly any of the authenticator apps focus on aesthetics and user experience.
-2Fac is different. It has been designed with utmost attention to detail and
-an unwavering dedication to beautiful UI/UX.
+Your auth data in 2Fac never leaves your device and is not stored or transmitted to the cloud.
 
-### Data ownership
+<img height="256px" src="src/assets/illustrations/ownership.png">
 
-Authenticator apps tend to lock you in. 2Fac does not need you to sign up,
-nor does it keep any of your data. You always own your data and can revoke our
-access whenever you want.
+Your auth data always belongs to you and is only accessed by 2Fac with your explicit permission.
 
-### Unrestricted access
+<img height="256px" src="src/assets/illustrations/free.png">
 
-Few authenticator apps support multi-device, and those that do are cumbersome.
-2Fac is built on web technologies and supports as many devices as you have.
-There's no device limit of any kind.
+2Fac does not lock you in. You can freely export your data and manage it yourself.
+
+<img height="256px" src="src/assets/illustrations/access.png">
+
+2Fac is built on web technologies and runs on any device that has a web browser.
