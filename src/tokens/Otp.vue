@@ -15,8 +15,9 @@
   } from 'vue'
   import { useStore } from 'vuex'
 
-  import { toastController } from '@ionic/vue'
   import { clipboardOutline } from 'ionicons/icons'
+
+  import { toast } from '@/compositions/toast'
 
   export default defineComponent({
     name: 'Otp',
@@ -41,26 +42,17 @@
     setup(props) {
       const store = useStore()
 
+      const { showToast } = toast()
+
       const firstThree = computed(() => props.otp.slice(0, 3))
       const lastThree = computed(() => props.otp.slice(3))
 
-      const openToast = async (isSuccessful = false) => {
-        const toast = await toastController
-          .create({
-            message: isSuccessful
-              ? `🎉 Copied OTP for <strong>${props.site}</strong> to clipboard!`
-              : '😭 Could not copy OTP.',
-            duration: 3e3,
-            color: 'dark',
-          })
-        return toast.present()
-      }
-      const copyOtp = () => {
+     const copyOtp = () => {
         if (isSecureContext) {
           navigator.clipboard.writeText(props.otp)
-          openToast(true)
+          showToast(`🎉 Copied OTP for <strong>${props.site}</strong> to clipboard!`)
         } else {
-          openToast()
+          showToast('😭 Could not copy OTP.')
         }
       }
 
