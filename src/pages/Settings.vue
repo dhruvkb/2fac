@@ -33,7 +33,17 @@
             slot="start">
             <IonIcon :icon="swapVerticalOutline"/>
           </IonThumbnail>
-          <IonLabel>Backup and restore</IonLabel>
+          <IonLabel>Backup & restore</IonLabel>
+        </IonItem>
+      </IonList>
+
+      <IonList class="border-b border-t mt-4">
+        <IonItem
+          class="delete text-center"
+          :detail="false"
+          button
+          @click="openAlert">
+          <IonLabel>Delete data</IonLabel>
         </IonItem>
       </IonList>
 
@@ -64,9 +74,11 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue'
+  import { useStore } from 'vuex'
   import { useRouter } from 'vue-router'
 
   import {
+    alertController,
     IonContent,
     IonHeader,
     IonIcon,
@@ -85,6 +97,8 @@
     swapVerticalOutline,
   } from 'ionicons/icons'
 
+  import { toast } from '@/compositions/toast'
+
   export default defineComponent({
     name: 'Settings',
     components: {
@@ -100,9 +114,37 @@
       IonLabel,
     },
     setup() {
+      const store = useStore()
       const router = useRouter()
 
+      const { showToast } = toast()
+
       const aboutLink = router.resolve({ name: 'about' }).href
+
+      const deleteData = () => {
+        store.commit('twoFa/clearAccounts')
+        showToast('🗑 Deleted all data!')
+      }
+      const openAlert = async () => {
+        const alert = await alertController
+          .create({
+            cssClass: 'alert-controller',
+            header: 'Permanently delete all data on this device?',
+            message: 'If you have not taken a backup, you will lose access to all your accounts.',
+            buttons: [
+              {
+                text: 'Cancel',
+                role: 'cancel',
+              },
+              {
+                cssClass: 'delete-button',
+                text: 'Delete',
+                handler: deleteData,
+              },
+            ],
+          })
+        return alert.present()
+      }
 
       return {
         isPlatform,
@@ -112,6 +154,8 @@
         informationCircleOutline,
 
         aboutLink,
+
+        openAlert,
       }
     },
   })
@@ -145,6 +189,14 @@
         color: var(--ion-color-brand-contrast);
       }
     }
+  }
+
+  .delete {
+    --color: var(--ion-color-danger);
+  }
+
+  .alert-controller .delete-button {
+    color: var(--ion-color-danger);
   }
 
   @media (prefers-color-scheme: dark) {
