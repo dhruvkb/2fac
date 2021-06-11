@@ -79,7 +79,7 @@
         <div class="uppercase">Preview</div>
       </div>
       <IonList lines="none">
-        <Card
+        <Row
           :site="attributes.site"
           :username="attributes.username"
           :icon-svg="iconSvg"
@@ -121,7 +121,7 @@
   import debounce from 'lodash/debounce'
   import { TOTP } from 'otpauth'
 
-  import Card from '@/tokens/Row.vue'
+  import Row from '@/tokens/Row.vue'
 
   import { Account } from '@/models/account'
   import { IconSvg } from '@/models/icon_svg'
@@ -131,7 +131,6 @@
   export default defineComponent({
     name: 'CreateUpdate',
     components: {
-      Card,
       IonPage,
       IonHeader,
       IonToolbar,
@@ -144,7 +143,7 @@
       IonTextarea,
       IonLabel,
       IonInput,
-      IonText,
+      Row,
     },
     props: {
       account: {
