@@ -148,10 +148,12 @@
           .some((attr) => attr?.includes(filterQuery.value.toLocaleLowerCase()))))
 
       // Intersection composition
-      const marker = ref(null)
+      const marker = ref<HTMLElement | null>(null)
       const { isIntersecting, observer } = intersection({ threshold: 1 })
       onMounted(() => {
-        observer.observe(marker.value as unknown as HTMLElement)
+        if (marker.value) {
+          observer.observe(marker.value)
+        }
       })
 
       // Modal composition
