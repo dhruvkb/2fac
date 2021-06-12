@@ -16,6 +16,22 @@
       </IonHeader>
 
       <div class="opacity-60 text-sm pt-8 pb-2 ion-padding-horizontal">
+        <div class="uppercase">About</div>
+      </div>
+      <IonList class="border-t border-b">
+        <IonItem
+          :router-link="aboutLink"
+          detail>
+          <IonThumbnail
+            class="about"
+            slot="start">
+            <IonIcon :icon="informationCircleOutline"/>
+          </IonThumbnail>
+          <IonLabel>About 2Fac</IonLabel>
+        </IonItem>
+      </IonList>
+
+      <div class="opacity-60 text-sm pt-8 pb-2 ion-padding-horizontal">
         <div class="uppercase">Sync</div>
       </div>
       <IonList class="border-b border-t">
@@ -48,22 +64,6 @@
           button
           @click="openAlert">
           <IonLabel>Delete all data</IonLabel>
-        </IonItem>
-      </IonList>
-
-      <div class="opacity-60 text-sm pt-8 pb-2 ion-padding-horizontal">
-        <div class="uppercase">About</div>
-      </div>
-      <IonList class="border-t border-b">
-        <IonItem
-          :router-link="aboutLink"
-          detail>
-          <IonThumbnail
-            class="about"
-            slot="start">
-            <IonIcon :icon="informationCircleOutline"/>
-          </IonThumbnail>
-          <IonLabel>About 2Fac</IonLabel>
         </IonItem>
       </IonList>
 
