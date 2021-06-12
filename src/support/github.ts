@@ -1,8 +1,27 @@
 import { Octokit } from '@octokit/rest'
 
+import { GitHubUser } from '@/models/github'
+
 interface File {
   sha?: string
   content?: string
+}
+
+export const getUserDetails = async (
+  client: Octokit,
+): Promise<GitHubUser> => {
+  const {
+    data: {
+      name,
+      login: username,
+      avatar_url: avatarUrl,
+    },
+  } = await client.users.getAuthenticated()
+  return {
+    name,
+    username,
+    avatarUrl,
+  }
 }
 
 export const getFile = async (
