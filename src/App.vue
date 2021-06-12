@@ -1,5 +1,6 @@
 <template>
   <IonApp>
+    <div class="status-bar dark:hidden absolute inset-x-0 top-0 z-10 bg-black"/>
     <IonRouterOutlet/>
   </IonApp>
 </template>
@@ -12,12 +13,17 @@
     IonRouterOutlet,
   } from '@ionic/vue'
 
-  const ionicComponents = {
-    IonApp,
-    IonRouterOutlet,
-  }
   export default defineComponent({
     name: 'App',
-    components: ionicComponents,
+    components: {
+      IonApp,
+      IonRouterOutlet,
+    },
   })
 </script>
+
+<style scoped lang="css">
+  .status-bar {
+    height: env(safe-area-inset-top);
+  }
+</style>
