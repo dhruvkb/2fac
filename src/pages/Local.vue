@@ -13,7 +13,6 @@
 
     <IonContent fullscreen>
       <div class="opacity-60 text-sm pt-8 pb-2 ion-padding-horizontal">
-        <div class="uppercase">Export</div>
         <p>
           Get all your accounts as a JSON file that can be imported into another
           2Fac instance.
@@ -24,16 +23,14 @@
           button
           :detail="false"
           @click="writeToFile">
+          <IonThumbnail
+            class="bg-blue-500"
+            slot="start">
+            <IonIcon :icon="documentOutline"/>
+          </IonThumbnail>
           Write to file
         </IonItem>
-      </IonList>
-      <div class="opacity-60 text-sm pt-8 pb-2 ion-padding-horizontal">
-        <div class="uppercase">Import</div>
-        <p>
-          Load an exported JSON file into 2Fac.
-        </p>
-      </div>
-      <IonList class="border-t border-b">
+
         <input
           v-show="false"
           id="json"
@@ -42,6 +39,11 @@
           ref="json"/>
         <label for="json">
           <IonItem>
+            <IonThumbnail
+              class="bg-blue-500"
+              slot="start">
+              <IonIcon :icon="downloadOutline"/>
+            </IonThumbnail>
             Read from file
           </IonItem>
         </label>
@@ -63,13 +65,19 @@
     IonButtons,
     IonContent,
     IonHeader,
+    IonIcon,
     IonItem,
     IonList,
     IonPage,
+    IonThumbnail,
     IonTitle,
     IonToolbar,
     isPlatform,
   } from '@ionic/vue'
+  import {
+    documentOutline,
+    downloadOutline,
+  } from 'ionicons/icons'
 
   import { toast } from '@/compositions/toast'
 
@@ -89,6 +97,8 @@
       IonContent,
       IonList,
       IonItem,
+      IonThumbnail,
+      IonIcon,
     },
     setup() {
       const store = useStore()
@@ -137,6 +147,9 @@
       return {
         isPlatform,
 
+        documentOutline,
+        downloadOutline,
+
         settingsLink,
 
         writeToFile,
@@ -156,6 +169,18 @@
 
   .md ion-content {
     --background: var(--e--1);
+  }
+
+  ion-thumbnail {
+    @apply flex items-center justify-center;
+    @apply h-7 w-7;
+    @apply rounded-md;
+    @apply mr-4;
+
+    ion-icon {
+      @apply h-5 w-5;
+      @apply text-white;
+    }
   }
 
   @media (prefers-color-scheme: dark) {
