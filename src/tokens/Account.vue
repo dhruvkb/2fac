@@ -46,7 +46,6 @@
   import { useStore } from 'vuex'
 
   import {
-    alertController,
     IonIcon,
     IonItemOption,
     IonItemOptions,
@@ -64,6 +63,7 @@
   import CreateUpdate from '@/tokens/CreateUpdate.vue'
 
   import { modal } from '@/compositions/modal'
+  import { alert } from '@/compositions/alert'
 
   import { Account } from '@/models/account'
   import { IconSvg } from '@/models/icon_svg'
@@ -93,6 +93,8 @@
     setup(props) {
       const store = useStore()
 
+      const { showDangerAlert } = alert()
+
       const iconSvg = ref<IconSvg | null>(null)
       const updateIcon = async () => {
         const { icon } = props.account
@@ -109,25 +111,15 @@
           uuid: props.account.uuid,
         })
       }
-      const openAlert = async () => {
-        const alert = await alertController
-          .create({
-            cssClass: 'alert-controller',
-            header: `Permanently delete ${props.account.site}?`,
-            message: 'You might lose access to the account if it is still protected by 2FA.',
-            buttons: [
-              {
-                text: 'Cancel',
-                role: 'cancel',
-              },
-              {
-                cssClass: 'delete-button',
-                text: 'Delete',
-                handler: deleteAccount,
-              },
-            ],
-          })
-        return alert.present()
+      const openAlert = () => {
+        showDangerAlert(
+          `Permanently delete ${props.account.site}?`,
+          'You might lose access to the account if it is still protected by 2FA.',
+          {
+            text: 'Delete',
+            handler: deleteAccount,
+          },
+        )
       }
 
       onMounted(() => {
@@ -149,9 +141,3 @@
     },
   })
 </script>
-
-<style lang="css">
-  .alert-controller .delete-button {
-    color: var(--ion-color-danger);
-  }
-</style>

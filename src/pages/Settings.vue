@@ -47,7 +47,7 @@
           :detail="false"
           button
           @click="openAlert">
-          <IonLabel>Delete data</IonLabel>
+          <IonLabel>Delete all data</IonLabel>
         </IonItem>
       </IonList>
 
@@ -84,7 +84,6 @@
   import { useRouter } from 'vue-router'
 
   import {
-    alertController,
     IonContent,
     IonHeader,
     IonIcon,
@@ -104,6 +103,7 @@
   } from 'ionicons/icons'
 
   import { toast } from '@/compositions/toast'
+  import { alert } from '@/compositions/alert'
 
   export default defineComponent({
     name: 'Settings',
@@ -124,6 +124,7 @@
       const router = useRouter()
 
       const { showToast } = toast()
+      const { showDangerAlert } = alert()
 
       const gitHubLink = router.resolve({ name: 'gitHub' }).href
       const localLink = router.resolve({ name: 'local' }).href
@@ -133,25 +134,15 @@
         store.commit('twoFa/clearAccounts')
         showToast('🗑 Deleted all data!')
       }
-      const openAlert = async () => {
-        const alert = await alertController
-          .create({
-            cssClass: 'alert-controller',
-            header: 'Permanently delete all data on this device?',
-            message: 'If you have not taken a backup, you will lose access to all your accounts.',
-            buttons: [
-              {
-                text: 'Cancel',
-                role: 'cancel',
-              },
-              {
-                cssClass: 'delete-button',
-                text: 'Delete',
-                handler: deleteData,
-              },
-            ],
-          })
-        return alert.present()
+      const openAlert = () => {
+        showDangerAlert(
+          'Permanently delete all data from this device?',
+          'If you have not taken a backup, you will lose access to all your accounts.',
+          {
+            text: 'Delete',
+            handler: deleteData,
+          },
+        )
       }
 
       return {
@@ -203,10 +194,6 @@
 
   .delete {
     --color: var(--ion-color-danger);
-  }
-
-  .alert-controller .delete-button {
-    color: var(--ion-color-danger);
   }
 
   @media (prefers-color-scheme: dark) {
