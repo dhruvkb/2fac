@@ -132,8 +132,8 @@
     isPlatform,
   } from '@ionic/vue'
   import {
-    downloadOutline,
     cloudUploadOutline,
+    downloadOutline,
   } from 'ionicons/icons'
 
   import { toast } from '@/compositions/toast'
@@ -141,11 +141,11 @@
   import { GitHubUser } from '@/models/github'
 
   import {
+    createNewBranch,
     getBranchSha,
     getDefaultBranch,
-    getUserDetails,
-    createNewBranch,
     getFile,
+    getUserDetails,
     updateFile,
   } from '@/support/github'
 
