@@ -20,8 +20,8 @@
       </div>
       <IonList class="border-t border-b">
         <IonItem
-          button
           :detail="false"
+          button
           @click="writeToFile">
           <IonThumbnail
             class="icon-thumbnail bg-blue-500"
@@ -33,21 +33,21 @@
 
         <input
           v-show="false"
-          id="json"
           type="file"
           accept=".json"
           @change="updateFile"
-          ref="json"/>
-        <label for="json">
-          <IonItem>
-            <IonThumbnail
-              class="icon-thumbnail bg-blue-500"
-              slot="start">
-              <IonIcon :icon="downloadOutline"/>
-            </IonThumbnail>
-            Read from file
-          </IonItem>
-        </label>
+          ref="fileInput"/>
+        <IonItem
+          :detail="false"
+          button
+          @click="clickInput">
+          <IonThumbnail
+            class="icon-thumbnail bg-blue-500"
+            slot="start">
+            <IonIcon :icon="downloadOutline"/>
+          </IonThumbnail>
+          Read from file
+        </IonItem>
       </IonList>
     </IonContent>
   </IonPage>
@@ -121,7 +121,7 @@
         URL.revokeObjectURL(blobUrl)
       }
 
-      const json = ref<HTMLInputElement | null>(null)
+      const fileInput = ref<HTMLInputElement | null>(null)
       const readFromFile = (file: File) => {
         const reader = new FileReader()
         reader.onload = () => {
@@ -134,8 +134,8 @@
           console.log(reader.error)
         }
         reader.onloadend = () => {
-          if (json.value) {
-            json.value.files = null
+          if (fileInput.value) {
+            fileInput.value.files = null
           }
         }
         reader.readAsText(file)
@@ -143,6 +143,11 @@
       const updateFile = (event: FileInputEvent) => {
         const [file] = event.target.files ?? []
         readFromFile(file)
+      }
+      const clickInput = () => {
+        if (fileInput.value) {
+          fileInput.value.click()
+        }
       }
 
       return {
@@ -155,8 +160,9 @@
 
         writeToFile,
 
-        json,
+        fileInput,
         updateFile,
+        clickInput,
       }
     },
   })
