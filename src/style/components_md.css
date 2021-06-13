@@ -39,6 +39,18 @@
   ion-item:last-of-type {
     --inner-border-width: 0;
   }
+
+  .icon-thumbnail {
+    @apply flex items-center justify-center;
+    @apply h-7 w-7;
+    @apply rounded-md;
+    @apply mr-4;
+
+    ion-icon {
+      @apply h-5 w-5;
+      @apply text-white;
+    }
+  }
 }
 
 @media (prefers-color-scheme: dark) { /* Overrides rules from the base theme */

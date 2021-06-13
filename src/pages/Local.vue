@@ -24,7 +24,7 @@
           :detail="false"
           @click="writeToFile">
           <IonThumbnail
-            class="bg-blue-500"
+            class="icon-thumbnail bg-blue-500"
             slot="start">
             <IonIcon :icon="documentOutline"/>
           </IonThumbnail>
@@ -41,7 +41,7 @@
         <label for="json">
           <IonItem>
             <IonThumbnail
-              class="bg-blue-500"
+              class="icon-thumbnail bg-blue-500"
               slot="start">
               <IonIcon :icon="downloadOutline"/>
             </IonThumbnail>
@@ -170,18 +170,6 @@
 
   .md ion-content {
     --background: var(--e--1);
-  }
-
-  ion-thumbnail {
-    @apply flex items-center justify-center;
-    @apply h-7 w-7;
-    @apply rounded-md;
-    @apply mr-4;
-
-    ion-icon {
-      @apply h-5 w-5;
-      @apply text-white;
-    }
   }
 
   @media (prefers-color-scheme: dark) {

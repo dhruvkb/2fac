@@ -23,7 +23,7 @@
           :router-link="aboutLink"
           detail>
           <IonThumbnail
-            class="about"
+            class="icon-thumbnail about"
             slot="start">
             <IonIcon :icon="informationCircleOutline"/>
           </IonThumbnail>
@@ -39,7 +39,7 @@
           :router-link="gitHubLink"
           detail>
           <IonThumbnail
-            class="bg-black"
+            class="icon-thumbnail bg-black"
             slot="start">
             <IonIcon :icon="logoGithub"/>
           </IonThumbnail>
@@ -49,7 +49,7 @@
           :router-link="localLink"
           detail>
           <IonThumbnail
-            class="bg-blue-500"
+            class="icon-thumbnail bg-blue-500"
             slot="start">
             <IonIcon :icon="swapVerticalOutline"/>
           </IonThumbnail>
@@ -172,23 +172,11 @@
     --background: var(--e--1);
   }
 
-  ion-thumbnail {
-    @apply flex items-center justify-center;
-    @apply h-7 w-7;
-    @apply rounded-md;
-    @apply mr-4;
+  .about {
+    background: var(--ion-color-brand);
 
     ion-icon {
-      @apply h-5 w-5;
-      @apply text-white;
-    }
-
-    &.about {
-      background: var(--ion-color-brand);
-
-      ion-icon {
-        color: var(--ion-color-brand-contrast);
-      }
+      color: var(--ion-color-brand-contrast);
     }
   }
 

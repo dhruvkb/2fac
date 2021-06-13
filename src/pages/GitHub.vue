@@ -79,7 +79,7 @@
           :detail="false"
           @click="writeToGitHub">
           <IonThumbnail
-            class="bg-blue-500"
+            class="icon-thumbnail bg-blue-500"
             slot="start">
             <IonIcon :icon="cloudUploadOutline"/>
           </IonThumbnail>
@@ -92,7 +92,7 @@
           :detail="false"
           @click="readFromGitHub">
           <IonThumbnail
-            class="bg-blue-500"
+            class="icon-thumbnail bg-blue-500"
             slot="start">
             <IonIcon :icon="downloadOutline"/>
           </IonThumbnail>
@@ -270,18 +270,6 @@
 
   .md ion-content {
     --background: var(--e--1);
-  }
-
-  ion-thumbnail {
-    @apply flex items-center justify-center;
-    @apply h-7 w-7;
-    @apply rounded-md;
-    @apply mr-4;
-
-    ion-icon {
-      @apply h-5 w-5;
-      @apply text-white;
-    }
   }
 
   .username {
