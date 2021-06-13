@@ -1,5 +1,5 @@
 <template>
-  <IonPage>
+  <IonPage class="ion-page dark-bg"><!-- Need to specify class `.ion-page` -->
     <IonHeader translucent>
       <IonToolbar>
         <IonButtons slot="start">
@@ -269,15 +269,6 @@
 </script>
 
 <style scoped lang="css">
-  .ios ion-toolbar,
-  .ios ion-content {
-    --background: var(--g-5);
-  }
-
-  .md ion-content {
-    --background: var(--e--1);
-  }
-
   .username {
     color: var(--l-2);
   }
@@ -288,18 +279,5 @@
 
   .log-out {
     --color: var(--ion-color-danger);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .ios ion-toolbar,
-    .ios ion-content {
-      --background: var(--g-6);
-      --ion-item-background: var(--g-5);
-    }
-
-    .md ion-content {
-      --background: var(--e-1);
-      --ion-item-background: var(--e-2);
-    }
   }
 </style>

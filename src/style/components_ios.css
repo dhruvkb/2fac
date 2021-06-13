@@ -11,6 +11,15 @@
     --ion-toolbar-background: var(--g-5);
   }
 
+  .ion-page.dark-bg {
+    --ion-background-color: var(--g-5);
+    --ion-background-color-rgb: 242, 242, 247;
+
+    --ion-toolbar-background: var(--g-6);
+
+    --ion-item-background: var(--g-6);
+  }
+
   ion-modal {
     ion-toolbar {
       @apply px-1; /* to align the toolbar buttons with the contents */
@@ -70,6 +79,15 @@
       --ion-background-color-rgb: 0, 0, 0;
 
       --ion-text-color-rgb: 255, 255, 255;
+    }
+
+    .ion-page.dark-bg {
+      --ion-background-color: var(--g-6);
+      --ion-background-color-rgb: 0, 0, 0;
+
+      --ion-toolbar-background: var(--g-5);
+
+      --ion-item-background: var(--g-5);
     }
 
     ion-modal {

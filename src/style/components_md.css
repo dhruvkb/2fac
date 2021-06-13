@@ -9,6 +9,13 @@
     --ion-border-color: var(--sep);
   }
 
+  .ion-page.dark-bg {
+    --ion-background-color: var(--e--1);
+    --ion-background-color-rgb: 245, 245, 245;
+
+    --ion-item-background: var(--e);
+  }
+
   ion-toolbar {
     @apply px-0.5; /* to align the toolbar buttons with the contents */
   }
@@ -62,6 +69,13 @@
       --ion-text-color-rgb: 255, 255, 255;
 
       --ion-toolbar-background: var(--e-4);
+    }
+
+    .ion-page.dark-bg {
+      --ion-background-color: var(--e-1);
+      --ion-background-color-rgb: 30, 30, 30;
+
+      --ion-item-background: var(--e-2);
     }
 
     ion-searchbar {
