@@ -35,6 +35,7 @@
           v-show="false"
           id="json"
           type="file"
+          accept=".json"
           @change="updateFile"
           ref="json"/>
         <label for="json">
