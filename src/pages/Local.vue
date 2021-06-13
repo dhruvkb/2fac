@@ -114,7 +114,7 @@
         const blobUrl = URL.createObjectURL(blob)
         const anchor = document.createElement('a')
         anchor.href = blobUrl
-        anchor.download = '2fac.json'
+        anchor.download = 'secrets.json'
         document.body.appendChild(anchor)
         anchor.click()
         document.body.removeChild(anchor)
