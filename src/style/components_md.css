@@ -35,8 +35,8 @@
     color: var(--ion-color-danger);
   }
 
-  ion-item-sliding:last-of-type ion-item,
-  ion-item:last-of-type {
+  ion-list > ion-item-sliding:last-of-type ion-item,
+  ion-list > ion-item:last-of-type {
     --inner-border-width: 0;
   }
 
