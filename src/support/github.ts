@@ -2,6 +2,9 @@ import { Octokit } from '@octokit/rest'
 
 import { GitHubUser } from '@/models/github'
 
+const REPO_NAME = '2fa-secrets'
+const FILE_NAME = 'secrets.json'
+
 interface File {
   sha?: string
   content?: string
@@ -27,14 +30,12 @@ export const getUserDetails = async (
 export const getFile = async (
   client: Octokit,
   username: string,
-  repoName: string,
-  fileName: string,
   refName: string,
 ): Promise<File> => {
   const { data } = await client.repos.getContent({
     owner: username,
-    repo: repoName,
-    path: fileName,
+    repo: REPO_NAME,
+    path: FILE_NAME,
     ref: refName,
   })
 
@@ -53,17 +54,15 @@ export const getFile = async (
 export const updateFile = async (
   client: Octokit,
   username: string,
-  repoName: string,
   branchName: string,
-  fileName: string,
   content: string,
   fileSha: string,
 ): Promise<void> => {
   await client.repos.createOrUpdateFileContents({
     owner: username,
-    repo: repoName,
+    repo: REPO_NAME,
     branch: branchName,
-    path: fileName,
+    path: FILE_NAME,
     content: btoa(content),
     sha: fileSha,
     message: 'Update 2FA tokens',
@@ -73,11 +72,10 @@ export const updateFile = async (
 export const getDefaultBranch = async (
   client: Octokit,
   username: string,
-  repoName: string,
 ): Promise<string> => {
   const { data: { default_branch: defaultBranch } } = await client.repos.get({
     owner: username,
-    repo: repoName,
+    repo: REPO_NAME,
   })
   return defaultBranch
 }
@@ -85,12 +83,11 @@ export const getDefaultBranch = async (
 export const getBranchSha = async (
   client: Octokit,
   username: string,
-  repoName: string,
   branchName: string,
 ): Promise<string> => {
   const { data: { object: { sha } } } = await client.git.getRef({
     owner: username,
-    repo: repoName,
+    repo: REPO_NAME,
     ref: `heads/${branchName}`,
   })
   return sha
@@ -99,13 +96,12 @@ export const getBranchSha = async (
 export const createNewBranch = async (
   client: Octokit,
   username: string,
-  repoName: string,
   branchName: string,
   sha: string,
 ): Promise<void> => {
   await client.git.createRef({
     owner: username,
-    repo: repoName,
+    repo: REPO_NAME,
     ref: `refs/heads/${branchName}`,
     sha,
   })
