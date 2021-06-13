@@ -25,7 +25,7 @@
           <IonThumbnail
             class="icon-thumbnail about"
             slot="start">
-            <IonIcon :icon="informationCircleOutline"/>
+            <IonIcon :icon="informationOutline"/>
           </IonThumbnail>
           <IonLabel>About 2Fac</IonLabel>
         </IonItem>
@@ -97,7 +97,7 @@
     isPlatform,
   } from '@ionic/vue'
   import {
-    informationCircleOutline,
+    informationOutline,
     logoGithub,
     swapVerticalOutline,
   } from 'ionicons/icons'
@@ -148,9 +148,9 @@
       return {
         isPlatform,
 
+        informationOutline,
         logoGithub,
         swapVerticalOutline,
-        informationCircleOutline,
 
         gitHubLink,
         localLink,
