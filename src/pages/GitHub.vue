@@ -24,7 +24,6 @@
             target="_blank">Generate</a>
           a personal access token and use it to log in.
         </p>
-        {{ username }}
       </div>
       <IonList
         class="border-t"
@@ -77,7 +76,8 @@
         <IonItem
           button
           :disabled="!user"
-          :detail="false">
+          :detail="false"
+          @click="writeToGitHub">
           <IonThumbnail
             class="bg-blue-500"
             slot="start">
@@ -89,7 +89,8 @@
         <IonItem
           button
           :disabled="!user"
-          :detail="false">
+          :detail="false"
+          @click="readFromGitHub">
           <IonThumbnail
             class="bg-blue-500"
             slot="start">
@@ -109,7 +110,9 @@
     onMounted,
     ref,
   } from 'vue'
+  import { useStore } from 'vuex'
   import { useRouter } from 'vue-router'
+  import { Octokit } from '@octokit/rest'
 
   import {
     IonAvatar,
@@ -133,9 +136,18 @@
     cloudUploadOutline,
   } from 'ionicons/icons'
 
-  import { getUserDetails } from '@/support/github'
-  import { Octokit } from '@octokit/rest'
+  import { toast } from '@/compositions/toast'
+
   import { GitHubUser } from '@/models/github'
+
+  import {
+    getBranchSha,
+    getDefaultBranch,
+    getUserDetails,
+    createNewBranch,
+    getFile,
+    updateFile,
+  } from '@/support/github'
 
   export default defineComponent({
     name: 'Settings',
@@ -156,7 +168,10 @@
       IonIcon,
     },
     setup() {
+      const store = useStore()
       const router = useRouter()
+
+      const { showToast } = toast()
 
       const settingsLink = router.resolve({ name: 'settings' }).href
 
@@ -187,6 +202,45 @@
         }
       })
 
+      const writeToGitHub = async () => {
+        if (!user.value) {
+          return
+        }
+        const { username } = user.value
+        const json = store.getters['twoFa/accountsJson']
+
+        const defaultBranchName = await getDefaultBranch(octokit, username)
+        const file = await getFile(octokit, username, defaultBranchName)
+        if (file.content === json) {
+          showToast('🆗 GitHub repo is already up-to-date.')
+          return
+        }
+
+        const branchSha = await getBranchSha(octokit, username, defaultBranchName)
+        const newBranchName = Date.now().toString() // TODO: Use semantic branch names
+        await createNewBranch(octokit, username, newBranchName, branchSha)
+
+        const newFile = await getFile(octokit, username, newBranchName)
+        if (newFile.sha) { // Will always be true
+          await updateFile(octokit, username, newBranchName, json, newFile.sha)
+        }
+      }
+      const readFromGitHub = async () => {
+        if (!user.value) {
+          return
+        }
+        const { username } = user.value
+
+        const defaultBranchName = await getDefaultBranch(octokit, username)
+        const file = await getFile(octokit, username, defaultBranchName)
+        if (file.content) {
+          const accPojos = JSON.parse(file.content)
+          store.commit('twoFa/clearAccounts')
+          store.commit('twoFa/loadAccounts', { accPojos })
+          showToast(`📂 Imported ${accPojos.length} accounts.`)
+        }
+      }
+
       return {
         isPlatform,
 
@@ -200,6 +254,8 @@
 
         logIn,
         logOut,
+        writeToGitHub,
+        readFromGitHub,
       }
     },
   })
