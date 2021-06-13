@@ -237,7 +237,7 @@
           const accPojos = JSON.parse(file.content)
           store.commit('twoFa/clearAccounts')
           store.commit('twoFa/loadAccounts', { accPojos })
-          showToast(`📂 Imported ${accPojos.length} accounts.`)
+          showToast(`📂 Imported <strong>${accPojos.length}</strong> accounts.`)
         }
       }
 

@@ -128,7 +128,7 @@
           const accPojos = JSON.parse(reader.result as string)
           store.commit('twoFa/clearAccounts')
           store.commit('twoFa/loadAccounts', { accPojos })
-          showToast(`📂 Imported ${accPojos.length} accounts.`)
+          showToast(`📂 Imported <strong>${accPojos.length}</strong> accounts.`)
         }
         reader.onerror = () => {
           console.log(reader.error)
