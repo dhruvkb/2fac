@@ -187,9 +187,15 @@
           localStorage.setItem('access_token', val)
         },
       })
-      const logIn = async () => {
+      const logIn = async (event: Event | null, failSilently = false) => {
         octokit = new Octokit({ auth: token.value })
-        user.value = await getUserDetails(octokit)
+        try {
+          user.value = await getUserDetails(octokit)
+        } catch (ex) {
+          if (!failSilently && ex.message === 'Bad credentials') {
+            showToast('⛔️ You entered an invalid token.')
+          }
+        }
       }
       const logOut = () => {
         accessToken.value = ''
@@ -198,7 +204,7 @@
       onMounted(async () => {
         token.value = localStorage.getItem('access_token') ?? ''
         if (accessToken.value) {
-          await logIn()
+          await logIn(null, true)
         }
       })
 
