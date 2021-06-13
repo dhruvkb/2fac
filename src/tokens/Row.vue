@@ -14,14 +14,20 @@
         </svg>
         <span
           class="initial text-2xl font-semibold"
-          v-else>{{ site[0] }}</span>
+          v-else>{{ site[0] || '?' }}</span>
       </div>
     </IonThumbnail>
     <IonLabel>
       <div class="flex items-center justify-between"><!-- Cannot apply these classes to IonLabel -->
         <div class="min-w-0">
-          <div class="site font-medium">{{ site }}</div>
-          <div class="username text-sm">{{ username }}</div>
+          <div class="site font-medium">
+            <!-- @slot Non-text value for site goes here -->
+            <slot name="site">{{ site }}</slot>
+          </div>
+          <div class="username text-sm">
+            <!-- @slot Non-text value for username goes here -->
+            <slot name="username">{{ username }}</slot>
+          </div>
         </div>
         <Otp
           v-if="otp && otp.length === 6"

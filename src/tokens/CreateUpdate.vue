@@ -90,7 +90,14 @@
           :site="attributes.site"
           :username="attributes.username"
           :icon-svg="iconSvg"
-          :otp="otp"/>
+          :otp="otp">
+          <template v-if="!attributes.site" #site>
+            <span class="opacity-50">Site</span>
+          </template>
+          <template v-if="!attributes.username" #username>
+            <span class="opacity-50">username@site</span>
+          </template>
+        </Row>
       </IonList>
     </IonContent>
   </IonPage>
