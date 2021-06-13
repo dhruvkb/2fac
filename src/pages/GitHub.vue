@@ -224,6 +224,7 @@
         if (newFile.sha) { // Will always be true
           await updateFile(octokit, username, newBranchName, json, newFile.sha)
         }
+        showToast(`☁️ Pushed accounts to branch <strong>${newBranchName}</strong>.`)
       }
       const readFromGitHub = async () => {
         if (!user.value) {
