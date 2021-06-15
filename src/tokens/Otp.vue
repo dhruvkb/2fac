@@ -74,15 +74,13 @@
 
 <style scoped lang="css">
   .otp {
-    color: var(--l-1);
-
     .part::after {
       content: "‐";
-      color: var(--l-3);
+      @apply text-3;
     }
 
     &.is-close-to-end .part::after {
-      color: var(--ion-color-danger);
+      @apply text-danger;
     }
   }
 </style>

@@ -37,11 +37,11 @@
             </IonAvatar>
             <IonLabel>
               <div class="font-medium">{{ user.name }}</div>
-              <div class="username text-sm">{{ user.username }}</div>
+              <div class="username text-2 text-sm">{{ user.username }}</div>
             </IonLabel>
           </IonItem>
           <IonItem
-            class="log-out text-center"
+            class="text-danger text-center"
             :detail="false"
             button
             @click="logOut">
@@ -57,7 +57,7 @@
               required/>
           </IonItem>
           <IonItem
-            class="log-in text-center"
+            class="text-primary text-center"
             :detail="false"
             button
             @click="logIn">
@@ -79,7 +79,7 @@
           :detail="false"
           @click="writeToGitHub">
           <IonThumbnail
-            class="icon-thumbnail bg-blue-500"
+            class="icon-thumbnail bg-primary"
             slot="start">
             <IonIcon :icon="cloudUploadOutline"/>
           </IonThumbnail>
@@ -92,7 +92,7 @@
           :detail="false"
           @click="readFromGitHub">
           <IonThumbnail
-            class="icon-thumbnail bg-blue-500"
+            class="icon-thumbnail bg-primary"
             slot="start">
             <IonIcon :icon="downloadOutline"/>
           </IonThumbnail>
@@ -267,17 +267,3 @@
     },
   })
 </script>
-
-<style scoped lang="css">
-  .username {
-    color: var(--l-2);
-  }
-
-  .log-in {
-    --color: var(--ion-color-primary);
-  }
-
-  .log-out {
-    --color: var(--ion-color-danger);
-  }
-</style>

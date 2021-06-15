@@ -29,7 +29,7 @@ export const alert = (): AlertComposition => {
           role: 'cancel',
         },
         {
-          cssClass: 'danger',
+          cssClass: '!text-danger', // Higher specificity to override default
           ...dangerButton,
         },
       ],

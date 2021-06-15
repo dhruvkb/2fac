@@ -23,9 +23,11 @@
           :router-link="aboutLink"
           detail>
           <IonThumbnail
-            class="icon-thumbnail about"
+            class="icon-thumbnail bg-brand"
             slot="start">
-            <IonIcon :icon="informationOutline"/>
+            <IonIcon
+              class="about"
+              :icon="informationOutline"/>
           </IonThumbnail>
           <IonLabel>About 2Fac</IonLabel>
         </IonItem>
@@ -49,7 +51,7 @@
           :router-link="localLink"
           detail>
           <IonThumbnail
-            class="icon-thumbnail bg-blue-500"
+            class="icon-thumbnail bg-primary"
             slot="start">
             <IonIcon :icon="swapVerticalOutline"/>
           </IonThumbnail>
@@ -59,7 +61,7 @@
 
       <IonList class="border-b border-t mt-4">
         <IonItem
-          class="delete text-center"
+          class="text-danger text-center"
           :detail="false"
           button
           @click="openAlert">
@@ -164,14 +166,6 @@
 
 <style scoped lang="css">
   .about {
-    background: var(--ion-color-brand);
-
-    ion-icon {
-      color: var(--ion-color-brand-contrast);
-    }
-  }
-
-  .delete {
-    --color: var(--ion-color-danger);
+    color: var(--ion-color-brand-contrast);
   }
 </style>

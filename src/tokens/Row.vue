@@ -24,7 +24,7 @@
             <!-- @slot Non-text value for site goes here -->
             <slot name="site">{{ site }}</slot>
           </div>
-          <div class="username text-sm">
+          <div class="username text-2 text-sm">
             <!-- @slot Non-text value for username goes here -->
             <slot name="username">{{ username }}</slot>
           </div>
@@ -118,9 +118,5 @@
   .site,
   .username {
     @apply whitespace-nowrap overflow-hidden overflow-ellipsis;
-  }
-
-  .username {
-    color: var(--l-2);
   }
 </style>

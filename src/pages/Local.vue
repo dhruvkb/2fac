@@ -24,7 +24,7 @@
           button
           @click="writeToFile">
           <IonThumbnail
-            class="icon-thumbnail bg-blue-500"
+            class="icon-thumbnail bg-primary"
             slot="start">
             <IonIcon :icon="documentOutline"/>
           </IonThumbnail>
@@ -42,7 +42,7 @@
           button
           @click="clickInput">
           <IonThumbnail
-            class="icon-thumbnail bg-blue-500"
+            class="icon-thumbnail bg-primary"
             slot="start">
             <IonIcon :icon="downloadOutline"/>
           </IonThumbnail>
