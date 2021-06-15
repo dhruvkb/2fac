@@ -47,12 +47,26 @@
       <div ref="marker"/>
       <Timeline/>
 
-      <IonList :lines="isPlatform('ios') ? 'inset' : 'none'">
+      <IonList
+        v-if="accounts.length"
+        :lines="isPlatform('ios') ? 'inset' : 'none'">
         <Account
           v-for="acc in accounts"
           :key="acc.uuid"
           :account="acc"/>
       </IonList>
+      <div
+        v-else
+        class="flex flex-col gap-4 items-center mt-16">
+        <img
+          class="h-32"
+          src="@/assets/illustrations/blank.png"
+          alt="Empty balloons in space"/>
+        <div class="text-center">
+          It's a bit empty in here.<br/>
+          Add some accounts to get started.
+        </div>
+      </div>
     </IonContent>
 
     <IonFab
