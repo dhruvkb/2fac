@@ -5,10 +5,15 @@ module.exports = {
     extend: {
       colors: {
         brand: 'var(--ion-color-brand)',
+        'brand-contrast': 'var(--ion-color-brand-contrast)',
         primary: 'var(--ion-color-primary)',
+        'primary-contrast': 'var(--ion-color-primary-contrast)',
         success: 'var(--ion-color-success)',
+        'success-contrast': 'var(--ion-color-success-contrast)',
         warning: 'var(--ion-color-warning)',
+        'warning-contrast': 'var(--ion-color-warning-contrast)',
         danger: 'var(--ion-color-danger)',
+        'danger-contrast': 'var(--ion-color-danger-contrast)',
       },
       textColor: {
         1: 'var(--l-1)',

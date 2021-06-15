@@ -23,11 +23,9 @@
           :router-link="aboutLink"
           detail>
           <IonThumbnail
-            class="icon-thumbnail bg-brand"
+            class="icon-thumbnail text-brand-contrast bg-brand"
             slot="start">
-            <IonIcon
-              class="about"
-              :icon="informationOutline"/>
+            <IonIcon :icon="informationOutline"/>
           </IonThumbnail>
           <IonLabel>About 2Fac</IonLabel>
         </IonItem>
@@ -41,7 +39,7 @@
           :router-link="gitHubLink"
           detail>
           <IonThumbnail
-            class="icon-thumbnail bg-black"
+            class="icon-thumbnail text-white bg-black"
             slot="start">
             <IonIcon :icon="logoGithub"/>
           </IonThumbnail>
@@ -51,7 +49,7 @@
           :router-link="localLink"
           detail>
           <IonThumbnail
-            class="icon-thumbnail bg-primary"
+            class="icon-thumbnail text-primary-contrast bg-primary"
             slot="start">
             <IonIcon :icon="swapVerticalOutline"/>
           </IonThumbnail>
@@ -163,9 +161,3 @@
     },
   })
 </script>
-
-<style scoped lang="css">
-  .about {
-    color: var(--ion-color-brand-contrast);
-  }
-</style>

@@ -79,7 +79,7 @@
           :detail="false"
           @click="writeToGitHub">
           <IonThumbnail
-            class="icon-thumbnail bg-primary"
+            class="icon-thumbnail text-primary-contrast bg-primary"
             slot="start">
             <IonIcon :icon="cloudUploadOutline"/>
           </IonThumbnail>
@@ -92,7 +92,7 @@
           :detail="false"
           @click="readFromGitHub">
           <IonThumbnail
-            class="icon-thumbnail bg-primary"
+            class="icon-thumbnail text-primary-contrast bg-primary"
             slot="start">
             <IonIcon :icon="downloadOutline"/>
           </IonThumbnail>

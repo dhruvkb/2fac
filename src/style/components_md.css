@@ -51,7 +51,6 @@
 
     ion-icon {
       @apply h-5 w-5;
-      @apply text-white;
     }
   }
 }
