@@ -20,7 +20,7 @@
               :key="index">
               <div class="text-base">
                 <img
-                  class="!h-64 mx-auto dark:filter dark:invert dark:hue-rotate-[60deg] dark:saturate-[0.4]"
+                  class="!h-64 mx-auto"
                   :src="feature.image.path"
                   :alt="feature.image.alt">
                 <p class="ion-padding-horizontal my-4">{{ feature.description }}</p>
