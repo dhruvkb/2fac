@@ -27,6 +27,12 @@ module.exports = {
       },
     },
     {
+      files: ['*.html'],
+      rules: {
+        'max-len': 'off',
+      },
+    },
+    {
       files: ['*.vue'],
       rules: {
         'max-len': 'off',
