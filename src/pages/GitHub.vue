@@ -37,7 +37,7 @@
             </IonAvatar>
             <IonLabel>
               <div class="font-medium">{{ user.name }}</div>
-              <div class="username text-2 text-sm">{{ user.username }}</div>
+              <div class="text-2 text-sm">{{ user.username }}</div>
             </IonLabel>
           </IonItem>
           <IonItem
@@ -175,22 +175,41 @@
 
       const settingsLink = router.resolve({ name: 'settings' }).href
 
-      let octokit: Octokit
-      const token = ref('')
-      const user = ref<GitHubUser | null>(null)
+      const accessToken_ = ref('')
       const accessToken = computed({
         get(): string {
-          return token.value
+          return accessToken_.value
         },
         set(val: string) {
-          token.value = val
-          localStorage.setItem('access_token', val)
+          accessToken_.value = val
+          localStorage.setItem('accessToken', val)
         },
       })
+      onMounted(() => {
+        accessToken_.value = localStorage.getItem('accessToken') ?? ''
+      })
+
+      const isLoggedIn_ = ref(false)
+      const isLoggedIn = computed({
+        get(): boolean {
+          return isLoggedIn_.value
+        },
+        set(val: boolean) {
+          isLoggedIn_.value = val
+          localStorage.setItem('isLoggedIn', val.toString())
+        },
+      })
+      onMounted(() => {
+        isLoggedIn_.value = (localStorage.getItem('isLoggedIn') ?? 'false') === 'true'
+      })
+
+      let octokit: Octokit
+      const user = ref<GitHubUser | null>(null)
       const logIn = async (event: Event | null, failSilently = false) => {
-        octokit = new Octokit({ auth: token.value })
+        octokit = new Octokit({ auth: accessToken.value })
         try {
           user.value = await getUserDetails(octokit)
+          isLoggedIn.value = true
         } catch (ex) {
           if (!failSilently && ex.message === 'Bad credentials') {
             showToast('⛔️ You entered an invalid token.')
@@ -198,12 +217,11 @@
         }
       }
       const logOut = () => {
-        accessToken.value = ''
+        isLoggedIn.value = false
         user.value = null
       }
       onMounted(async () => {
-        token.value = localStorage.getItem('access_token') ?? ''
-        if (accessToken.value) {
+        if (accessToken.value && isLoggedIn.value) {
           await logIn(null, true)
         }
       })
