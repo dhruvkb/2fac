@@ -14,8 +14,8 @@
     <IonContent fullscreen>
       <div class="opacity-60 text-sm pt-8 pb-2 ion-padding-horizontal">
         <p>
-          Get all your accounts as a JSON file that can be imported into another
-          2Fac instance.
+          Export all your accounts as a JSON file. This file can be imported
+          into 2Fac on a different device.
         </p>
       </div>
       <IonList class="border-t border-b">

@@ -68,8 +68,8 @@
 
       <div class="opacity-60 text-sm pt-8 pb-2 ion-padding-horizontal">
         <p>
-          Sync accounts with a private GitHub repo for both syncing multiple
-          devices and safekeeping.
+          Sync accounts with a private GitHub repo to access them from multiple
+          devices and for safekeeping.
         </p>
       </div>
       <IonList class="border-t border-b">
