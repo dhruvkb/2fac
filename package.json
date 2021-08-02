@@ -4,6 +4,7 @@
   "private": true,
   "description": "2Fac is a better time-based OTP generator.",
   "scripts": {
+    "prepare": "husky install",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
@@ -44,7 +45,8 @@
     "eslint": "^7.26.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-vue": "^7.2.0",
-    "husky": "^4.3.0",
+    "husky": "^7.0.1",
+    "lint-staged": "^11.1.1",
     "postcss": "^8.2.15",
     "postcss-nested": "^5.0.5",
     "tailwindcss": "^2.1.2",
