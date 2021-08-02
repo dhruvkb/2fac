@@ -1,6 +1,6 @@
 import { IconSvg } from '@/models/icon_svg'
 
-const API_ROOT = 'https://2fac-api.vercel.app/api/icons'
+const API_ROOT = '/api/icons'
 
 /**
  * Get the SVG path and hex color of the given icons from the 2Fac API hosted

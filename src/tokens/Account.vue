@@ -68,7 +68,7 @@
   import { Account } from '@/models/account'
   import { IconSvg } from '@/models/icon_svg'
 
-  import { getIcon } from '@/support/simple_icons'
+  import { getIcon } from '@/support/api'
 
   const ionicComponents = {
     IonItemSliding,
