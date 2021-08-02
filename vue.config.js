@@ -23,7 +23,7 @@ module.exports = {
     workboxOptions: {
       runtimeCaching: [
         {
-          urlPattern: /.+\/api\/icons/, // Cross-origin regex must match from the beginning
+          urlPattern: /\/api\/icons/,
           handler: 'CacheFirst',
           options: {
             cacheName: '2fac-icons',
