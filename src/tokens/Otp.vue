@@ -50,7 +50,7 @@
      const copyOtp = () => {
         if (isSecureContext) {
           navigator.clipboard.writeText(props.otp)
-          showToast(`🎉 Copied OTP for <strong>${props.site}</strong> to clipboard!`)
+          showToast(`🚀 Copied OTP for <strong>${props.site}</strong> to clipboard!`)
         } else {
           showToast('😭 Could not copy OTP.')
         }
