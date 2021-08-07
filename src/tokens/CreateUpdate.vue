@@ -38,6 +38,14 @@
             :disabled="Boolean(account)"
             required/>
         </IonItem>
+        <IonItem
+          v-if="Boolean(account)"
+          class="text-center"
+          :detail="false"
+          button
+          @click="copySecret">
+          <IonLabel>Copy secret</IonLabel>
+        </IonItem>
       </IonList>
 
       <div class="opacity-60 text-sm pt-8 pb-2 ion-padding-horizontal">
@@ -136,6 +144,8 @@
 
   import Row from '@/tokens/Row.vue'
 
+  import { toast } from '@/compositions/toast'
+
   import { Account } from '@/models/account'
   import { IconSvg } from '@/models/icon_svg'
 
@@ -174,6 +184,16 @@
         username: '' as string | undefined,
         icon: '' as string | undefined,
       })
+
+      const { showToast } = toast()
+      const copySecret = () => {
+        if (isSecureContext) {
+          navigator.clipboard.writeText(attributes.secret)
+          showToast('🤫 Copied secret to clipboard!')
+        } else {
+          showToast('😭 Could not copy secret.')
+        }
+      }
 
       const iconSvg = ref<IconSvg | null>(null)
       const updateIcon = async () => {
@@ -254,6 +274,7 @@
         iconSvg,
         otp,
 
+        copySecret,
         closeModal,
         saveAccount,
       }
