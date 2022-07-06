@@ -1,7 +1,0 @@
-{
-  "name": "2Fac",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "vue"
-}
