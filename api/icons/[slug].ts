@@ -19,10 +19,12 @@ const logic = async (slug: string, res: VercelResponse): Promise<void> => {
 export default async (req: VercelRequest, res: VercelResponse): Promise<void> => {
   let { slug: slugQuery = 'simpleicons' } = req.query
   if (Array.isArray(slugQuery)) {
-    slugQuery = slugQuery[0]
+    [slugQuery] = slugQuery
   }
 
-  const slug = slugQuery
+  res.setHeader('Access-Control-Allow-Credentials', true)
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'GET')
 
-  await logic(slug, res)
+  await logic(slugQuery, res)
 }
