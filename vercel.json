@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/tokens", "destination": "/index.html" },
+    { "source": "/settings", "destination": "/index.html" },
+    { "source": "/settings/(.*)", "destination": "/index.html" }
+  ]
+}
