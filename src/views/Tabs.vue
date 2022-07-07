@@ -1,14 +1,19 @@
 <template>
   <IonPage>
     <IonTabs>
+      <IonRouterOutlet />
       <IonTabBar slot="bottom">
         <IonTabButton
           v-for="link in links"
           :key="link.name"
           :tab="link.name"
           :href="link.href">
-          <IonIcon class="outline" :icon="link.icon"/>
-          <IonIcon class="filled" :icon="link.filledIcon"/>
+          <IonIcon
+            class="outline"
+            :icon="link.icon" />
+          <IonIcon
+            class="filled"
+            :icon="link.filledIcon" />
           <IonLabel>{{ link.display }}</IonLabel>
         </IonTabButton>
       </IonTabBar>
@@ -20,7 +25,7 @@
   import { defineComponent } from 'vue'
   import { useRouter } from 'vue-router'
 
-  import capitalize from 'lodash/capitalize'
+  import { capitalize } from '@/support/dash'
 
   import {
     IonIcon,
@@ -29,6 +34,7 @@
     IonTabBar,
     IonTabButton,
     IonTabs,
+    IonRouterOutlet,
   } from '@ionic/vue'
   import {
     settings,
@@ -44,6 +50,7 @@
     IonTabButton,
     IonIcon,
     IonLabel,
+    IonRouterOutlet,
   }
   export default defineComponent({
     name: 'Tabs',

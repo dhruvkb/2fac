@@ -1,11 +1,12 @@
 <template>
-  <IonPage class="ion-page dark-bg"><!-- Need to specify class `.ion-page` -->
+  <!-- Need to specify class `.ion-page` -->
+  <IonPage class="ion-page dark-bg">
     <IonHeader translucent>
       <IonToolbar>
         <IonButtons slot="start">
           <IonBackButton
             :default-href="settingsLink"
-            :text="isPlatform('ios') ? 'Settings' : null"/>
+            :text="isPlatform('ios') ? 'Settings' : null" />
         </IonButtons>
         <IonTitle>GitHub sync</IonTitle>
       </IonToolbar>
@@ -13,7 +14,9 @@
 
     <IonContent fullscreen>
       <div class="opacity-60 text-sm pt-8 pb-2 ion-padding-horizontal">
-        <div class="uppercase">Authentication</div>
+        <div class="uppercase">
+          Authentication
+        </div>
         <p v-if="user">
           You are currently logged in.
         </p>
@@ -33,11 +36,15 @@
             <IonAvatar slot="start">
               <img
                 :src="user.avatarUrl"
-                alt="GitHub profile picture"/>
+                alt="GitHub profile picture">
             </IonAvatar>
             <IonLabel>
-              <div class="font-medium">{{ user.name }}</div>
-              <div class="text-2 text-sm">{{ user.username }}</div>
+              <div class="font-medium">
+                {{ user.name }}
+              </div>
+              <div class="text-2 text-sm">
+                {{ user.username }}
+              </div>
             </IonLabel>
           </IonItem>
           <IonItem
@@ -54,7 +61,7 @@
               v-model="accessToken"
               class="font-mono"
               placeholder="Required"
-              required/>
+              required />
           </IonItem>
           <IonItem
             class="text-primary text-center"
@@ -79,9 +86,9 @@
           :detail="false"
           @click="writeToGitHub">
           <IonThumbnail
-            class="icon-thumbnail text-primary-contrast bg-primary"
-            slot="start">
-            <IonIcon :icon="cloudUploadOutline"/>
+            slot="start"
+            class="icon-thumbnail text-primary-contrast bg-primary">
+            <IonIcon :icon="cloudUploadOutline" />
           </IonThumbnail>
           Export to GitHub
         </IonItem>
@@ -92,9 +99,9 @@
           :detail="false"
           @click="readFromGitHub">
           <IonThumbnail
-            class="icon-thumbnail text-primary-contrast bg-primary"
-            slot="start">
-            <IonIcon :icon="downloadOutline"/>
+            slot="start"
+            class="icon-thumbnail text-primary-contrast bg-primary">
+            <IonIcon :icon="downloadOutline" />
           </IonThumbnail>
           Import from GitHub
         </IonItem>
@@ -137,7 +144,7 @@
 
   import { toast } from '@/compositions/toast'
 
-  import { GitHubUser } from '@/models/github'
+  import type { GitHubUser } from '@/models/github'
 
   import {
     createNewBranch,
@@ -214,7 +221,10 @@
           user.value = await getUserDetails(octokit)
           isLoggedIn.value = true
         } catch (ex) {
-          if (!failSilently && ex.message === 'Bad credentials') {
+          let message: string
+          if (ex instanceof Error) message = ex.message
+          else message = String(ex)
+          if (!failSilently && message === 'Bad credentials') {
             showToast('⛔️ You entered an invalid token.')
           }
         }

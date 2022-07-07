@@ -1,5 +1,6 @@
 <template>
-  <IonPage class="ion-page dark-bg"><!-- Need to specify class `.ion-page` -->
+  <!-- Need to specify class `.ion-page` -->
+  <IonPage class="ion-page dark-bg">
     <IonHeader translucent>
       <IonToolbar>
         <IonTitle>Settings</IonTitle>
@@ -11,37 +12,47 @@
         v-if="isPlatform('ios')"
         collapse="condense">
         <IonToolbar>
-          <IonTitle size="large">Settings</IonTitle>
+          <IonTitle size="large">
+            Settings
+          </IonTitle>
         </IonToolbar>
       </IonHeader>
 
       <div class="opacity-60 text-sm pt-8 pb-2 ion-padding-horizontal">
-        <div class="uppercase">About</div>
+        <div class="uppercase">
+          About
+        </div>
       </div>
-      <IonList class="border-t border-b">
+      <IonList
+        inset
+        class="border-t border-b">
         <IonItem
           :router-link="aboutLink"
           detail>
           <IonThumbnail
-            class="icon-thumbnail text-brand-contrast bg-brand"
-            slot="start">
-            <IonIcon :icon="informationOutline"/>
+            slot="start"
+            class="icon-thumbnail text-brand-contrast bg-brand">
+            <IonIcon :icon="informationOutline" />
           </IonThumbnail>
           <IonLabel>About 2Fac</IonLabel>
         </IonItem>
       </IonList>
 
       <div class="opacity-60 text-sm pt-8 pb-2 ion-padding-horizontal">
-        <div class="uppercase">Sync</div>
+        <div class="uppercase">
+          Sync
+        </div>
       </div>
-      <IonList class="border-b border-t">
+      <IonList
+        inset
+        class="border-b border-t">
         <IonItem
           :router-link="gitHubLink"
           detail>
           <IonThumbnail
-            class="icon-thumbnail text-white bg-black"
-            slot="start">
-            <IonIcon :icon="logoGithub"/>
+            slot="start"
+            class="icon-thumbnail text-white bg-black">
+            <IonIcon :icon="logoGithub" />
           </IonThumbnail>
           <IonLabel>GitHub sync</IonLabel>
         </IonItem>
@@ -49,15 +60,17 @@
           :router-link="localLink"
           detail>
           <IonThumbnail
-            class="icon-thumbnail text-primary-contrast bg-primary"
-            slot="start">
-            <IonIcon :icon="swapVerticalOutline"/>
+            slot="start"
+            class="icon-thumbnail text-primary-contrast bg-primary">
+            <IonIcon :icon="swapVerticalOutline" />
           </IonThumbnail>
           <IonLabel>Backup & restore</IonLabel>
         </IonItem>
       </IonList>
 
-      <IonList class="border-b border-t mt-4">
+      <IonList
+        inset
+        class="border-b border-t mt-4">
         <IonItem
           class="text-danger text-center"
           :detail="false"

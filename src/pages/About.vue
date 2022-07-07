@@ -5,7 +5,7 @@
         <IonButtons slot="start">
           <IonBackButton
             :default-href="settingsLink"
-            :text="isPlatform('ios') ? 'Settings' : null"/>
+            :text="isPlatform('ios') ? 'Settings' : null" />
         </IonButtons>
         <IonTitle>About</IonTitle>
       </IonToolbar>
@@ -23,7 +23,9 @@
                   class="!h-64 mx-auto"
                   :src="feature.image.path"
                   :alt="feature.image.alt">
-                <p class="ion-padding-horizontal my-4">{{ feature.description }}</p>
+                <p class="ion-padding-horizontal my-4">
+                  {{ feature.description }}
+                </p>
               </div>
             </IonSlide>
           </IonSlides>

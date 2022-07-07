@@ -1,7 +1,7 @@
 <template>
   <div class="absolute inset-x-0 top-1/2 text-center transform -translate-y-1/2">
     <!-- @slot Content goes here -->
-    <slot/>
+    <slot />
   </div>
 </template>
 

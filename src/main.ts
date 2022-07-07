@@ -2,7 +2,6 @@ import { createApp } from 'vue'
 
 import { IonicVue } from '@ionic/vue'
 
-import '@/registerServiceWorker'
 import router from '@/router'
 import { pinia } from '@/stores'
 

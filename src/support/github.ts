@@ -1,6 +1,6 @@
-import { Octokit } from '@octokit/rest'
+import type { Octokit } from '@octokit/rest'
 
-import { GitHubUser } from '@/models/github'
+import type { GitHubUser } from '@/models/github'
 
 const REPO_NAME = '2fa-secrets'
 const FILE_NAME = 'secrets.json'

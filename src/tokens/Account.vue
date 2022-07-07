@@ -5,7 +5,7 @@
         <IonIcon
           slot="icon-only"
           :ios="create"
-          :md="createOutline"/>
+          :md="createOutline" />
       </IonItemOption>
     </IonItemOptions>
     <IonItemOptions side="end">
@@ -15,7 +15,7 @@
         <IonIcon
           slot="icon-only"
           :ios="trash"
-          :md="trashOutline"/>
+          :md="trashOutline" />
       </IonItemOption>
     </IonItemOptions>
 
@@ -23,15 +23,15 @@
       :username="account.username"
       :site="account.site"
       :otp="account.currentOtp"
-      :icon-svg="iconSvg"/>
+      :icon-svg="iconSvg" />
 
     <IonModal
       :is-open="isModalOpen"
       swipe-to-close
-      @didDismiss="setModalVisible(false)">
+      @did-dismiss="setModalVisible(false)">
       <CreateUpdate
         :account="account"
-        @closeModal="setModalVisible(false)"/>
+        @close-modal="setModalVisible(false)" />
     </IonModal>
   </IonItemSliding>
 </template>
@@ -65,7 +65,7 @@
   import { alert } from '@/compositions/alert'
 
   import { Account } from '@/models/account'
-  import { IconSvg } from '@/models/icon_svg'
+  import type { IconSvg } from '@/models/icon_svg'
 
   import { getIcon } from '@/support/api'
   import { useTwoFac } from '@/stores/two_fac'
@@ -95,13 +95,13 @@
 
       const { showDangerAlert } = alert()
 
-      const iconSvg = ref<IconSvg | null>(null)
+      const iconSvg = ref<IconSvg | undefined>(undefined)
       const updateIcon = async () => {
         const { icon } = props.account
         if (icon) {
           iconSvg.value = await getIcon(icon)
         } else {
-          iconSvg.value = null
+          iconSvg.value = undefined
         }
       }
       watch(() => props.account.icon, updateIcon)

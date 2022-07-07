@@ -26,7 +26,7 @@
        */
       site: {
         type: String,
-        required: true,
+        default: undefined,
       },
       /**
        * _the OTP string to display_; It should be six-characters long.
@@ -49,7 +49,7 @@
       const copyOtp = () => {
         if (isSecureContext) {
           navigator.clipboard.writeText(props.otp)
-          showToast(`🚀 Copied OTP for <strong>${props.site}</strong> to clipboard!`)
+          showToast(`🚀 Copied OTP for ${props.site ? `<strong>${props.site}</strong>` : 'the site'} to clipboard!`)
         } else {
           showToast('😭 Could not copy OTP.')
         }

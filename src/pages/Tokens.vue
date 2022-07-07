@@ -10,7 +10,7 @@
             @click="setModalVisible(true)">
             <IonIcon
               slot="icon-only"
-              :icon="addOutline"/>
+              :icon="addOutline" />
           </IonButton>
         </IonButtons>
         <IonTitle>Tokens</IonTitle>
@@ -22,30 +22,33 @@
         v-if="isPlatform('ios')"
         collapse="condense">
         <IonToolbar>
-          <IonTitle size="large">Tokens</IonTitle>
+          <IonTitle size="large">
+            Tokens
+          </IonTitle>
         </IonToolbar>
 
         <IonToolbar>
           <IonSearchbar
             v-model="filterQuery"
             inputmode="search"
-            :searchIcon="filterOutline"
-            placeholder="Filter accounts"/>
+            :search-icon="filterOutline"
+            placeholder="Filter accounts" />
         </IonToolbar>
       </IonHeader>
 
       <div
         v-else
-        class="search-container px-2"><!-- px-2 to align with the list below -->
+        class="search-container px-2">
+        <!-- px-2 to align with the list below -->
         <IonSearchbar
           v-model="filterQuery"
           inputmode="search"
-          :searchIcon="filterOutline"
-          placeholder="Filter accounts"/>
+          :search-icon="filterOutline"
+          placeholder="Filter accounts" />
       </div>
 
-      <div ref="marker"/>
-      <Timeline/>
+      <div ref="marker" />
+      <Timeline />
 
       <IonList
         v-if="filteredAccounts.length"
@@ -53,7 +56,7 @@
         <Account
           v-for="acc in filteredAccounts"
           :key="acc.uuid"
-          :account="acc"/>
+          :account="acc" />
       </IonList>
       <div
         v-else
@@ -61,9 +64,9 @@
         <img
           class="h-32"
           src="@/assets/illustrations/blank.png"
-          alt="Empty balloons in space"/>
+          alt="Empty balloons in space">
         <div class="text-center">
-          It's a bit empty in here.<br/>
+          It's a bit empty in here.<br>
           Add some accounts to get started.
         </div>
       </div>
@@ -71,14 +74,16 @@
 
     <IonFab
       v-if="!isPlatform('ios')"
+      slot="fixed"
       vertical="bottom"
-      horizontal="end"
-      slot="fixed">
+      horizontal="end">
       <IonButton
         class="fab normal-case h-14 min-w-14"
         :class="[...isIntersecting ? [] : ['collapsed']]"
         @click="setModalVisible(true)">
-        <IonIcon class="icon" :icon="addOutline"/>
+        <IonIcon
+          class="icon"
+          :icon="addOutline" />
         <span class="label max-w-24 overflow-hidden transition-max-w duration-300">Add account</span>
       </IonButton>
     </IonFab>
@@ -86,8 +91,8 @@
     <IonModal
       :is-open="isModalOpen"
       swipe-to-close
-      @didDismiss="setModalVisible(false)">
-      <CreateUpdate @closeModal="setModalVisible(false)"/>
+      @did-dismiss="setModalVisible(false)">
+      <CreateUpdate @close-modal="setModalVisible(false)" />
     </IonModal>
   </IonPage>
 </template>
@@ -130,7 +135,7 @@
   import { modal } from '@/compositions/modal'
   import { intersection } from '@/compositions/intersection'
 
-  import { Account as Acc } from '@/models/account'
+  import type { Account as Acc } from '@/models/account'
 
   const ionicComponents = {
     IonPage,

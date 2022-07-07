@@ -1,11 +1,12 @@
 <template>
-  <IonPage class="ion-page dark-bg"><!-- Need to specify class `.ion-page` -->
+  <IonPage class="ion-page dark-bg">
+    <!-- Need to specify class `.ion-page` -->
     <IonHeader translucent>
       <IonToolbar>
         <IonButtons slot="start">
           <IonBackButton
             :default-href="settingsLink"
-            :text="isPlatform('ios') ? 'Settings' : null"/>
+            :text="isPlatform('ios') ? 'Settings' : null" />
         </IonButtons>
         <IonTitle>Backup & restore</IonTitle>
       </IonToolbar>
@@ -24,27 +25,27 @@
           button
           @click="writeToFile">
           <IonThumbnail
-            class="icon-thumbnail text-primary-contrast bg-primary"
-            slot="start">
-            <IonIcon :icon="documentOutline"/>
+            slot="start"
+            class="icon-thumbnail text-primary-contrast bg-primary">
+            <IonIcon :icon="documentOutline" />
           </IonThumbnail>
           Write to file
         </IonItem>
 
         <input
           v-show="false"
+          ref="fileInput"
           type="file"
           accept=".json"
-          @change="updateFile"
-          ref="fileInput"/>
+          @change="updateFile">
         <IonItem
           :detail="false"
           button
           @click="clickInput">
           <IonThumbnail
-            class="icon-thumbnail text-primary-contrast bg-primary"
-            slot="start">
-            <IonIcon :icon="downloadOutline"/>
+            slot="start"
+            class="icon-thumbnail text-primary-contrast bg-primary">
+            <IonIcon :icon="downloadOutline" />
           </IonThumbnail>
           Read from file
         </IonItem>
@@ -81,10 +82,6 @@
   import { useTwoFac } from '@/stores/two_fac'
   import { storeToRefs } from 'pinia'
   import { toast } from '@/compositions/toast'
-
-  interface FileInputEvent extends Event {
-    target: HTMLInputElement & EventTarget
-  }
 
   export default defineComponent({
     name: 'Settings',

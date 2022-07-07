@@ -1,5 +1,6 @@
 <template>
-  <IonPage class="ion-page dark-bg"><!-- Need to specify class `.ion-page` -->
+  <!-- Need to specify class `.ion-page` -->
+  <IonPage class="ion-page dark-bg">
     <IonHeader class="rounded-t-lg">
       <IonToolbar>
         <IonButtons slot="start">
@@ -22,8 +23,11 @@
 
     <IonContent fullscreen>
       <div class="opacity-60 text-sm pt-8 pb-2 ion-padding-horizontal">
-        <div class="uppercase">Secret
-          <IonText color="danger">*</IonText>
+        <div class="uppercase">
+          Secret
+          <IonText color="danger">
+            *
+          </IonText>
         </div>
         <p>A long string of letters and numbers, usually 16 or 32 characters.</p>
       </div>
@@ -36,7 +40,7 @@
             class="font-mono"
             placeholder="Required"
             :disabled="Boolean(account)"
-            required/>
+            required />
         </IonItem>
         <IonItem
           v-if="Boolean(account)"
@@ -49,28 +53,37 @@
       </IonList>
 
       <div class="opacity-60 text-sm pt-8 pb-2 ion-padding-horizontal">
-        <div class="uppercase">Account Info</div>
+        <div class="uppercase">
+          Account Info
+        </div>
       </div>
       <IonList
         class="border-t"
         lines="full">
         <IonItem>
-          <IonLabel :position="isPlatform('ios') ? 'fixed' : 'floating'">Site</IonLabel>
+          <IonLabel :position="isPlatform('ios') ? 'fixed' : 'floating'">
+            Site
+          </IonLabel>
           <IonInput
             v-model="attributes.site"
-            placeholder="Optional"/>
+            placeholder="Optional" />
         </IonItem>
         <IonItem>
-          <IonLabel :position="isPlatform('ios') ? 'fixed' : 'floating'">Username</IonLabel>
+          <IonLabel :position="isPlatform('ios') ? 'fixed' : 'floating'">
+            Username
+          </IonLabel>
           <IonInput
             v-model="attributes.username"
-            placeholder="Optional"/>
+            placeholder="Optional" />
         </IonItem>
       </IonList>
 
       <div class="opacity-60 text-sm pt-8 pb-2 ion-padding-horizontal">
-        <div class="uppercase">Icon</div>
-        <p>Use SVG names from
+        <div class="uppercase">
+          Icon
+        </div>
+        <p>
+          Use SVG names from
           <a
             class="underline"
             href="https://simpleicons.org/">
@@ -81,15 +94,19 @@
         class="border-t"
         lines="full">
         <IonItem>
-          <IonLabel :position="isPlatform('ios') ? 'fixed' : 'floating'">Icon</IonLabel>
+          <IonLabel :position="isPlatform('ios') ? 'fixed' : 'floating'">
+            Icon
+          </IonLabel>
           <IonInput
             v-model="attributes.icon"
-            placeholder="Optional"/>
+            placeholder="Optional" />
         </IonItem>
       </IonList>
 
       <div class="opacity-60 text-sm pt-8 pb-2 ion-padding-horizontal">
-        <div class="uppercase">Preview</div>
+        <div class="uppercase">
+          Preview
+        </div>
       </div>
       <IonList
         class="border-t"
@@ -99,10 +116,14 @@
           :username="attributes.username"
           :icon-svg="iconSvg"
           :otp="otp">
-          <template v-if="!attributes.site" #site>
+          <template
+            v-if="!attributes.site"
+            #site>
             <span class="opacity-50">Site</span>
           </template>
-          <template v-if="!attributes.username" #username>
+          <template
+            v-if="!attributes.username"
+            #username>
             <span class="opacity-50">username@site</span>
           </template>
         </Row>
@@ -137,7 +158,7 @@
     isPlatform,
   } from '@ionic/vue'
 
-  import debounce from 'lodash/debounce'
+  import { debounce } from '@/support/dash'
   import { TOTP } from 'otpauth'
 
   import Row from '@/tokens/Row.vue'
@@ -145,7 +166,7 @@
   import { toast } from '@/compositions/toast'
 
   import { Account } from '@/models/account'
-  import { IconSvg } from '@/models/icon_svg'
+  import type { IconSvg } from '@/models/icon_svg'
 
   import { useTwoFac } from '@/stores/two_fac'
   import { getIcon } from '@/support/api'
@@ -170,8 +191,10 @@
     props: {
       account: {
         type: Account,
+        default: undefined,
       },
     },
+    emits: ['closeModal'],
     setup(props, { emit }) {
       const twoFacStore = useTwoFac()
 
@@ -194,13 +217,13 @@
         }
       }
 
-      const iconSvg = ref<IconSvg | null>(null)
+      const iconSvg = ref<IconSvg | undefined>(undefined)
       const updateIcon = async () => {
         const { icon } = attributes
         if (icon) {
           iconSvg.value = await getIcon(icon)
         } else {
-          iconSvg.value = null
+          iconSvg.value = undefined
         }
       }
       const updateIconDebounced = debounce(() => {

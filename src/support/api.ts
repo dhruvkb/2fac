@@ -1,4 +1,4 @@
-import { IconSvg } from '@/models/icon_svg'
+import type { IconSvg } from '@/models/icon_svg'
 
 const API_ROOT = '/api/icons'
 
@@ -9,7 +9,7 @@ const API_ROOT = '/api/icons'
  * @param {string} iconName - the name of the icon to fetch
  * @return {IconSvg | null} the path and hex of the icon, or null if not found
  */
-export const getIcon = async (iconName: string): Promise<IconSvg | null> => {
+export const getIcon = async (iconName: string): Promise<IconSvg | undefined> => {
   const res = await fetch([API_ROOT, iconName].join('/'))
   const data = await res.json()
   if (res.ok) {
@@ -18,5 +18,5 @@ export const getIcon = async (iconName: string): Promise<IconSvg | null> => {
       path: data.path,
     } as IconSvg
   }
-  return null
+  return undefined
 }
