@@ -15,27 +15,27 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'tokens',
         name: 'tokens',
-        component: () => import(/* webpackChunkName: "tokens" */ '@/pages/Tokens.vue'),
+        component: () => import('@/pages/Tokens.vue'),
       },
       {
         path: 'settings',
         name: 'settings',
-        component: () => import(/* webpackChunkName: "settings" */ '@/pages/Settings.vue'),
+        component: () => import('@/pages/Settings.vue'),
       },
       {
         path: 'settings/about',
         name: 'about',
-        component: () => import(/* webpackChunkName: "about" */ '@/pages/About.vue'),
+        component: () => import('@/pages/About.vue'),
       },
       {
         path: 'settings/github',
         name: 'gitHub',
-        component: () => import(/* webpackChunkName: "github" */ '@/pages/GitHub.vue'),
+        component: () => import('@/pages/GitHub.vue'),
       },
       {
         path: 'settings/local',
         name: 'local',
-        component: () => import(/* webpackChunkName: "local" */ '@/pages/Local.vue'),
+        component: () => import('@/pages/Local.vue'),
       },
     ],
   },
