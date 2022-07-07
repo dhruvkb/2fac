@@ -1,5 +1,8 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  mode: 'jit',
+  content: [
+    './src/**/*.{css,vue,js,ts}',
+  ],
   darkMode: 'media',
   theme: {
     extend: {
@@ -26,6 +29,7 @@ module.exports = {
       maxWidth: {
         24: '6rem',
       },
+      outline: false,
       borderWidth: {
         DEFAULT: 'var(--ion-border-width)',
       },
@@ -34,8 +38,4 @@ module.exports = {
       },
     },
   },
-  purge: [
-    './public/index.html',
-    './src/**/*.{vue,js,ts,css,mdx}',
-  ],
 }
