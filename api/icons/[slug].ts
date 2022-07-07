@@ -22,7 +22,7 @@ export default async (req: VercelRequest, res: VercelResponse): Promise<void> =>
     [slugQuery] = slugQuery
   }
 
-  res.setHeader('Access-Control-Allow-Credentials', true)
+  res.setHeader('Access-Control-Allow-Credentials', 'true')
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET')
 
