@@ -9,7 +9,7 @@
           :tab="link.name"
           :href="link.href">
           <IonIcon
-            class="outline"
+            class="outlined"
             :icon="link.icon" />
           <IonIcon
             class="filled"
@@ -88,7 +88,7 @@
     border-top: var(--border);
   }
 
-  ion-tab-button[aria-selected="true"] ion-icon.outline,
+  ion-tab-button[aria-selected="true"] ion-icon.outlined,
   ion-tab-button:not([aria-selected="true"]) ion-icon.filled {
     @apply hidden;
   }
