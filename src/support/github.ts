@@ -1,4 +1,4 @@
-import type { Octokit } from '@octokit/rest'
+import type { Octokit } from 'octokit'
 
 import type { GitHubUser } from '@/models/github'
 
@@ -19,7 +19,7 @@ export const getUserDetails = async (
       login: username,
       avatar_url: avatarUrl,
     },
-  } = await client.users.getAuthenticated()
+  } = await client.rest.users.getAuthenticated()
   return {
     name,
     username,
@@ -32,7 +32,7 @@ export const getFile = async (
   username: string,
   refName: string,
 ): Promise<File> => {
-  const { data } = await client.repos.getContent({
+  const { data } = await client.rest.repos.getContent({
     owner: username,
     repo: REPO_NAME,
     path: FILE_NAME,
@@ -58,7 +58,7 @@ export const updateFile = async (
   content: string,
   fileSha: string,
 ): Promise<void> => {
-  await client.repos.createOrUpdateFileContents({
+  await client.rest.repos.createOrUpdateFileContents({
     owner: username,
     repo: REPO_NAME,
     branch: branchName,
@@ -73,7 +73,7 @@ export const getDefaultBranch = async (
   client: Octokit,
   username: string,
 ): Promise<string> => {
-  const { data: { default_branch: defaultBranch } } = await client.repos.get({
+  const { data: { default_branch: defaultBranch } } = await client.rest.repos.get({
     owner: username,
     repo: REPO_NAME,
   })
@@ -85,7 +85,7 @@ export const getBranchSha = async (
   username: string,
   branchName: string,
 ): Promise<string> => {
-  const { data: { object: { sha } } } = await client.git.getRef({
+  const { data: { object: { sha } } } = await client.rest.git.getRef({
     owner: username,
     repo: REPO_NAME,
     ref: `heads/${branchName}`,
@@ -99,7 +99,7 @@ export const createNewBranch = async (
   branchName: string,
   sha: string,
 ): Promise<void> => {
-  await client.git.createRef({
+  await client.rest.git.createRef({
     owner: username,
     repo: REPO_NAME,
     ref: `refs/heads/${branchName}`,

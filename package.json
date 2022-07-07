@@ -17,8 +17,9 @@
   "dependencies": {
     "@ionic/vue": "^6.1.7",
     "@ionic/vue-router": "^6.1.7",
-    "@octokit/rest": "^18.5.3",
     "ionicons": "^6.0.2",
+    "isomorphic-fetch": "^3.0.0",
+    "octokit": "^1.8.1",
     "otpauth": "^7.0.2",
     "pinia": "^2.0.14",
     "pinia-plugin-persistedstate": "^1.6.1",

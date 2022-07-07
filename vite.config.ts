@@ -64,6 +64,7 @@ export default defineConfig({
     alias: {
       // Also see `paths` in `tsconfig.json`
       '@': resolve(__dirname, './src'),
+      'node-fetch': 'isomorphic-fetch',
     },
   },
 })

@@ -118,7 +118,7 @@
     ref,
   } from 'vue'
   import { useRouter } from 'vue-router'
-  import { Octokit } from '@octokit/rest'
+  import { Octokit } from 'octokit'
 
   import {
     IonAvatar,
