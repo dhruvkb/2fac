@@ -4,7 +4,7 @@ import { IonicVue } from '@ionic/vue'
 
 import '@/registerServiceWorker'
 import router from '@/router'
-import store from '@/store'
+import { pinia } from '@/stores'
 
 import App from '@/App.vue'
 
@@ -38,7 +38,7 @@ const app = createApp(App)
 app
   .use(IonicVue)
   .use(router)
-  .use(store)
+  .use(pinia)
 
 router.isReady().then(() => {
   app.mount('div#app__slot')

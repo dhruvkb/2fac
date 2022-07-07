@@ -9,15 +9,13 @@
 </template>
 
 <script lang="ts">
-  import {
-    computed,
-    defineComponent,
-  } from 'vue'
-  import { useStore } from 'vuex'
+  import { computed, defineComponent } from 'vue'
 
   import { clipboardOutline } from 'ionicons/icons'
 
   import { toast } from '@/compositions/toast'
+  import { useUi } from '@/stores/ui'
+  import { storeToRefs } from 'pinia'
 
   export default defineComponent({
     name: 'Otp',
@@ -40,14 +38,15 @@
       },
     },
     setup(props) {
-      const store = useStore()
+      const uiStore = useUi()
+      const { tokensIsCloseToEnd: isCloseToEnd } = storeToRefs(uiStore)
 
       const { showToast } = toast()
 
       const firstThree = computed(() => props.otp.slice(0, 3))
       const lastThree = computed(() => props.otp.slice(3))
 
-     const copyOtp = () => {
+      const copyOtp = () => {
         if (isSecureContext) {
           navigator.clipboard.writeText(props.otp)
           showToast(`🚀 Copied OTP for <strong>${props.site}</strong> to clipboard!`)
@@ -55,8 +54,6 @@
           showToast('😭 Could not copy OTP.')
         }
       }
-
-      const isCloseToEnd = computed(() => store.state.ui.tokens.isCloseToEnd)
 
       return {
         clipboardOutline,

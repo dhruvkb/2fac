@@ -115,13 +115,11 @@
   import {
     computed,
     defineComponent,
-    onBeforeUnmount,
     onMounted,
     reactive,
     ref,
     watch,
   } from 'vue'
-  import { useStore } from 'vuex'
 
   import {
     IonButton,
@@ -149,6 +147,7 @@
   import { Account } from '@/models/account'
   import { IconSvg } from '@/models/icon_svg'
 
+  import { useTwoFac } from '@/stores/two_fac'
   import { getIcon } from '@/support/api'
 
   export default defineComponent({
@@ -174,7 +173,7 @@
       },
     },
     setup(props, { emit }) {
-      const store = useStore()
+      const twoFacStore = useTwoFac()
 
       const title = computed(() => (props.account ? `Edit ${props.account.site}` : 'Add new account'))
 
@@ -225,18 +224,8 @@
         }
       }
       watch(() => attributes.secret, refreshOtp)
-      let unsubscribe: () => void
-      onMounted(() => {
-        unsubscribe = store.subscribe((mutation: { type: string }) => {
-          if (mutation.type === 'twoFa/updateAccounts') {
-            refreshOtp()
-          }
-        })
-      })
-      onBeforeUnmount(() => {
-        if (unsubscribe) {
-          unsubscribe()
-        }
+      twoFacStore.$onAction(({ name }) => {
+        if (name === 'updateAccounts') refreshOtp()
       })
 
       onMounted(() => {
@@ -253,14 +242,9 @@
       }
       const saveAccount = () => {
         if (props.account) {
-          store.commit('twoFa/updateAccount', {
-            uuid: props.account.uuid,
-            accPojo: attributes,
-          })
+          twoFacStore.updateAccount(props.account.uuid, attributes)
         } else {
-          store.commit('twoFa/addAccount', {
-            account: Account.fromPojo(attributes),
-          })
+          twoFacStore.addAccount(Account.fromPojo(attributes))
         }
         closeModal()
       }

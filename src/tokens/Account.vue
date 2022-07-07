@@ -43,7 +43,6 @@
     ref,
     watch,
   } from 'vue'
-  import { useStore } from 'vuex'
 
   import {
     IonIcon,
@@ -69,6 +68,7 @@
   import { IconSvg } from '@/models/icon_svg'
 
   import { getIcon } from '@/support/api'
+  import { useTwoFac } from '@/stores/two_fac'
 
   const ionicComponents = {
     IonItemSliding,
@@ -91,7 +91,7 @@
       },
     },
     setup(props) {
-      const store = useStore()
+      const twoFacStore = useTwoFac()
 
       const { showDangerAlert } = alert()
 
@@ -107,9 +107,7 @@
       watch(() => props.account.icon, updateIcon)
 
       const deleteAccount = () => {
-        store.commit('twoFa/removeAccount', {
-          uuid: props.account.uuid,
-        })
+        twoFacStore.removeAccount(props.account.uuid)
       }
       const openAlert = () => {
         showDangerAlert(

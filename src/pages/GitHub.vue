@@ -110,7 +110,6 @@
     onMounted,
     ref,
   } from 'vue'
-  import { useStore } from 'vuex'
   import { useRouter } from 'vue-router'
   import { Octokit } from '@octokit/rest'
 
@@ -148,6 +147,8 @@
     getUserDetails,
     updateFile,
   } from '@/support/github'
+  import { useTwoFac } from '@/stores/two_fac'
+  import { storeToRefs } from 'pinia'
 
   export default defineComponent({
     name: 'Settings',
@@ -168,39 +169,41 @@
       IonIcon,
     },
     setup() {
-      const store = useStore()
+      const twoFacStore = useTwoFac()
+      const { accountsJson: json } = storeToRefs(twoFacStore)
+
       const router = useRouter()
 
       const { showToast } = toast()
 
       const settingsLink = router.resolve({ name: 'settings' }).href
 
-      const accessToken_ = ref('')
+      const accessTokenRef = ref('')
       const accessToken = computed({
         get(): string {
-          return accessToken_.value
+          return accessTokenRef.value
         },
         set(val: string) {
-          accessToken_.value = val
+          accessTokenRef.value = val
           localStorage.setItem('accessToken', val)
         },
       })
       onMounted(() => {
-        accessToken_.value = localStorage.getItem('accessToken') ?? ''
+        accessTokenRef.value = localStorage.getItem('accessToken') ?? ''
       })
 
-      const isLoggedIn_ = ref(false)
+      const isLoggedInRef = ref(false)
       const isLoggedIn = computed({
         get(): boolean {
-          return isLoggedIn_.value
+          return isLoggedInRef.value
         },
         set(val: boolean) {
-          isLoggedIn_.value = val
+          isLoggedInRef.value = val
           localStorage.setItem('isLoggedIn', val.toString())
         },
       })
       onMounted(() => {
-        isLoggedIn_.value = (localStorage.getItem('isLoggedIn') ?? 'false') === 'true'
+        isLoggedInRef.value = (localStorage.getItem('isLoggedIn') ?? 'false') === 'true'
       })
 
       let octokit: Octokit
@@ -231,11 +234,10 @@
           return
         }
         const { username } = user.value
-        const json = store.getters['twoFa/accountsJson']
 
         const defaultBranchName = await getDefaultBranch(octokit, username)
         const file = await getFile(octokit, username, defaultBranchName)
-        if (file.content === json) {
+        if (file.content === json.value) {
           showToast('🆗 GitHub repo is already up-to-date.')
           return
         }
@@ -246,7 +248,7 @@
 
         const newFile = await getFile(octokit, username, newBranchName)
         if (newFile.sha) { // Will always be true
-          await updateFile(octokit, username, newBranchName, json, newFile.sha)
+          await updateFile(octokit, username, newBranchName, json.value, newFile.sha)
         }
         showToast(`☁️ Pushed accounts to branch <strong>${newBranchName}</strong>.`)
       }
@@ -260,8 +262,8 @@
         const file = await getFile(octokit, username, defaultBranchName)
         if (file.content) {
           const accPojos = JSON.parse(file.content)
-          store.commit('twoFa/clearAccounts')
-          store.commit('twoFa/loadAccounts', { accPojos })
+          twoFacStore.clearAccounts()
+          twoFacStore.loadAccounts(accPojos)
           showToast(`📂 Imported <strong>${accPojos.length}</strong> accounts.`)
         }
       }

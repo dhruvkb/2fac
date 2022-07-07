@@ -48,10 +48,10 @@
       <Timeline/>
 
       <IonList
-        v-if="accounts.length"
+        v-if="filteredAccounts.length"
         :lines="isPlatform('ios') ? 'inset' : 'none'">
         <Account
-          v-for="acc in accounts"
+          v-for="acc in filteredAccounts"
           :key="acc.uuid"
           :account="acc"/>
       </IonList>
@@ -99,7 +99,6 @@
     onMounted,
     ref,
   } from 'vue'
-  import { useStore } from 'vuex'
 
   import {
     IonButton,
@@ -124,6 +123,9 @@
   import Timeline from '@/tokens/Timeline.vue'
   import Account from '@/tokens/Account.vue'
   import CreateUpdate from '@/tokens/CreateUpdate.vue'
+
+  import { useTwoFac } from '@/stores/two_fac'
+  import { storeToRefs } from 'pinia'
 
   import { modal } from '@/compositions/modal'
   import { intersection } from '@/compositions/intersection'
@@ -153,10 +155,11 @@
       Timeline,
     },
     setup() {
-      const store = useStore()
+      const twoFacStore = useTwoFac()
+      const { accounts } = storeToRefs(twoFacStore)
 
       const filterQuery = ref('')
-      const accounts = computed(() => store.state.twoFa.accounts
+      const filteredAccounts = computed(() => accounts.value
         .filter((acc: Acc) => [acc.site, acc.username]
           .map((attr) => attr?.toLocaleLowerCase())
           .some((attr) => attr?.includes(filterQuery.value.toLocaleLowerCase()))))
@@ -179,7 +182,7 @@
         filterOutline,
 
         filterQuery,
-        accounts,
+        filteredAccounts,
 
         marker,
         isIntersecting,

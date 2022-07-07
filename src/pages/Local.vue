@@ -58,7 +58,6 @@
     defineComponent,
     ref,
   } from 'vue'
-  import { useStore } from 'vuex'
   import { useRouter } from 'vue-router'
 
   import {
@@ -79,7 +78,8 @@
     documentOutline,
     downloadOutline,
   } from 'ionicons/icons'
-
+  import { useTwoFac } from '@/stores/two_fac'
+  import { storeToRefs } from 'pinia'
   import { toast } from '@/compositions/toast'
 
   interface FileInputEvent extends Event {
@@ -102,7 +102,9 @@
       IonIcon,
     },
     setup() {
-      const store = useStore()
+      const twoFacStore = useTwoFac()
+      const { accountsJson: json } = storeToRefs(twoFacStore)
+
       const router = useRouter()
 
       const { showToast } = toast()
@@ -110,7 +112,7 @@
       const settingsLink = router.resolve({ name: 'settings' }).href
 
       const writeToFile = () => {
-        const blob = new Blob([store.getters['twoFa/accountsJson']], { type: 'application/json' })
+        const blob = new Blob([json.value], { type: 'application/json' })
         const blobUrl = URL.createObjectURL(blob)
         const anchor = document.createElement('a')
         anchor.href = blobUrl
@@ -126,11 +128,13 @@
         const reader = new FileReader()
         reader.onload = () => {
           const accPojos = JSON.parse(reader.result as string)
-          store.commit('twoFa/clearAccounts')
-          store.commit('twoFa/loadAccounts', { accPojos })
+          twoFacStore.clearAccounts()
+          twoFacStore.loadAccounts(accPojos)
           showToast(`📂 Imported <strong>${accPojos.length}</strong> accounts.`)
         }
         reader.onerror = () => {
+          // TODO: Improve error reporting
+          // eslint-disable-next-line no-console
           console.log(reader.error)
         }
         reader.onloadend = () => {
@@ -140,8 +144,8 @@
         }
         reader.readAsText(file)
       }
-      const updateFile = (event: FileInputEvent) => {
-        const [file] = event.target.files ?? []
+      const updateFile = (event: Event) => {
+        const [file] = (event.target as HTMLInputElement).files ?? []
         readFromFile(file)
       }
       const clickInput = () => {

@@ -10,12 +10,14 @@
     onMounted,
     ref,
   } from 'vue'
-  import { useStore } from 'vuex'
+  import { useTwoFac } from '@/stores/two_fac'
+  import { useUi } from '@/stores/ui'
 
   export default defineComponent({
     name: 'Timeline',
     setup() {
-      const store = useStore()
+      const twoFacStore = useTwoFac()
+      const uiStore = useUi()
 
       const interval = 30 // seconds
       const timeConsumed = ref(0)
@@ -24,11 +26,11 @@
         timeConsumed.value = seconds % interval
 
         if (timeConsumed.value === 25) {
-          store.commit('ui/setIsCloseToEnd', { isCloseToEnd: true })
+          uiStore.tokensIsCloseToEnd = true
         }
         if (timeConsumed.value === 0) {
-          store.commit('twoFa/updateAccounts')
-          store.commit('ui/setIsCloseToEnd', { isCloseToEnd: false })
+          twoFacStore.updateAccounts()
+          uiStore.tokensIsCloseToEnd = false
         }
       }
       const timeRemaining = computed(() => interval - timeConsumed.value)

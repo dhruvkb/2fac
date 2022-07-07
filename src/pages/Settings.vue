@@ -80,7 +80,6 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue'
-  import { useStore } from 'vuex'
   import { useRouter } from 'vue-router'
 
   import {
@@ -104,6 +103,7 @@
 
   import { toast } from '@/compositions/toast'
   import { alert } from '@/compositions/alert'
+  import { useTwoFac } from '@/stores/two_fac'
 
   export default defineComponent({
     name: 'Settings',
@@ -120,7 +120,7 @@
       IonLabel,
     },
     setup() {
-      const store = useStore()
+      const twoFacStore = useTwoFac()
       const router = useRouter()
 
       const { showToast } = toast()
@@ -131,7 +131,7 @@
       const aboutLink = router.resolve({ name: 'about' }).href
 
       const deleteData = () => {
-        store.commit('twoFa/clearAccounts')
+        twoFacStore.clearAccounts()
         showToast('🗑 Deleted all data!')
       }
       const openAlert = () => {
